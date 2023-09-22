@@ -20,4 +20,3 @@ func _ready():
 func _on_PlayButton_pressed():
 	get_parent().add_child(gameplay_scene.instance())
 	queue_free() # safely destroy this node
-	pass # Replace with function body.
