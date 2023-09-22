@@ -24,7 +24,3 @@ func _on_Player_body_entered(body: Node) -> void:
 	emit_signal("health_update", health)
 	# emit health update signal
 	
-
-
-func _on_Area2D_body_entered(body):
-	pass # Replace with function body.
