@@ -23,10 +23,11 @@ func _physics_process(delta):
 	
 
 	if inputvector != Vector2.ZERO:
-		animationTree.set("parameters/Idle/blend_position", inputvector)
+		
 		velocity += inputvector.normalized() * Acceleration_Friction * delta
 		velocity = velocity.clamped(MaxSpeed*delta)
 		Dir = inputvector
+		animationTree.set("parameters/Idle/blend_position", Dir)
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, Acceleration_Friction* delta)
 
