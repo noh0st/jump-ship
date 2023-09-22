@@ -19,6 +19,11 @@ position = Vector2( 294, 178 )
 position = Vector2( 190, 80 )
 speed = 300.0
 
+[node name="Camera2D" type="Camera2D" parent="Player"]
+current = true
+smoothing_enabled = true
+smoothing_speed = 7.0
+
 [node name="Boid" parent="." instance=ExtResource( 5 )]
 position = Vector2( 143, 81 )
 
