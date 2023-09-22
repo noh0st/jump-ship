@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=2]
+
+<<<<<<< Updated upstream:app/Scenes/Enemy.tscn
+[ext_resource path="res://Scripts/enemy.gd" type="Script" id=1]
+[ext_resource path="res://Assets/icon.png" type="Texture" id=2]
+=======
+[ext_resource path="res://Enemies/enemy.gd" type="Script" id=1]
+[ext_resource path="res://Enemies/icon.png" type="Texture" id=2]
+
+>>>>>>> Stashed changes:app/Enemies/Enemy.tscn
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 38.44
+
+[node name="RigidBody2D" type="RigidBody2D" groups=["Enemies"]]
+collision_layer = 2
+gravity_scale = 0.0
+contacts_reported = 1
+contact_monitor = true
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[connection signal="body_entered" from="." to="." method="_on_RigidBody2D_body_entered"]
+[connection signal="body_shape_entered" from="." to="." method="_on_RigidBody2D_body_shape_entered"]
