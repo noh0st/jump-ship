@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 
 var main_menu_scene : PackedScene = load("res://Scenes/MainMenu.tscn")
 
