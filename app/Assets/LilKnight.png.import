@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sprite.png-20864262c38610f3da4c683b657e17c6.stex"
+path="res://.import/LilKnight.png-c32eeae416c61cca07557352280281dd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprite.png"
-dest_files=[ "res://.import/sprite.png-20864262c38610f3da4c683b657e17c6.stex" ]
+source_file="res://Assets/LilKnight.png"
+dest_files=[ "res://.import/LilKnight.png-c32eeae416c61cca07557352280281dd.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

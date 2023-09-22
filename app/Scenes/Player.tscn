@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Player.gd" type="Script" id=1]
-[ext_resource path="res://sprite.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
+[ext_resource path="res://Assets/sprite.png" type="Texture" id=2]
+[ext_resource path="res://Assets/LilKing.png" type="Texture" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
+radius = 13.0
+height = 6.0
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
@@ -24,7 +27,11 @@ __meta__ = {
 shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+visible = false
 frames = SubResource( 2 )
 animation = "walk"
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 3 )
 
 [connection signal="body_entered" from="." to="." method="_on_Player_body_entered"]

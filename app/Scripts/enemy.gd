@@ -1,6 +1,5 @@
-extends Control
+extends RigidBody2D
 
-const gameplay_scene = preload("res://Main.tscn")
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -9,15 +8,16 @@ const gameplay_scene = preload("res://Main.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	position = Vector2(300, 50)
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
 
+func _on_RigidBody2D_body_entered() -> void:
+	print("Enemy detects collision")
 
-func _on_PlayButton_pressed():
-	get_parent().add_child(gameplay_scene.instance())
-	queue_free() # safely destroy this node
-	pass # Replace with function body.
+func _on_RigidBody2D_body_shape_entered():
+	print("Enemy detects shape collision")
