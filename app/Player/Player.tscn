@@ -1,33 +1,142 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://PlayerArea.gd" type="Script" id=1]
 [ext_resource path="res://Player/sprite.png" type="Texture" id=2]
 [ext_resource path="res://Player/Player.gd" type="Script" id=3]
+[ext_resource path="res://HitBox.tscn" type="PackedScene" id=4]
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="CapsuleShape2D" id=13]
+radius = 7.0
+height = 0.0
 
-[sub_resource type="SpriteFrames" id=2]
-animations = [ {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "walk",
-"speed": 5.0
-} ]
+[sub_resource type="Animation" id=14]
+resource_name = "DownWalk"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Player/Sprite:flip_v")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="Animation" id=15]
+resource_name = "LeftWalk"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Player/Sprite:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
-[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+[sub_resource type="Animation" id=16]
+resource_name = "RightWalk"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Player/Sprite:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "UpWalk"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Player/Sprite:flip_v")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=18]
+animation = "LeftWalk"
+
+[sub_resource type="AnimationNodeAnimation" id=19]
+animation = "UpWalk"
+
+[sub_resource type="AnimationNodeAnimation" id=20]
+animation = "DownWalk"
+
+[sub_resource type="AnimationNodeAnimation" id=21]
+animation = "RightWalk"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=12]
+blend_point_0/node = SubResource( 18 )
+blend_point_0/pos = Vector2( -1.1, 0 )
+blend_point_1/node = SubResource( 19 )
+blend_point_1/pos = Vector2( 0, -1 )
+blend_point_2/node = SubResource( 20 )
+blend_point_2/pos = Vector2( 0, 1 )
+blend_point_3/node = SubResource( 21 )
+blend_point_3/pos = Vector2( 1.1, 0 )
+min_space = Vector2( -1.1, -1 )
+max_space = Vector2( 1.1, 1 )
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachine" id=22]
+states/Idle/node = SubResource( 12 )
+states/Idle/position = Vector2( 362, 144 )
+start_node = "Idle"
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=23]
+
+[node name="Player" type="KinematicBody2D"]
 script = ExtResource( 3 )
 
-[node name="Area2D" type="Area2D" parent="KinematicBody2D"]
-collision_mask = 2
+[node name="HitBox" parent="." instance=ExtResource( 4 )]
 script = ExtResource( 1 )
 
-[node name="Hitbox" type="CollisionShape2D" parent="KinematicBody2D/Area2D"]
-shape = SubResource( 1 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 6 )
+scale = Vector2( 1, 0.5 )
+shape = SubResource( 13 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="KinematicBody2D/Area2D"]
-frames = SubResource( 2 )
-animation = "walk"
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+flip_v = true
 
-[connection signal="body_entered" from="KinematicBody2D/Area2D" to="KinematicBody2D/Area2D" method="_on_Area2D_body_entered"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../..")
+anims/DownWalk = SubResource( 14 )
+anims/LeftWalk = SubResource( 15 )
+anims/RightWalk = SubResource( 16 )
+anims/UpWalk = SubResource( 17 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 22 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 23 )
+parameters/Idle/blend_position = Vector2( 1.00515, -0.186869 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="Timer2" type="Timer" parent="."]
+one_shot = true

@@ -11,3 +11,7 @@ margin_top = 6.0
 margin_right = 102.0
 margin_bottom = 20.0
 text = "Health: "
+
+[node name="StaminaLabel" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
