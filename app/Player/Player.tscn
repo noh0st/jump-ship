@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=2]
 
-[ext_resource path="res://PlayerArea.gd" type="Script" id=1]
+[ext_resource path="res://Player/PlayerArea.gd" type="Script" id=1]
 [ext_resource path="res://Player/sprite.png" type="Texture" id=2]
 [ext_resource path="res://Player/Player.gd" type="Script" id=3]
 [ext_resource path="res://HitBox.tscn" type="PackedScene" id=4]
