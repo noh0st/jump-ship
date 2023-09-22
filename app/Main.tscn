@@ -11,7 +11,13 @@ script = ExtResource( 4 )
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 
 [node name="Enemy" parent="." instance=ExtResource( 1 )]
+position = Vector2( 109, -6 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+current = true
+smoothing_enabled = true
+smoothing_speed = 7.0
 
 [connection signal="health_update" from="Player" to="HUD" method="_on_Player_health_update"]
