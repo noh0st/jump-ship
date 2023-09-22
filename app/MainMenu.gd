@@ -1,6 +1,6 @@
 extends Control
 
-const gameplay_scene = preload("res://Main.tscn")
+const gameplay_scene = preload("res://Scenes/Main.tscn")
 
 # Declare member variables here. Examples:
 # var a = 2
