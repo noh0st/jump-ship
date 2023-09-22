@@ -1,7 +1,6 @@
 extends KinematicBody2D
 
 signal health_update(new_value)
-var staminaForDash = 10
 var velocity = Vector2.ZERO
 const MaxSpeed = 500.0
 const Acceleration_Friction = 20.0
@@ -51,12 +50,11 @@ func _physics_process(delta):
 	Dash()
 	
 func Dash():
-	if  Input.is_action_just_pressed("Dash") == true :\
-		if Stamina >= staminaForDash:
-			StaminaChanged()
-			move_and_slide(Dir * (DashPower * MaxSpeed))
-			Stamina -= staminaForDash;
-			timer.start()
+	if  Input.is_action_just_pressed("Dash") == true :
+		StaminaChanged()
+		move_and_slide(Dir * (DashPower * MaxSpeed))
+		Stamina -= 10;
+		timer.start()
 		
 func StaminaRefill():
 	Stamina = move_toward(Stamina, MaxStamina, 5.0)
