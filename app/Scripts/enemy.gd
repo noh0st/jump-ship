@@ -15,3 +15,9 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+func _on_RigidBody2D_body_entered() -> void:
+	print("Enemy detects collision")
+
+func _on_RigidBody2D_body_shape_entered():
+	print("Enemy detects shape collision")
