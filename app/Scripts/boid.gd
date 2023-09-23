@@ -15,15 +15,18 @@ export var separation_threshold = 1.0
 
 var velocity = Vector2()
 
+var enemy_target : bool = false
+var enemy_to_target : Node2D
+
 #each boid needs to keep an array of each other boid in the scene. 
 #might be optimized by outsourcing the logic for moving the boids to another
 #script that keeps track of all the boids and sends them their position each frame
 var boids = []
 
 func _ready():
-
 	self.set_meta("Boid", false)
-
+	get_parent().get_node("Enemy").connect("_enemy_moused_over_true", self, "_enemy_moused_over_true")
+	get_parent().get_node("Enemy").connect("_enemy_moused_over_false", self, "_enemy_moused_over_false")
 func _process(delta):
 	#find all boids in the normal process to keep accurate track of them, all
 	#other calculations will be done in physics process to keep them framerate independent
@@ -34,9 +37,13 @@ func _physics_process(delta):
 	if(not self.get_meta("Boid")) : return
 	
 	if(Input.is_action_pressed("LeftClick")):
-		follow_target = get_global_mouse_position()
+		if(enemy_target):
+			follow_target = enemy_to_target.position
+		else:
+			follow_target = get_global_mouse_position()
 	else:
 		follow_target = player.position
+		
 	#finds the final direction vector by summing all the rules and their weights, then moves the boid using godots physics system
 	var movement_vector
 	if(len(boids) > 1):
@@ -111,3 +118,10 @@ func _on_area_body_entered(body):
 		
 		if(not self.get_meta("Boid")):
 			self.set_meta("Boid", true)
+			
+func _enemy_moused_over_true(enemy):
+	enemy_target = true
+	enemy_to_target = enemy
+
+func _enemy_moused_over_false(enemy):
+	enemy_target = false
