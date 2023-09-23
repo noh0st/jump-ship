@@ -49,4 +49,5 @@ func ChangedHealth(value):
 func ChangedStamina(value):
 	
 	Stamina = value
+	
 	emit_signal("staminaChange", Stamina)

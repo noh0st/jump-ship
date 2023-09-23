@@ -6,7 +6,7 @@ var main_menu_scene : PackedScene = load("res://Scenes/MainMenu.tscn")
 
 func _ready():
 	visible = false
-
+	
 func _on_QuitButton_pressed():
 	print("EXIT")
 	
