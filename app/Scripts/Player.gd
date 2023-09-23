@@ -95,11 +95,7 @@ func _on_PlayerStats_healthChange(value):
 		
 #_____________________#
 # Signal from stats,  if the stamina stats ever changes this function starts
-func _on_PlayerStats_staminaChange(value):
-	
-	emit_signal("ChangedStamina", PlayerStats.Stamina)
 
-	print("stamina")
 
 #_____________________#
 # If stamina timer runs out, regen stamina 
