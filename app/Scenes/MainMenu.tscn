@@ -68,4 +68,13 @@ size_flags_vertical = 0
 custom_styles/normal = SubResource( 1 )
 text = "Play Game"
 
+[node name="DashTutorial" type="Label" parent="."]
+margin_left = 444.0
+margin_top = 345.0
+margin_right = 583.0
+margin_bottom = 359.0
+text = "Press \"Space\" to dash"
+align = 1
+valign = 1
+
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/CenterContainer/Button" to="." method="_on_PlayButton_pressed"]
