@@ -10,10 +10,14 @@ export var alignment_force = 1.0
 export var follow_force = 1.0
 
 export var follow_target = Vector2()
+var player : Node2D
 export var separation_threshold = 1.0
 
 
 var velocity = Vector2()
+
+var enemy_target : bool = false
+var enemy_to_target : Node2D
 
 #each boid needs to keep an array of each other boid in the scene. 
 #might be optimized by outsourcing the logic for moving the boids to another
@@ -21,9 +25,9 @@ var velocity = Vector2()
 var boids = []
 
 func _ready():
-
 	self.set_meta("Boid", false)
-
+	get_parent().get_node("Enemy").connect("_enemy_moused_over_true", self, "_enemy_moused_over_true")
+	get_parent().get_node("Enemy").connect("_enemy_moused_over_false", self, "_enemy_moused_over_false")
 func _process(delta):
 	#find all boids in the normal process to keep accurate track of them, all
 	#other calculations will be done in physics process to keep them framerate independent
@@ -33,6 +37,14 @@ func _physics_process(delta):
 	#this part is for the boids to maybe stay asleep till the player touches them
 	if(not self.get_meta("Boid")) : return
 	
+	if(Input.is_action_pressed("LeftClick")):
+		if(enemy_target):
+			follow_target = enemy_to_target.position
+		else:
+			follow_target = get_global_mouse_position()
+	else:
+		follow_target = player.position
+		
 	#finds the final direction vector by summing all the rules and their weights, then moves the boid using godots physics system
 	var movement_vector
 	if(len(boids) > 1):
@@ -87,8 +99,8 @@ func alignment():
 	return percieved_velocity
 	
 #follow a Node2D target
-func follow(target : Node2D):
-	return global_position.direction_to(target.position)
+func follow(target : Vector2):
+	return global_position.direction_to(target)
 	
 #wall avoidance idea: detect collision with trigger area, 
 #if wall is detected, add force in the normal direction
@@ -96,7 +108,8 @@ func follow(target : Node2D):
 
 func _on_area_body_entered(body):
 	if(body.has_meta("Player")):
-		follow_target = body
+		player = body
+		follow_target = player.position
 		if !PlayerStats.FollowingBoids.has(self):
 			PlayerStats.BoidsCollectedNum += 1
 			PlayerStats.FollowingBoids.append(self)
@@ -108,3 +121,11 @@ func clamp_vector(value : Vector2, minVal : float, maxVal : float):
 	var y = clamp(value.y, minVal, maxVal)
 	var newVector = Vector2(x, y)
 	return newVector
+
+	
+func _enemy_moused_over_true(enemy):
+	enemy_target = true
+	enemy_to_target = enemy
+
+func _enemy_moused_over_false(enemy):
+	enemy_target = false

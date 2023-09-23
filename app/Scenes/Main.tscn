@@ -15,7 +15,13 @@
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 
 [node name="Enemy" parent="." instance=ExtResource( 1 )]
-position = Vector2( 294, 178 )
+position = Vector2( 71, 237 )
+
+[node name="Enemy2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 311, 81 )
+
+[node name="Enemy3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 274, 216 )
 
 [node name="Boid" parent="." instance=ExtResource( 5 )]
 position = Vector2( 143, 81 )
@@ -80,6 +86,9 @@ position = Vector2( 309, 504 )
 [node name="PauseMenu" parent="." instance=ExtResource( 6 )]
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
+
+[node name="Sprite" parent="Player" index="1"]
+scale = Vector2( 1, -1 )
 
 [node name="AnimationTree" parent="Player" index="3"]
 parameters/playback = SubResource( 1 )
