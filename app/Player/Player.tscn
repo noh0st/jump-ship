@@ -136,10 +136,12 @@ parameters/playback = SubResource( 23 )
 parameters/Idle/blend_position = Vector2( 1.00515, -0.186869 )
 
 [node name="Timer" type="Timer" parent="."]
+process_mode = 0
 wait_time = 3.0
 one_shot = true
 
 [node name="Timer2" type="Timer" parent="."]
+process_mode = 0
 one_shot = true
 
 [node name="HurtBox" parent="." instance=ExtResource( 5 )]
@@ -151,6 +153,8 @@ shape = SubResource( 24 )
 
 [node name="PlayerStats" parent="." instance=ExtResource( 1 )]
 
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
 [connection signal="healthChange" from="PlayerStats" to="." method="_on_PlayerStats_healthChange"]
 [connection signal="staminaChange" from="PlayerStats" to="." method="_on_PlayerStats_staminaChange"]

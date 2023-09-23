@@ -34,8 +34,10 @@ func _ready():
 func _physics_process(delta):
 
 		
-
-	print(stats.Stamina)
+	if timer.time_left != 0:
+		print(timer.time_left)
+	if sectimer.time_left != 0:
+		print(sectimer.time_left)
 	var inputvector : Vector2 = Vector2.ZERO
 	if Dir == Vector2.ZERO:
 		Dir = Vector2(1, 0)
@@ -64,43 +66,37 @@ func Dash():
 	if  Input.is_action_just_pressed("Dash") == true :
 		
 		if stats.Stamina >= stats.staminaForDash:
-			StaminaChanged()
-			move_and_slide(Dir * (DashPower * MaxSpeed))
 			stats.Stamina -= stats.staminaForDash;
 			timer.start()
-		
+			print("start Refill")
+			move_and_slide(Dir * (DashPower * MaxSpeed))
+			
+			
+
 func StaminaRefill():
-	print("start Refill")
-	stats.Stamina = move_toward(stats.Stamina, stats.MaxStamina, 5.0)
 	
+	stats.Stamina = move_toward(stats.Stamina, stats.MaxStamina, 5.0)
+	print(Stamina)
 	if stats.Stamina != stats.MaxStamina:
 		timer.start()
 func StaminaChanged():
-
+	print("stopped")
 	timer.stop()
 	sectimer.start()
 	
 	
 
 
-func _on_Timer_timeout():
 
-	StaminaRefill()
+	
 
 
-func _on_Timer2_timeout():
 
-	timer.start() # Replace with function body.
+	
 
 func StaminaSet(value):
 	emit_signal("ChangedStamina")
 	
-
-
-
-	
-
-
 
 func _on_HurtBox_area_entered(area):
 	emit_signal("health_update")
@@ -114,4 +110,16 @@ func _on_PlayerStats_healthChange():
 
 
 func _on_PlayerStats_staminaChange():
-	Stamina = stats.Stamina # Replace with function body.
+	Stamina = stats.Stamina
+	if stats.Stamina != stats.MaxStamina:
+		StaminaChanged() # Replace with function body.
+
+
+func _on_Timer2_timeout():
+	print("refill2")
+	timer.start() # Replace with function body.
+
+
+func _on_Timer_timeout():
+	print(Stamina)
+	StaminaRefill()# Replace with function body.
