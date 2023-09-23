@@ -24,10 +24,11 @@ export var HealthPerBoid = 10
 
 func BoidsChanged(value): # change the value of the number of boids you get
 	
-	BoidHealthNum = value - BoidsCollectedNum
+	
 	BoidsCollectedNum = value
+	
 	emit_signal("boidsChange", BoidsCollectedNum)
-	Health += (BoidHealthNum * HealthPerBoid)
+	Health = ((len(FollowingBoids)+ 2) * HealthPerBoid)
 	print(Health, BoidHealthNum,BoidsCollectedNum, value)
 	BoidHealthNum = 0
 	
