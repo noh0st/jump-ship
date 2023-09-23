@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -7,10 +7,18 @@
 [ext_resource path="res://Scenes/Boid.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/PauseMenu.tscn" type="PackedScene" id=6]
 
+[sub_resource type="AnimationNodeStateMachinePlayback" id=1]
+
 [node name="Main" type="Node"]
 script = ExtResource( 4 )
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
+
+[node name="StaminaLabel" parent="HUD" index="1"]
+margin_left = 7.0
+margin_top = 26.0
+margin_right = 107.0
+margin_bottom = 40.0
 
 [node name="Enemy" parent="." instance=ExtResource( 1 )]
 position = Vector2( 294, 178 )
@@ -77,4 +85,15 @@ position = Vector2( 309, 504 )
 
 [node name="PauseMenu" parent="." instance=ExtResource( 6 )]
 
+[node name="Player" parent="." instance=ExtResource( 2 )]
+
+[node name="AnimationTree" parent="Player" index="3"]
+parameters/playback = SubResource( 1 )
+
+[connection signal="ChangedStamina" from="Player" to="HUD" method="_on_Player_ChangedStamina"]
 [connection signal="health_update" from="Player" to="HUD" method="_on_Player_health_update"]
+
+[editable path="HUD"]
+[editable path="Player"]
+[editable path="Player/HurtBox"]
+[editable path="Player/PlayerStats"]

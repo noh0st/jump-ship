@@ -11,7 +11,11 @@ func _ready():
 	Stamina = MaxStamina
 	#####
 func ChangedHealth(value):
-	Health = value
+	if value > 0:
+		Health = value
+	elif value <= 0:
+		Health = 0
+		
 	emit_signal("healthChange")
 	#######
 func ChangedStamina(value):
