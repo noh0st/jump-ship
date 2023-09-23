@@ -6,6 +6,7 @@
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=4]
 [ext_resource path="res://Scenes/Boid.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/PauseMenu.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Map.tscn" type="PackedScene" id=7]
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=1]
 
