@@ -16,10 +16,10 @@ func _ready():
 
 
 func _on_Player_health_update(new_value):
-	print(new_value)
+
 	healthLabel.text = "Health: %d" % new_value # Replace with function body.
 
 
 func _on_Player_ChangedStamina(value):
-	print(value)
+
 	staminaLaber.text = "Stamina: %d" % value # Replace with function body.
