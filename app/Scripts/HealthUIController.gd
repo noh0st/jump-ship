@@ -11,7 +11,7 @@ onready var BoidsLabel = $BoidsNum
 func _ready():
 	
 	healthLabel.text = "Health: %s" % PlayerStats.Health
-	staminaLabel.text = "Stamina: %s" % PlayerStats.MaxStamina
+	staminaLabel.text = "Stamina: %s" % PlayerStats.Stamina
 	BoidsLabel.text = "Number Of Followers : %s" % PlayerStats.BoidsCollectedNum	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -33,7 +33,3 @@ func _on_PlayerStats_boidsChange(value):
 	BoidsLabel.text = "Number Of Followers : %s" % PlayerStats.BoidsCollectedNum
 	print(PlayerStats.BoidsCollectedNum)
 
-func _process(delta):
-	healthLabel.text = "Health: %d" % PlayerStats.Health 
-	staminaLabel.text = "Stamina: %d" % PlayerStats.Stamina 
-	BoidsLabel.text = "Number Of Followers : %s" % PlayerStats.BoidsCollectedNum

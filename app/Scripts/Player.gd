@@ -103,7 +103,7 @@ func _on_PlayerStats_staminaChange(value):
 	
 	emit_signal("ChangedStamina", PlayerStats.Stamina)
 
-	
+	print("stamina")
 
 #_____________________#
 # If stamina timer runs out, regen stamina 
