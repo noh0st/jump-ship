@@ -89,11 +89,10 @@ parameters/playback = SubResource( 1 )
 [node name="Death" parent="." instance=ExtResource( 4 )]
 
 [connection signal="ChangedStamina" from="Player" to="HUD" method="_on_Player_ChangedStamina"]
-[connection signal="PlayerDeath" from="Player" to="Death" method="_on_Player_PlayerDeath"]
-[connection signal="health_update" from="Player" to="HUD" method="_on_Player_health_update"]
-[connection signal="boidsChange" from="Player/PlayerStats" to="HUD" method="_on_PlayerStats_boidsChange"]
+[connection signal="pressed" from="Death/Control/CenterContainer/VBoxContainer/RestartButton" to="Death" method="_on_RestartButton_pressed"]
 
 [editable path="HUD"]
 [editable path="Player"]
 [editable path="Player/HurtBox"]
 [editable path="Player/PlayerStats"]
+[editable path="Death"]

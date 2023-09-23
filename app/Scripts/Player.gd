@@ -8,7 +8,7 @@ signal PlayerDeath
 #_____________________#
 
 const MaxSpeed = 500.0
-const Acceleration_Friction = 20.0
+const Acceleration_Friction = 50
 const DashPower = 5
 #_____________________#
 
@@ -90,13 +90,9 @@ func _on_HurtBox_area_entered(area):
 #_____________________#
 # Signal from stats,  if the health stats ever changes this function starts
 func _on_PlayerStats_healthChange(value):
-	print(PlayerStats.Health)
-	if PlayerStats.Health < 0:
-		PlayerStats.Health = 0
+	
 		emit_signal("health_update", PlayerStats.Health)
 		
-	else:
-		emit_signal("health_update", PlayerStats.Health)
 #_____________________#
 # Signal from stats,  if the stamina stats ever changes this function starts
 func _on_PlayerStats_staminaChange(value):
@@ -111,6 +107,3 @@ func _on_Timer_timeout():
 	
 	StaminaRefill()# Replace with function body.
 
-
-func _on_PlayerStats_Death():
-	emit_signal("PlayerDeath")

@@ -53,5 +53,4 @@ margin_right = 57.0
 margin_bottom = 88.0
 text = "Exit"
 
-[connection signal="pressed" from="Control/CenterContainer/VBoxContainer/RestartButton" to="." method="_on_RestartButton_pressed"]
 [connection signal="pressed" from="Control/CenterContainer/VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]

@@ -6,7 +6,7 @@ var main_menu_scene : PackedScene = load("res://Scenes/MainMenu.tscn")
 
 func _ready():
 	visible = false
-	
+	PlayerStats.connect("Death", self ,"_on_PlayerStats_Death")
 func _on_QuitButton_pressed():
 	print("EXIT")
 	
@@ -19,11 +19,11 @@ func _on_QuitButton_pressed():
 
 
 func _on_RestartButton_pressed():
+	
 	get_tree().reload_current_scene()
 
+ 
 
-
-
-func _on_Player_PlayerDeath():
+func _on_PlayerStats_Death():
 	print("died")
-	visible = true
+	visible = true# Replace with function body.
