@@ -13,6 +13,7 @@ export var follow_target = Vector2()
 var player : Node2D
 export var separation_threshold = 1.0
 
+
 var velocity = Vector2()
 
 var enemy_target : bool = false
@@ -104,6 +105,16 @@ func follow(target : Vector2):
 #wall avoidance idea: detect collision with trigger area, 
 #if wall is detected, add force in the normal direction
 
+
+func _on_area_body_entered(body):
+	if(body.has_meta("Player")):
+		player = body
+		follow_target = player.position
+		if !PlayerStats.FollowingBoids.has(self):
+			PlayerStats.BoidsCollectedNum += 1
+			PlayerStats.FollowingBoids.append(self)
+		if(not self.get_meta("Boid")):
+			self.set_meta("Boid", true)
 			
 func clamp_vector(value : Vector2, minVal : float, maxVal : float):
 	var x = clamp(value.x, minVal, maxVal)
@@ -111,14 +122,7 @@ func clamp_vector(value : Vector2, minVal : float, maxVal : float):
 	var newVector = Vector2(x, y)
 	return newVector
 
-func _on_area_body_entered(body):
-	if(body.has_meta("Player")):
-		player = body
-		follow_target = player.position
-		
-		if(not self.get_meta("Boid")):
-			self.set_meta("Boid", true)
-			
+	
 func _enemy_moused_over_true(enemy):
 	enemy_target = true
 	enemy_to_target = enemy

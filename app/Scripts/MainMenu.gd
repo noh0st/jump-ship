@@ -1,6 +1,6 @@
 extends Control
 
-const gameplay_scene = preload("res://Scenes/Main.tscn")
+
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -18,5 +18,5 @@ func _ready():
 
 
 func _on_PlayButton_pressed():
-	get_parent().add_child(gameplay_scene.instance())
+	get_tree().change_scene("res://Scenes/Main.tscn")
 	queue_free() # safely destroy this node
