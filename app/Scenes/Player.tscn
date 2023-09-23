@@ -6,7 +6,6 @@
 [ext_resource path="res://Assets/LilKing.png" type="Texture" id=4]
 [ext_resource path="res://Scripts/CameraZoom.gd" type="Script" id=5]
 
-
 [sub_resource type="CapsuleShape2D" id=13]
 radius = 7.0
 height = 0.0
@@ -158,6 +157,7 @@ script = ExtResource( 5 )
 
 [connection signal="timeout" from="StaminaTimer" to="." method="_on_Timer_timeout"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
+[connection signal="Death" from="PlayerStats" to="." method="_on_PlayerStats_Death"]
 [connection signal="healthChange" from="PlayerStats" to="." method="_on_PlayerStats_healthChange"]
 [connection signal="staminaChange" from="PlayerStats" to="." method="_on_PlayerStats_staminaChange"]
 

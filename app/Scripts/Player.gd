@@ -4,26 +4,25 @@ extends KinematicBody2D
 
 signal ChangedStamina(value)
 signal health_update(new_value)
+signal PlayerDeath
 #_____________________#
 
 const MaxSpeed = 500.0
 const Acceleration_Friction = 20.0
 const DashPower = 5
 #_____________________#
-var Stamina
+
 var velocity = Vector2.ZERO
 var Dir: Vector2
-var health : int = 100
 
 #_____________________#
 onready var timer = $StaminaTimer
 onready var sectimer = $StaminaRegenPause
 onready var animationPlayer = $AnimationPlayer
 onready var animationTree = $AnimationTree
-onready var stats = $PlayerStats
 #_____________________#
 func _onready():
-	Stamina = stats.MaxStamina # set stamina to the max value of stamina in the stats script
+	PlayerStats.Stamina = PlayerStats.MaxStamina # set stamina to the max value of stamina in the stats script
 
 
 #_____________________#
@@ -65,8 +64,8 @@ func _physics_process(delta):
 func Dash(): 
 	if  Input.is_action_just_pressed("Dash") == true :
 		
-		if stats.Stamina >= stats.staminaForDash:
-			stats.Stamina -= stats.staminaForDash; 
+		if PlayerStats.Stamina >= PlayerStats.staminaForDash:
+			PlayerStats.Stamina -= PlayerStats.staminaForDash; 
 			timer.start()  # start timer for stamina recovering
 
 			move_and_slide(Dir * (DashPower * MaxSpeed)) # move in the direction you are facing
@@ -76,35 +75,33 @@ func Dash():
 # Function to refill stamina
 func StaminaRefill():
 	
-	stats.Stamina = move_toward(stats.Stamina, stats.MaxStamina, stats.staminaRegen) # regen stamina
+	PlayerStats.Stamina = move_toward(PlayerStats.Stamina, PlayerStats.MaxStamina, PlayerStats.staminaRegen) # regen stamina
 	
-	if stats.Stamina != stats.MaxStamina: # if stamina is not full, start recovering stamina again
+	if PlayerStats.Stamina != PlayerStats.MaxStamina: # if stamina is not full, start recovering stamina again
 		timer.start() 
 	
 #_____________________#
 # Hurt player if enemy enters
 func _on_HurtBox_area_entered(area):
-	stats.Health -= 10 
+	PlayerStats.Health -= 10 
 
 	
 	 
 #_____________________#
 # Signal from stats,  if the health stats ever changes this function starts
-func _on_PlayerStats_healthChange():
-	
-	health = stats.Health
-	
-	if health <= 0:
-		health = 0
-		emit_signal("health_update", health)
-		queue_free()
+func _on_PlayerStats_healthChange(value):
+	print(PlayerStats.Health)
+	if PlayerStats.Health < 0:
+		PlayerStats.Health = 0
+		emit_signal("health_update", PlayerStats.Health)
+		
 	else:
-		emit_signal("health_update", health)
+		emit_signal("health_update", PlayerStats.Health)
 #_____________________#
 # Signal from stats,  if the stamina stats ever changes this function starts
-func _on_PlayerStats_staminaChange():
-	Stamina = stats.Stamina
-	emit_signal("ChangedStamina", Stamina)
+func _on_PlayerStats_staminaChange(value):
+	
+	emit_signal("ChangedStamina", PlayerStats.Stamina)
 
 	
 
@@ -113,3 +110,7 @@ func _on_PlayerStats_staminaChange():
 func _on_Timer_timeout():
 	
 	StaminaRefill()# Replace with function body.
+
+
+func _on_PlayerStats_Death():
+	emit_signal("PlayerDeath")

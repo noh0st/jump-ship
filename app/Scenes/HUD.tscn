@@ -10,10 +10,18 @@ margin_left = 6.0
 margin_top = 6.0
 margin_right = 102.0
 margin_bottom = 20.0
-text = "Health: "
+text = "Health"
 
 [node name="StaminaLabel" type="Label" parent="."]
-margin_left = 7.0
-margin_top = 25.0
-margin_right = 85.0
-margin_bottom = 39.0
+margin_left = 6.0
+margin_top = 24.0
+margin_right = 84.0
+margin_bottom = 38.0
+text = "Stamina"
+
+[node name="BoidsNum" type="Label" parent="."]
+margin_left = 6.0
+margin_top = 43.0
+margin_right = 142.0
+margin_bottom = 57.0
+text = "Number Of Followers"

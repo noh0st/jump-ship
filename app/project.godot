@@ -14,6 +14,10 @@ config/name="jump-ship"
 run/main_scene="res://Scenes/MainMenu.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+PlayerStats="*res://Scenes/PlayerStats.tscn"
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true

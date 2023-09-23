@@ -12,6 +12,7 @@ export var follow_force = 1.0
 export var follow_target = Vector2()
 export var separation_threshold = 1.0
 
+
 var velocity = Vector2()
 
 #each boid needs to keep an array of each other boid in the scene. 
@@ -96,6 +97,9 @@ func follow(target : Node2D):
 func _on_area_body_entered(body):
 	if(body.has_meta("Player")):
 		follow_target = body
+		if !PlayerStats.FollowingBoids.has(self):
+			PlayerStats.BoidsCollectedNum += 1
+			PlayerStats.FollowingBoids.append(self)
 		if(not self.get_meta("Boid")):
 			self.set_meta("Boid", true)
 			
