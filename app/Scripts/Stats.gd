@@ -1,7 +1,7 @@
 extends Node
 var defValuesDic = {
-	"defHealth" : 10,
-	"defStamina" : 100,
+	"defHealth" : MaxHealth,
+	"defStamina" : MaxStamina,
 	"defBoidsNum" : 0,
 	"defFollowingBoids" : [],
 }
