@@ -10,12 +10,12 @@ enum State {
 	WALKING
 }
 
-
 export var walk_speed: float = 40.0
 
 var _walk_direction: Vector2
-var _current_state: int = State.IDLE
 
+onready var _health: int = 30
+onready var _current_state: int = State.IDLE
 onready var _timer: Timer = $Timer
 
 
@@ -62,3 +62,18 @@ func _on_MouseDetectionTrigger_mouse_entered():
 
 func _on_MouseDetectionTrigger_mouse_exited():
 	emit_signal("_enemy_moused_over_false", self)
+
+
+func _on_MouseDetectionTrigger_input_event(viewport, event, shape_idx):
+	if event is InputEventMouseButton:
+		if event.button_index == BUTTON_LEFT and event.pressed:
+			_apply_damage(10)
+			
+func _apply_damage(amount: int) -> void:
+	_health -= amount
+		
+	# play hurt animation?
+	
+	if _health <= 0:
+		# handle death
+		queue_free()
