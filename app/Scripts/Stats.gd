@@ -1,7 +1,7 @@
 extends Node
 var defValuesDic = {
-	"defHealth" : MaxHealth,
-	"defStamina" : MaxStamina,
+	"defHealth" : 100,
+	"defStamina" : 100,
 	"defBoidsNum" : 0,
 	"defFollowingBoids" : [],
 }
@@ -15,14 +15,14 @@ signal boidsChange(value)
 
 var BoidsCollectedNum setget BoidsChanged
 var Stamina setget ChangedStamina
-var Health setget ChangedHealth
+var Health :int setget ChangedHealth
 
 var FollowingBoids = []
 
 #_____________________#
 var staminaForDash = 10
 
-var MaxHealth = 100
+var MaxHealth := 100
 var MaxStamina = 100
 var staminaRegen = 5
 export var HealthPerBoid = 10
