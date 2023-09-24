@@ -15,13 +15,14 @@ signal boidsChange(value)
 
 var BoidsCollectedNum setget BoidsChanged
 var Stamina setget ChangedStamina
-var Health = 10 setget ChangedHealth
+var Health setget ChangedHealth
+
 var FollowingBoids = []
 
 #_____________________#
 var staminaForDash = 10
-var BoidHealthNum = 0
 
+var MaxHealth = 100
 var MaxStamina = 100
 var staminaRegen = 5
 export var HealthPerBoid = 10
@@ -29,20 +30,15 @@ export var HealthPerBoid = 10
 #_____________________#
 
 func BoidsChanged(value): # change the value of the number of boids you get
-	
-	
 	BoidsCollectedNum = value
 	
 	emit_signal("boidsChange", BoidsCollectedNum)
-	Health = ((len(FollowingBoids)+ 2) * HealthPerBoid)
-	print(Health, BoidHealthNum,BoidsCollectedNum, value)
-	BoidHealthNum = 0
-	
+
 	emit_signal("healthChange", Health)
 #set stats to their maximum at the start of the game
 func _ready():
 	BoidsCollectedNum = 0
-	Health = 10
+	Health = MaxHealth
 	Stamina = MaxStamina
 	#####
 # emits signals if any stat get set
