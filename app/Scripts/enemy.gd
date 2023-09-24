@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends KinematicBody2D
 
 
 signal _enemy_moused_over_true(enemy)
@@ -10,12 +10,12 @@ enum State {
 	WALKING
 }
 
-
 export var walk_speed: float = 40.0
 
 var _walk_direction: Vector2
-var _current_state: int = State.IDLE
 
+onready var _health: int = 30
+onready var _current_state: int = State.IDLE
 onready var _timer: Timer = $Timer
 
 
@@ -34,7 +34,7 @@ func _process(delta: float) -> void:
 			
 	
 func _process_walking(delta: float):
-	position += _walk_direction * walk_speed * delta
+	move_and_collide(_walk_direction * walk_speed * delta)
 		
 
 func _on_timer_timeout() -> void:
@@ -56,17 +56,24 @@ func _random_normalized_direction() -> Vector2:
 	return Vector2(cos(angle), sin(angle)).normalized()
 	
 	
-func _on_RigidBody2D_body_entered() -> void:
-	print("Enemy detects collision")
-
-
-func _on_RigidBody2D_body_shape_entered():
-	print("Enemy detects shape collision")
-
-
 func _on_MouseDetectionTrigger_mouse_entered():
 	emit_signal("_enemy_moused_over_true", self)
 
 
 func _on_MouseDetectionTrigger_mouse_exited():
 	emit_signal("_enemy_moused_over_false", self)
+
+
+func _on_MouseDetectionTrigger_input_event(viewport, event, shape_idx):
+	if event is InputEventMouseButton:
+		if event.button_index == BUTTON_LEFT and event.pressed:
+			_apply_damage(10)
+			
+func _apply_damage(amount: int) -> void:
+	_health -= amount
+		
+	# play hurt animation?
+	
+	if _health <= 0:
+		# handle death
+		queue_free()
