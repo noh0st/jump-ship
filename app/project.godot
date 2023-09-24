@@ -18,10 +18,6 @@ config/icon="res://icon.png"
 
 PlayerStats="*res://Scenes/PlayerStats.tscn"
 
-[global]
-
-layer=false
-
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
