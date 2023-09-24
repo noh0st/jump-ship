@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends Area2D
 
 
 signal _enemy_moused_over_true(enemy)
@@ -56,14 +56,6 @@ func _random_normalized_direction() -> Vector2:
 	return Vector2(cos(angle), sin(angle)).normalized()
 	
 	
-func _on_RigidBody2D_body_entered() -> void:
-	print("Enemy detects collision")
-
-
-func _on_RigidBody2D_body_shape_entered():
-	print("Enemy detects shape collision")
-
-
 func _on_MouseDetectionTrigger_mouse_entered():
 	emit_signal("_enemy_moused_over_true", self)
 
