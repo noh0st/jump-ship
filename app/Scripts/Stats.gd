@@ -1,4 +1,10 @@
 extends Node
+var ValuesDic = {
+	defHealth = 10,
+	defStamina = 100,
+	defBoidsNum = 0,
+	defFollowingBoids = [],
+}
 #_____________________#
 
 signal Death
