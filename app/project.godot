@@ -18,6 +18,10 @@ config/icon="res://icon.png"
 
 PlayerStats="*res://Scenes/PlayerStats.tscn"
 
+[global]
+
+layer=false
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
@@ -92,6 +96,7 @@ LeftClick={
 2d_physics/layer_4="EnemyHitBox"
 2d_physics/layer_5="EnemyHurtBox"
 2d_physics/layer_6="Enemy"
+2d_physics/layer_7="MapBoundary"
 
 [mono]
 

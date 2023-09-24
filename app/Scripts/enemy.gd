@@ -1,4 +1,4 @@
-extends Area2D
+extends KinematicBody2D
 
 
 signal _enemy_moused_over_true(enemy)
@@ -34,7 +34,7 @@ func _process(delta: float) -> void:
 			
 	
 func _process_walking(delta: float):
-	position += _walk_direction * walk_speed * delta
+	move_and_collide(_walk_direction * walk_speed * delta)
 		
 
 func _on_timer_timeout() -> void:
