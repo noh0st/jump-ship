@@ -1,27 +1,39 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/HealthUIController.gd" type="Script" id=1]
+[ext_resource path="res://Assets/HealthBarPNG/8.png" type="Texture" id=2]
+[ext_resource path="res://Assets/HealthBarPNG/5.png" type="Texture" id=3]
+[ext_resource path="res://Assets/HealthBarPNG/6.png" type="Texture" id=4]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource( 1 )
 
-[node name="HealthLabel" type="Label" parent="."]
-margin_left = 6.0
-margin_top = 6.0
-margin_right = 102.0
-margin_bottom = 20.0
-text = "Health"
-
-[node name="StaminaLabel" type="Label" parent="."]
-margin_left = 6.0
-margin_top = 24.0
-margin_right = 84.0
-margin_bottom = 38.0
-text = "Stamina"
+[node name="HPBar" type="TextureProgress" parent="."]
+margin_top = 1.0
+margin_right = 3800.0
+margin_bottom = 601.0
+rect_scale = Vector2( 0.136187, 0.121457 )
+value = 100.0
+texture_under = ExtResource( 4 )
+texture_over = ExtResource( 2 )
+texture_progress = ExtResource( 3 )
+tint_progress = Color( 0.964706, 0.117647, 0.117647, 1 )
 
 [node name="BoidsNum" type="Label" parent="."]
-margin_left = 6.0
-margin_top = 43.0
-margin_right = 142.0
-margin_bottom = 57.0
+margin_left = 3.0
+margin_top = 187.0
+margin_right = 187.0
+margin_bottom = 224.0
+rect_scale = Vector2( 1.55533, 2.43503 )
 text = "Number Of Followers"
+
+[node name="StaminaBar" type="TextureProgress" parent="."]
+margin_left = 1.0
+margin_top = 86.0
+margin_right = 3801.0
+margin_bottom = 686.0
+rect_scale = Vector2( 0.136187, 0.121457 )
+value = 100.0
+texture_under = ExtResource( 4 )
+texture_over = ExtResource( 2 )
+texture_progress = ExtResource( 3 )
