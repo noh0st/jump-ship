@@ -46,7 +46,12 @@ func HealthCalculations():
 		
 		PlayerStats.FollowingBoids.remove(PlayerStats.FollowingBoids.find(self))
 		PlayerStats.BoidsCollectedNum = len(PlayerStats.FollowingBoids)
-		self.queue_free()
+		boids.remove(boids.find(self))
+		self.visible = false
+		self.get_parent().remove_child(self)
+		self.set_process(false)
+		self.set_physics_process(false)
+		
 	if health >= MaxHealth:
 		health = MaxHealth
 ######		
@@ -103,7 +108,7 @@ func find_all_boids():
 func cohesion():
 	var percieved_center = Vector2(0,0)
 	for b in boids:
-		if(b!=self && boids.has(b) ):
+		if(b!=self && boids.has(self) ):
 			percieved_center += b.position
 			
 	percieved_center /= (len(boids)-1)
@@ -115,7 +120,7 @@ func cohesion():
 func separation():
 	var steer_away = Vector2(0,0)
 	for b in boids:
-		if(b!=self && boids.has(b) ):
+		if(b!=self && boids.has(self) ):
 			var d = global_position.distance_to(b.global_position)
 			if(d>0 and d < separation_threshold):
 				print("seperation")
@@ -126,7 +131,7 @@ func separation():
 func alignment():
 	var percieved_velocity = Vector2(0,0)
 	for b in boids:
-		if(b!=self  && boids.has(b) ):
+		if(b!=self  && boids.has(self) ):
 			percieved_velocity += b.velocity
 	percieved_velocity /= (len(boids) - 1)
 	return percieved_velocity
@@ -167,4 +172,4 @@ func _enemy_moused_over_false(enemy):
 
 func _on_AwakenBoidTrigger_area_entered(area):
 	if(area.get_parent().has_meta("Enemy")):
-		DamageBoid(10)
+		DamageBoid(50)
