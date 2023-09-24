@@ -20,7 +20,7 @@ func _on_QuitButton_pressed():
 
 
 func _on_RestartButton_pressed():
-	
+	PlayerStats.ResetValues()
 	get_tree().reload_current_scene()
 	
  

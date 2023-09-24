@@ -1,9 +1,9 @@
 extends Node
-var ValuesDic = {
-	defHealth = 10,
-	defStamina = 100,
-	defBoidsNum = 0,
-	defFollowingBoids = [],
+var defValuesDic = {
+	"defHealth" : 10,
+	"defStamina" : 100,
+	"defBoidsNum" : 0,
+	"defFollowingBoids" : [],
 }
 #_____________________#
 
@@ -63,3 +63,8 @@ func ChangedStamina(value):
 	
 	emit_signal("staminaChange", Stamina)
 
+func ResetValues():
+	Health = defValuesDic["defHealth"]
+	Stamina = defValuesDic["defStamina"]
+	BoidsCollectedNum = defValuesDic["defBoidsNum"] 
+	FollowingBoids = defValuesDic["defFollowingBoids"]
