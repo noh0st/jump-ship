@@ -98,7 +98,6 @@ parameters/playback = SubResource( 1 )
 [node name="Death" parent="." instance=ExtResource( 4 )]
 
 [connection signal="ChangedStamina" from="Player" to="HUD" method="_on_Player_ChangedStamina"]
-[connection signal="pressed" from="Death/Control/CenterContainer/VBoxContainer/RestartButton" to="Death" method="_on_RestartButton_pressed"]
 
 [editable path="HUD"]
 [editable path="Player"]

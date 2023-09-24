@@ -23,7 +23,7 @@ onready var _timer: Timer = $Timer
 func _ready():
 	_timer.connect("timeout", self, "_on_timer_timeout")
 	_timer.start(rand_range(2, 5))
-
+	set_meta("Enemy", false)
 
 func _process(delta: float) -> void:
 	match _current_state:
