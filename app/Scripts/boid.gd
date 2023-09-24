@@ -103,7 +103,7 @@ func find_all_boids():
 func cohesion():
 	var percieved_center = Vector2(0,0)
 	for b in boids:
-		if(b!=self && boids.has(boids.find(b)) ):
+		if(b!=self && boids.has(b) ):
 			percieved_center += b.position
 			
 	percieved_center /= (len(boids)-1)
@@ -115,9 +115,10 @@ func cohesion():
 func separation():
 	var steer_away = Vector2(0,0)
 	for b in boids:
-		if(b!=self && boids.has(boids.find(b)) ):
+		if(b!=self && boids.has(b) ):
 			var d = global_position.distance_to(b.global_position)
 			if(d>0 and d < separation_threshold):
+				print("seperation")
 				steer_away -= (b.global_position - global_position).normalized() * (d/separation_threshold*10)
 	return steer_away
 
@@ -125,7 +126,7 @@ func separation():
 func alignment():
 	var percieved_velocity = Vector2(0,0)
 	for b in boids:
-		if(b!=self  && boids.has(boids.find(b)) ):
+		if(b!=self  && boids.has(b) ):
 			percieved_velocity += b.velocity
 	percieved_velocity /= (len(boids) - 1)
 	return percieved_velocity
