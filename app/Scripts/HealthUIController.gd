@@ -4,16 +4,16 @@ extends CanvasLayer
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-onready var healthLabel = $HealthLabel
-onready var staminaLabel = $StaminaLabel
+onready var hpbar = $HPBar
+onready var staminabar = $StaminaBar
 onready var BoidsLabel = $BoidsNum
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	PlayerStats.connect("healthChange",self, "_on_Player_health_update")
 	PlayerStats.connect("staminaChange",self, "_on_Player_ChangedStamina")
 	PlayerStats.connect("boidsChange",self, "_on_PlayerStats_boidsChange")
-	healthLabel.text = "Health: %s" % PlayerStats.Health
-	staminaLabel.text = "Stamina: %s" % PlayerStats.Stamina
+	hpbar.value = PlayerStats.Health
+	staminabar.value = PlayerStats.Stamina
 	BoidsLabel.text = "Number Of Followers : %s" % PlayerStats.BoidsCollectedNum	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -22,13 +22,13 @@ func _ready():
 
 func _on_Player_health_update(new_value):
 	
-	healthLabel.text = "Health: %d" % new_value 
+	hpbar.value  =new_value 
 	
 
 
 func _on_Player_ChangedStamina(value):
 
-	staminaLabel.text = "Stamina: %d" % value 
+	staminabar.value = value 
 
 
 func _on_PlayerStats_boidsChange(value):
