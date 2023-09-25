@@ -4,13 +4,13 @@ onready var _player = get_node("/root/Main/Player")
 onready var _enemy_manager = get_node("/root/Main/EnemyManager")
 onready var _timer: Timer = $Timer
 
-const SPAWN_RADIUS = 350
+const SPAWN_RADIUS = 250
 const MAX_COUNT = 5
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_timer.connect("timeout", self, "_on_Timer_timeout")
-	_timer.start(2)
+	_timer.start(rand_range(3,7))
 
 
 func _on_Timer_timeout():
