@@ -117,6 +117,12 @@ LeftClick={
 2d_physics/layer_5="EnemyHurtBox"
 2d_physics/layer_6="Enemy"
 2d_physics/layer_7="MapBoundary"
+2d_physics/layer_8="Boids"
+2d_physics/layer_9="BoidsHitBox"
+2d_physics/layer_10="BoidsHurtBox"
+2d_physics/layer_11="BoidsVision"
+2d_physics/layer_12="PlayerVision"
+2d_physics/layer_13="EnemyVison"
 
 [mono]
 

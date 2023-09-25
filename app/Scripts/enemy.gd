@@ -11,13 +11,13 @@ enum State {
 }
 
 export var walk_speed: float = 40.0
-
+var TargetDir: Vector2
 var _walk_direction: Vector2
-
+onready var _leaptimer = $LeapTimer
 onready var _health: int = 30
 onready var _current_state: int = State.IDLE
 onready var _timer: Timer = $Timer
-
+var Target: Area2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,8 +31,8 @@ func _process(delta: float) -> void:
 			pass
 		State.WALKING:
 			_process_walking(delta)
-			
-	
+	if Target != null:
+		TargetDir =  Target.get_parent().position - self.position
 func _process_walking(delta: float):
 	move_and_collide(_walk_direction * walk_speed * delta)
 		
@@ -40,14 +40,15 @@ func _process_walking(delta: float):
 func _on_timer_timeout() -> void:
 	match _current_state:
 		State.IDLE:
-			# choose direction and switch to walking
+			#choose direction and switch to walking
 			_walk_direction = _random_normalized_direction()
 			_current_state = State.WALKING
 			_timer.start(rand_range(2, 5))
+			pass
 		State.WALKING:
 			# stop walking
 			_current_state = State.IDLE
-			_timer.start(rand_range(2, 5))
+			#_timer.start(rand_range(2, 5))
 			pass # do nothing
 
 
@@ -77,3 +78,29 @@ func _apply_damage(amount: int) -> void:
 	if _health <= 0:
 		# handle death
 		queue_free()
+
+
+######## Attacking
+
+
+func _on_VisionTrigger_area_entered(area):
+		Target = area
+		_walk_direction = Vector2.ZERO
+		_current_state = State.IDLE
+		_leaptimer.start(0)
+		print(TargetDir, area)
+		
+
+
+func _on_LeapTimer_timeout(): #when timer runs out jump at the player
+	move_and_slide(TargetDir.normalized() * 3500)
+	_current_state = State.WALKING
+	_walk_direction = _random_normalized_direction()
+
+
+func _on_VisionTrigger_area_exited(area):
+	if area == Target:
+		_leaptimer.stop()
+
+		_current_state = State.WALKING
+		_walk_direction = _random_normalized_direction()

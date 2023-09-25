@@ -23,6 +23,8 @@ separation_threshold = 10.0
 texture = ExtResource( 1 )
 
 [node name="AwakenBoidTrigger" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AwakenBoidTrigger"]
 position = Vector2( 0, 2 )
