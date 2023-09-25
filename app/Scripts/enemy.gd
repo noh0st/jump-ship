@@ -82,9 +82,11 @@ func _apply_damage(amount: int) -> void:
 
 ######## Attacking
 
-
+var HasTarget := false
 func _on_VisionTrigger_area_entered(area):
+	if HasTarget == false:
 		Target = area
+		HasTarget = true
 		_walk_direction = Vector2.ZERO
 		_current_state = State.IDLE
 		_leaptimer.start(0)
@@ -100,7 +102,9 @@ func _on_LeapTimer_timeout(): #when timer runs out jump at the player
 
 func _on_VisionTrigger_area_exited(area):
 	if area == Target:
-		_leaptimer.stop()
-
-		_current_state = State.WALKING
-		_walk_direction = _random_normalized_direction()
+		if HasTarget == true:
+			_leaptimer.stop()
+			Target = null
+			HasTarget = false
+			_current_state = State.WALKING
+			_walk_direction = _random_normalized_direction()

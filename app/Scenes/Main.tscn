@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scenes/EnemySpawner.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Scenes/PauseMenu.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Map.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/EnemyManager.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/RockTurtle.tscn" type="PackedScene" id=9]
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=1]
 
@@ -77,14 +78,6 @@ position = Vector2( 309, 504 )
 
 [node name="PauseMenu" parent="." instance=ExtResource( 6 )]
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
-
-[node name="Sprite" parent="Player" index="1"]
-scale = Vector2( 1, -1 )
-
-[node name="AnimationTree" parent="Player" index="3"]
-parameters/playback = SubResource( 1 )
-
 [node name="Map" parent="." instance=ExtResource( 7 )]
 
 [node name="Death" parent="." instance=ExtResource( 4 )]
@@ -93,10 +86,30 @@ parameters/playback = SubResource( 1 )
 
 [node name="EnemySpawner" parent="." instance=ExtResource( 1 )]
 
-[connection signal="ChangedStamina" from="Player" to="HUD" method="_on_Player_ChangedStamina"]
+[node name="YSort" type="YSort" parent="."]
+
+[node name="RockTurtle" parent="YSort" instance=ExtResource( 9 )]
+position = Vector2( -282, 227 )
+
+[node name="RockTurtle2" parent="YSort" instance=ExtResource( 9 )]
+position = Vector2( -148, 381 )
+
+[node name="Player" parent="YSort" instance=ExtResource( 2 )]
+position = Vector2( -123, -127 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimationPlayer" parent="YSort/Player" index="2"]
+root_node = NodePath("../../..")
+
+[node name="AnimationTree" parent="YSort/Player" index="3"]
+parameters/playback = SubResource( 1 )
+
+[connection signal="ChangedStamina" from="YSort/Player" to="HUD" method="_on_Player_ChangedStamina"]
 
 [editable path="HUD"]
-[editable path="Player"]
-[editable path="Player/HurtBox"]
-[editable path="Player/PlayerStats"]
 [editable path="Death"]
+[editable path="YSort/Player"]
+[editable path="YSort/Player/HurtBox"]
+[editable path="YSort/Player/PlayerStats"]
