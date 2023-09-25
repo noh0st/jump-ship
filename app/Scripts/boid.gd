@@ -26,8 +26,10 @@ var boids = []
 
 func _ready():
 	self.set_meta("Boid", false)
-	get_parent().get_node("Enemy").connect("_enemy_moused_over_true", self, "_enemy_moused_over_true")
-	get_parent().get_node("Enemy").connect("_enemy_moused_over_false", self, "_enemy_moused_over_false")
+	#get_parent().get_node("Enemy").connect("_enemy_moused_over_true", self, "_enemy_moused_over_true")
+	#get_parent().get_node("Enemy").connect("_enemy_moused_over_false", self, "_enemy_moused_over_false")
+	
+	
 func _process(delta):
 	#find all boids in the normal process to keep accurate track of them, all
 	#other calculations will be done in physics process to keep them framerate independent
