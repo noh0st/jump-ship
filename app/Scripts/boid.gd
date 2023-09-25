@@ -13,63 +13,26 @@ export var follow_target = Vector2()
 var player : Node2D
 export var separation_threshold = 1.0
 
-var boids := [] 
+
 var velocity = Vector2()
 
 var enemy_target : bool = false
 var enemy_to_target : Node2D
+
 #each boid needs to keep an array of each other boid in the scene. 
 #might be optimized by outsourcing the logic for moving the boids to another
 #script that keeps track of all the boids and sends them their position each frame
+var boids = []
 
-######
-#Health Related Code
-onready var HpBar = $HPbar
-var health: float
-var MaxHealth := 100
-
-
-func DamageBoid(damage): # use this function when damaging the boid
-	health -= damage
-func HealthCalculations():
-	HpBar.value = health
-	if(health == MaxHealth):
-		HpBar.visible = false
-		
-	elif(health != MaxHealth):
-		
-		HpBar.visible = true
-	if health <= 0:
-		health = 0
-		emit_signal("BoidDied", self)
-
-		
-		PlayerStats.FollowingBoids.remove(PlayerStats.FollowingBoids.find(self))
-		PlayerStats.BoidsCollectedNum = len(PlayerStats.FollowingBoids)
-		boids.remove(boids.find(self))
-		self.visible = false
-		self.get_parent().remove_child(self)
-		self.set_process(false)
-		self.set_physics_process(false)
-		
-	if health >= MaxHealth:
-		health = MaxHealth
-######		
 func _ready():
-	HpBar.value = 100
-	health = MaxHealth
 	self.set_meta("Boid", false)
 	get_parent().get_node("Enemy").connect("_enemy_moused_over_true", self, "_enemy_moused_over_true")
 	get_parent().get_node("Enemy").connect("_enemy_moused_over_false", self, "_enemy_moused_over_false")
-	
 func _process(delta):
 	#find all boids in the normal process to keep accurate track of them, all
 	#other calculations will be done in physics process to keep them framerate independent
 	boids = find_all_boids()
-	HealthCalculations()
-	
-	
-	
+
 func _physics_process(delta):
 	#this part is for the boids to maybe stay asleep till the player touches them
 	if(not self.get_meta("Boid")) : return
@@ -108,7 +71,7 @@ func find_all_boids():
 func cohesion():
 	var percieved_center = Vector2(0,0)
 	for b in boids:
-		if(b!=self && boids.has(self) ):
+		if(b!=self):
 			percieved_center += b.position
 			
 	percieved_center /= (len(boids)-1)
@@ -120,10 +83,9 @@ func cohesion():
 func separation():
 	var steer_away = Vector2(0,0)
 	for b in boids:
-		if(b!=self && boids.has(self) ):
+		if(b!=self):
 			var d = global_position.distance_to(b.global_position)
 			if(d>0 and d < separation_threshold):
-				print("seperation")
 				steer_away -= (b.global_position - global_position).normalized() * (d/separation_threshold*10)
 	return steer_away
 
@@ -131,7 +93,7 @@ func separation():
 func alignment():
 	var percieved_velocity = Vector2(0,0)
 	for b in boids:
-		if(b!=self  && boids.has(self) ):
+		if(b!=self):
 			percieved_velocity += b.velocity
 	percieved_velocity /= (len(boids) - 1)
 	return percieved_velocity
@@ -153,7 +115,6 @@ func _on_area_body_entered(body):
 			PlayerStats.FollowingBoids.append(self)
 		if(not self.get_meta("Boid")):
 			self.set_meta("Boid", true)
-	
 			
 func clamp_vector(value : Vector2, minVal : float, maxVal : float):
 	var x = clamp(value.x, minVal, maxVal)
@@ -168,8 +129,3 @@ func _enemy_moused_over_true(enemy):
 
 func _enemy_moused_over_false(enemy):
 	enemy_target = false
-
-
-func _on_AwakenBoidTrigger_area_entered(area):
-	if(area.get_parent().has_meta("Enemy")):
-		DamageBoid(50)

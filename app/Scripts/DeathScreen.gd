@@ -10,7 +10,7 @@ func _ready():
 	
 func _on_QuitButton_pressed():
 	print("EXIT")
-	PlayerStats.ResetValues()
+	
 	var main_menu_instance : Node = main_menu_scene.instance()
 	get_tree().get_root().add_child(main_menu_instance)
 	
