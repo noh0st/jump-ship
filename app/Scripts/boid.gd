@@ -31,19 +31,19 @@ var MaxHealth := 100
 
 func DamageBoid(damage): # use this function when damaging the boid
 	health -= damage
+	HealthCalculations()
+	
+	
 func HealthCalculations():
 	HpBar.value = health
 	if(health == MaxHealth):
 		HpBar.visible = false
-		
 	elif(health != MaxHealth):
-		
 		HpBar.visible = true
 	if health <= 0:
 		health = 0
 		emit_signal("BoidDied", self)
 
-		
 		PlayerStats.FollowingBoids.remove(PlayerStats.FollowingBoids.find(self))
 		PlayerStats.BoidsCollectedNum = len(PlayerStats.FollowingBoids)
 		boids.remove(boids.find(self))
@@ -59,16 +59,16 @@ func _ready():
 	HpBar.value = 100
 	health = MaxHealth
 	self.set_meta("Boid", false)
-	get_parent().get_node("Enemy").connect("_enemy_moused_over_true", self, "_enemy_moused_over_true")
-	get_parent().get_node("Enemy").connect("_enemy_moused_over_false", self, "_enemy_moused_over_false")
+	# these were breaking the game, because there are no enemies at the start of the game
+	#get_parent().get_node("Enemy").connect("_enemy_moused_over_true", self, "_enemy_moused_over_true") 
+	#get_parent().get_node("Enemy").connect("_enemy_moused_over_false", self, "_enemy_moused_over_false") 
+	HealthCalculations()
 	
 func _process(delta):
 	#find all boids in the normal process to keep accurate track of them, all
 	#other calculations will be done in physics process to keep them framerate independent
 	boids = find_all_boids()
-	HealthCalculations()
-	
-	
+
 	
 func _physics_process(delta):
 	#this part is for the boids to maybe stay asleep till the player touches them
@@ -100,8 +100,8 @@ func find_all_boids():
 		if(c.has_meta("Boid")):
 			if(c.get_meta("Boid")):
 				boids.append(c)
-
 	return boids
+	
 	
 #finds the "percieved center of mass" of the boid, returns the 
 #direction to that center of mass
@@ -116,6 +116,7 @@ func cohesion():
 	
 	return result
 	
+	
 #makes the boids steer away from any other boids 
 func separation():
 	var steer_away = Vector2(0,0)
@@ -123,9 +124,9 @@ func separation():
 		if(b!=self && boids.has(self) ):
 			var d = global_position.distance_to(b.global_position)
 			if(d>0 and d < separation_threshold):
-				print("seperation")
 				steer_away -= (b.global_position - global_position).normalized() * (d/separation_threshold*10)
 	return steer_away
+
 
 #makes the boids try to go in the same direction as all the other boids. I've noticed you need to plug in very low values for this not to break, not sure why.
 func alignment():
@@ -165,6 +166,7 @@ func clamp_vector(value : Vector2, minVal : float, maxVal : float):
 func _enemy_moused_over_true(enemy):
 	enemy_target = true
 	enemy_to_target = enemy
+
 
 func _enemy_moused_over_false(enemy):
 	enemy_target = false
