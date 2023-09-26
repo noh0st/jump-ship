@@ -30,17 +30,20 @@ shape = SubResource( 2 )
 texture = ExtResource( 2 )
 
 [node name="VisionTrigger" type="Area2D" parent="."]
-collision_layer = 4096
+collision_layer = 4128
 collision_mask = 129
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionTrigger"]
+[node name="VisionCollision" type="CollisionShape2D" parent="VisionTrigger"]
 shape = SubResource( 3 )
 
 [node name="LeapTimer" type="Timer" parent="."]
-wait_time = 2.0
+
+[node name="TargetLockTimer" type="Timer" parent="."]
+wait_time = 3.0
 one_shot = true
 
 [connection signal="input_event" from="MouseDetectionTrigger" to="." method="_on_MouseDetectionTrigger_input_event"]
 [connection signal="area_entered" from="VisionTrigger" to="." method="_on_VisionTrigger_area_entered"]
 [connection signal="area_exited" from="VisionTrigger" to="." method="_on_VisionTrigger_area_exited"]
 [connection signal="timeout" from="LeapTimer" to="." method="_on_LeapTimer_timeout"]
+[connection signal="timeout" from="TargetLockTimer" to="." method="_on_TargetLockTimer_timeout"]

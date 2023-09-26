@@ -17,9 +17,11 @@ onready var _leaptimer = $LeapTimer
 onready var _health: int = 30
 onready var _current_state: int = State.IDLE
 onready var _timer: Timer = $Timer
-var Target: Area2D
+onready var _targetlocktimer: Timer = $TargetLockTimer
+var Target: Area2D 
 
 # Called when the node enters the scene tree for the first time.
+
 func _ready():
 	_timer.connect("timeout", self, "_on_timer_timeout")
 	_timer.start(rand_range(2, 5))
@@ -84,27 +86,50 @@ func _apply_damage(amount: int) -> void:
 
 var HasTarget := false
 func _on_VisionTrigger_area_entered(area):
+	if HasTarget == true:
+		if area != Target:
+			print("not same target")
+			if _targetlocktimer.time_left == 0:
+				_leaptimer.stop()
+				pass
+			pass
+		if area == Target && _targetlocktimer.time_left > 0:
+			TargetSetter(area)
+			_targetlocktimer.start(0)
+			print("same target")
 	if HasTarget == false:
-		Target = area
-		HasTarget = true
-		_walk_direction = Vector2.ZERO
-		_current_state = State.IDLE
-		_leaptimer.start(0)
-		print(TargetDir, area)
+		TargetSetter(area)
+		print("new target")
+func TargetSetter(targetArea):
+	Target = targetArea
+	HasTarget = true
+	_walk_direction = Vector2.ZERO
+	_current_state = State.IDLE
+	_leaptimer.start(0)
+	print(TargetDir, targetArea)
+	
+func Leap(LeapPower):
+	move_and_slide(TargetDir.normalized() * LeapPower)
+	
+func _on_LeapTimer_timeout():
+	
+	Leap(3000)
+	if Target != null:
+		Leap(3000)
 		
+	
 
-
-func _on_LeapTimer_timeout(): #when timer runs out jump at the player
-	move_and_slide(TargetDir.normalized() * 3500)
-	_current_state = State.WALKING
-	_walk_direction = _random_normalized_direction()
 
 
 func _on_VisionTrigger_area_exited(area):
-	if area == Target:
-		if HasTarget == true:
-			_leaptimer.stop()
-			Target = null
-			HasTarget = false
-			_current_state = State.WALKING
-			_walk_direction = _random_normalized_direction()
+	print("exit")
+	_targetlocktimer.start(0)
+
+
+func _on_TargetLockTimer_timeout():
+	print("target lost")
+	_leaptimer.stop()
+	Target = null
+	HasTarget = false
+	_current_state = State.WALKING
+	_walk_direction = _random_normalized_direction()

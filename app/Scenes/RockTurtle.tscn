@@ -84,6 +84,8 @@ anims/RESET = SubResource( 2 )
 anims/RockTurtleAttack = SubResource( 3 )
 
 [node name="TurtleVision" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 131
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TurtleVision"]
 position = Vector2( -168.952, -2.81588 )

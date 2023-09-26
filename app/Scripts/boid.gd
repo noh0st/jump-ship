@@ -174,4 +174,4 @@ func _enemy_moused_over_false(enemy):
 
 func _on_AwakenBoidTrigger_area_entered(area):
 	if(area.get_collision_layer_bit(4)):
-		DamageBoid(50)
+		DamageBoid(10)
