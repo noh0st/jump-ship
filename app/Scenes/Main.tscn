@@ -1,10 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scenes/EnemySpawner.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Death.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/Boid.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/PauseMenu.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Map.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/EnemyManager.tscn" type="PackedScene" id=8]
@@ -14,66 +13,6 @@
 [node name="Main" type="Node"]
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
-
-[node name="Boid" parent="." instance=ExtResource( 5 )]
-position = Vector2( 143, 81 )
-
-[node name="Boid2" parent="." instance=ExtResource( 5 )]
-position = Vector2( 284, 264 )
-
-[node name="Boid3" parent="." instance=ExtResource( 5 )]
-position = Vector2( 390, 166 )
-
-[node name="Boid4" parent="." instance=ExtResource( 5 )]
-position = Vector2( 663, 356 )
-
-[node name="Boid5" parent="." instance=ExtResource( 5 )]
-position = Vector2( 258, 443 )
-
-[node name="Boid6" parent="." instance=ExtResource( 5 )]
-position = Vector2( 401, 61 )
-
-[node name="Boid7" parent="." instance=ExtResource( 5 )]
-position = Vector2( 542, 244 )
-
-[node name="Boid8" parent="." instance=ExtResource( 5 )]
-position = Vector2( 648, 146 )
-
-[node name="Boid9" parent="." instance=ExtResource( 5 )]
-position = Vector2( 921, 336 )
-
-[node name="Boid10" parent="." instance=ExtResource( 5 )]
-position = Vector2( 516, 423 )
-
-[node name="Boid11" parent="." instance=ExtResource( 5 )]
-position = Vector2( 793, 177 )
-
-[node name="Boid12" parent="." instance=ExtResource( 5 )]
-position = Vector2( 77, 345 )
-
-[node name="Boid13" parent="." instance=ExtResource( 5 )]
-position = Vector2( 183, 247 )
-
-[node name="Boid14" parent="." instance=ExtResource( 5 )]
-position = Vector2( 456, 437 )
-
-[node name="Boid15" parent="." instance=ExtResource( 5 )]
-position = Vector2( 51, 524 )
-
-[node name="Boid16" parent="." instance=ExtResource( 5 )]
-position = Vector2( 194, 142 )
-
-[node name="Boid17" parent="." instance=ExtResource( 5 )]
-position = Vector2( 335, 325 )
-
-[node name="Boid18" parent="." instance=ExtResource( 5 )]
-position = Vector2( 441, 227 )
-
-[node name="Boid19" parent="." instance=ExtResource( 5 )]
-position = Vector2( 714, 417 )
-
-[node name="Boid20" parent="." instance=ExtResource( 5 )]
-position = Vector2( 309, 504 )
 
 [node name="PauseMenu" parent="." instance=ExtResource( 6 )]
 
@@ -94,6 +33,7 @@ parameters/playback = SubResource( 1 )
 [node name="EnemySpawner" parent="." instance=ExtResource( 1 )]
 
 [connection signal="ChangedStamina" from="Player" to="HUD" method="_on_Player_ChangedStamina"]
+[connection signal="player_boid_count_update" from="Player" to="HUD" method="_on_Player_player_boid_count_update"]
 
 [editable path="HUD"]
 [editable path="Player"]

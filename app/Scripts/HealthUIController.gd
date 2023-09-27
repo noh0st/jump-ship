@@ -21,13 +21,10 @@ func _ready():
 	
 
 func _on_Player_health_update(new_value):
-	
 	hpbar.value  =new_value 
 	
 
-
 func _on_Player_ChangedStamina(value):
-
 	staminabar.value = value 
 
 
@@ -35,3 +32,6 @@ func _on_PlayerStats_boidsChange(value):
 	BoidsLabel.text = "Number Of Followers : %s" % PlayerStats.BoidsCollectedNum
 
 
+func _on_Player_player_boid_count_update(new_value):
+	PlayerStats.BoidsCollectedNum = new_value
+	BoidsLabel.text = "Number Of Followers : %s" % PlayerStats.BoidsCollectedNum
