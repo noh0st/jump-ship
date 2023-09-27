@@ -4,6 +4,7 @@ extends KinematicBody2D
 
 signal ChangedStamina(value)
 signal health_update(new_value)
+signal player_boid_count_update(new_value)
 signal PlayerDeath
 #_____________________#
 
@@ -20,6 +21,7 @@ onready var timer = $StaminaTimer
 onready var sectimer = $StaminaRegenPause
 onready var animationPlayer = $AnimationPlayer
 onready var animationTree = $AnimationTree
+onready var boid_flock = $BoidFlock
 #_____________________#
 func _onready():
 	PlayerStats.Stamina = PlayerStats.MaxStamina # set stamina to the max value of stamina in the stats script
@@ -27,7 +29,13 @@ func _onready():
 
 #_____________________#
 func _ready():
+	boid_flock.owner = self
+	boid_flock.spawn_boid()
+	boid_flock.spawn_boid()
+	boid_flock.spawn_boid()
+		
 	self.set_meta("Player", true)
+
 
 #_____________________#
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -74,7 +82,6 @@ func Dash():
 #_____________________#
 # Function to refill stamina
 func StaminaRefill():
-	
 	PlayerStats.Stamina = move_toward(PlayerStats.Stamina, PlayerStats.MaxStamina, PlayerStats.staminaRegen) # regen stamina
 	
 	if PlayerStats.Stamina != PlayerStats.MaxStamina: # if stamina is not full, start recovering stamina again
@@ -86,12 +93,10 @@ func _on_HurtBox_area_entered(area):
 	PlayerStats.Health -= 10 
 
 	
-	 
 #_____________________#
 # Signal from stats,  if the health stats ever changes this function starts
 func _on_PlayerStats_healthChange(value):
-	
-		emit_signal("health_update", PlayerStats.Health)
+	emit_signal("health_update", PlayerStats.Health)
 		
 #_____________________#
 # Signal from stats,  if the stamina stats ever changes this function starts
@@ -100,6 +105,9 @@ func _on_PlayerStats_healthChange(value):
 #_____________________#
 # If stamina timer runs out, regen stamina 
 func _on_Timer_timeout():
-	
 	StaminaRefill()# Replace with function body.
 
+
+
+func _on_BoidFlock_boid_count_update(new_value):
+	emit_signal("player_boid_count_update", new_value)
