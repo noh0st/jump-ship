@@ -9,7 +9,7 @@ export var max_speed = 10.0
 export var cohesion_force = 1.0
 export var separation_force = 1.0
 export var alignment_force = 1.0
-export var follow_force = 1.0
+export var follow_force = 30.0
 
 var _angle = 0
 

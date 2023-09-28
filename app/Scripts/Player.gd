@@ -8,8 +8,8 @@ signal player_boid_count_update(new_value)
 signal PlayerDeath
 #_____________________#
 
-const MaxSpeed = 500.0
-const Acceleration_Friction = 50
+const MaxSpeed = 350.0
+const Acceleration_Friction = 20.0
 const DashPower = 5
 #_____________________#
 
@@ -55,9 +55,7 @@ func _physics_process(delta):
 	#_____________________#
 	#Check if player is inputing values, move the player based on those values
 	if inputvector != Vector2.ZERO:
-		
-		velocity += inputvector.normalized() * Acceleration_Friction * delta # acceleration 
-		velocity = velocity.clamped(MaxSpeed*delta)
+		velocity = inputvector.normalized() * MaxSpeed * delta # acceleration 
 		Dir = inputvector # Direction vector for setting the look direction of player
 		animationTree.set("parameters/Idle/blend_position", Dir) # change direction player is facing based on "Dir" value
 	else:
