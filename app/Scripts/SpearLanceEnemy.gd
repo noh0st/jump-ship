@@ -3,37 +3,44 @@ extends KinematicBody2D
 
 var TargetPos: Vector2
 var Velocity := Vector2.ZERO
-var Target : Vector2
-var TargetArea : Area2D
+var Target : Area2D
+
 var Dir := Vector2.ZERO
 var HasTarget := false
 onready var _animationPlayer = $AnimationPlayer
 onready var _attackTimer = $re_AttackTimer
+onready var _patrolTimer = $patrolTimer
+var MoveTowardsTarget := false
 func _ready():
 	set_meta("SpearLanceEnemy", false)
-	set_physics_process(false)
 
+	Velocity = TargetPos - self.position
+	_animationPlayer.play("Idle")
 func _on_Vision_area_entered(area):
-
+	
 	if area.get_parent().has_meta("SpearLanceEnemy"):
 		pass
 	elif area.get_parent().has_meta("Player"):
-		Target = area.get_parent().position
-		TargetArea = area
+		Target = area
+		MoveTowardsTarget = true
 		HasTarget = true
-		set_physics_process(true)
+		_patrolTimer.stop()
 		
 		
 func _physics_process(delta):
 	Move()
-	
+
 	
 func _on_AttackRange_area_entered(area):
 	if area.get_parent().has_meta("Player"):
 		Attack()
-		
+		Velocity=Vector2.ZERO
+		MoveTowardsTarget = false
+
 ##########
 func AttackDir():
+	Dir = (Target.get_parent().position - self.position).normalized()
+	print(Dir)
 	if Dir.x >= 0:
 		_animationPlayer.play("AttackRight")
 	elif Dir.x < 0:
@@ -46,48 +53,61 @@ func MovementDir():
 ##########
 
 func Attack():
-	
-	set_physics_process(false)
+	Velocity=Vector2.ZERO
+	Dir = Velocity.normalized()
 	AttackDir()
 	_attackTimer.start(0)
+
 	
 func Move():
-	
+
 	if Target != null:
 		if HasTarget == true :
-			Velocity = Target - self.position 
+			if MoveTowardsTarget:
+				Velocity = Target.get_parent().position - self.position 
+				MovementDir()
+				move_and_slide(Dir * 70)
 			Dir = Velocity.normalized()
-			MovementDir()
-			move_and_slide(Velocity)
+			
+			
 	if HasTarget == false:
+		
 		Dir = Velocity.normalized()
 		MovementDir()
-		move_and_slide(Velocity)
-		if self.position == TargetPos:
-			TargetPos = _random_direction()
+		move_and_slide(Dir* 70)
+onready var AttackNum := 0	
 func _on_re_AttackTimer_timeout():
 	Attack()
-	
+
+	AttackNum += 1
+	if AttackNum > 3:
+		AttackNum = 0
+		_attackTimer.wait_time = _attackTimer.wait_time - 0.2
 #############
 
 func _on_AttackRange_area_exited(area):
-	if area == TargetArea:
+	if area == Target:
 		_attackTimer.stop()
-		set_physics_process(true)
+
+		MoveTowardsTarget = true
 
 
 func _random_direction() -> Vector2:
-	TargetPos.x = rand_range(self.position.x - 10, self.position.x + 10 )
-	TargetPos.y = rand_range(self.position.y - 10, self.position.y + 10 )
+	
+	TargetPos.x = rand_range(self.position.x - 300, self.position.x + 300 )
+	TargetPos.y = rand_range(self.position.y - 300, self.position.y + 300 )
+	 
 	return TargetPos
 	
 func _on_Vision_area_exited(area):
-	if area == TargetArea:
-		TargetArea = null
+	if area == Target:
+		Target = null
 		HasTarget = false
-		
-		if HasTarget == false:
-			if self.position != _random_direction():
-				print(Velocity)
-				Velocity = _random_direction() - self.position 
-			
+		MoveTowardsTarget = false
+		_patrolTimer.start(0)
+		Velocity = TargetPos - self.position
+
+func _on_patrolTimer_timeout():
+	print(TargetPos, " hi ")
+	_random_direction()
+	Velocity = TargetPos - self.position
