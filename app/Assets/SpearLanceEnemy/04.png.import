@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/05.png-e5bd04276463700b1491b8f5fb9954a9.stex"
+path="res://.import/04.png-a0b9a841c5630275d26af9d3f2a7e17f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/05.png"
-dest_files=[ "res://.import/05.png-e5bd04276463700b1491b8f5fb9954a9.stex" ]
+source_file="res://Assets/SpearLanceEnemy/04.png"
+dest_files=[ "res://.import/04.png-a0b9a841c5630275d26af9d3f2a7e17f.stex" ]
 
 [params]
 

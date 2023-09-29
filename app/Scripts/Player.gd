@@ -28,7 +28,7 @@ func _onready():
 #_____________________#
 func _ready():
 	self.set_meta("Player", true)
-
+	
 #_____________________#
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):

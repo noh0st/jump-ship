@@ -82,13 +82,13 @@ func _apply_damage(amount: int) -> void:
 		queue_free()
 
 
-######## Attacking
+######## Attacking ---- May need refactoring
 
 var HasTarget := false
 func _on_VisionTrigger_area_entered(area):
 	if HasTarget == true:
 		if area != Target:
-			print("not same target")
+			
 			if _targetlocktimer.time_left == 0:
 				_leaptimer.stop()
 				pass
@@ -96,17 +96,17 @@ func _on_VisionTrigger_area_entered(area):
 		if area == Target && _targetlocktimer.time_left > 0:
 			TargetSetter(area)
 			_targetlocktimer.start(0)
-			print("same target")
+			
 	if HasTarget == false:
 		TargetSetter(area)
-		print("new target")
+		
 func TargetSetter(targetArea):
 	Target = targetArea
 	HasTarget = true
 	_walk_direction = Vector2.ZERO
 	_current_state = State.IDLE
 	_leaptimer.start(0)
-	print(TargetDir, targetArea)
+	
 	
 func Leap(LeapPower):
 	move_and_slide(TargetDir.normalized() * LeapPower)
@@ -122,12 +122,12 @@ func _on_LeapTimer_timeout():
 
 
 func _on_VisionTrigger_area_exited(area):
-	print("exit")
+	
 	_targetlocktimer.start(0)
 
 
 func _on_TargetLockTimer_timeout():
-	print("target lost")
+	
 	_leaptimer.stop()
 	Target = null
 	HasTarget = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scenes/EnemySpawner.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Scenes/Map.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/EnemyManager.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/RockTurtle.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/SpearLanceEnemy.tscn" type="PackedScene" id=10]
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=1]
 
@@ -105,6 +106,9 @@ root_node = NodePath("../../..")
 
 [node name="AnimationTree" parent="YSort/Player" index="3"]
 parameters/playback = SubResource( 1 )
+
+[node name="SpearLanceEnemy" parent="." instance=ExtResource( 10 )]
+position = Vector2( 210, -129 )
 
 [connection signal="ChangedStamina" from="YSort/Player" to="HUD" method="_on_Player_ChangedStamina"]
 
