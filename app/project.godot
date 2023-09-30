@@ -17,6 +17,7 @@ config/icon="res://icon.png"
 [autoload]
 
 PlayerStats="*res://Scenes/PlayerStats.tscn"
+BoidsGlobal="*res://Scripts/BoidsGlobal.gd"
 
 [gui]
 

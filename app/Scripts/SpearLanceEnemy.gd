@@ -12,61 +12,79 @@ onready var _attackTimer = $re_AttackTimer
 onready var _patrolTimer = $patrolTimer
 var MoveTowardsTarget := false
 func _ready():
-	set_meta("SpearLanceEnemy", false)
-
+	set_meta("Enemy", false)
+	
 	Velocity = TargetPos - self.position
 	_animationPlayer.play("Idle")
-func _on_Vision_area_entered(area):
 	
-	if area.get_parent().has_meta("SpearLanceEnemy"):
-		pass
-	elif area.get_parent().has_meta("Player"):
-		Target = area
-		MoveTowardsTarget = true
-		HasTarget = true
-		_patrolTimer.stop()
+func _on_Vision_area_entered(area):
+	if HasTarget == false:
 		
+		if area.get_parent().has_meta("Player") or area.get_parent().has_meta("Boid"):
+			Target = area
+			
+			MoveTowardsTarget = true
+			HasTarget = true
+			_patrolTimer.stop()
+	
 		
 func _physics_process(delta):
+	if Target != null && Target.get_parent().has_meta("Boid"):
+		if !BoidsGlobal.AllBoidsArray.has(Target.get_parent()):
+			TargetDead()
+			
 	Move()
-
 	
+func TargetDead():
+	
+	Target = null
+	HasTarget = false
+	MoveTowardsTarget = false
+	_patrolTimer.start(0)
+	Velocity = TargetPos - self.position
 func _on_AttackRange_area_entered(area):
-	if area.get_parent().has_meta("Player"):
+	if area.get_parent().has_meta("Player") or area.get_parent().has_meta("Boid"):
 		Attack()
 		Velocity=Vector2.ZERO
 		MoveTowardsTarget = false
 
 ##########
 func AttackDir():
-	Dir = (Target.get_parent().position - self.position).normalized()
-	print(Dir)
+	
+	if Target.get_parent() != null:
+		Dir = (Target.get_parent().position - self.position).normalized()
+
 	if Dir.x >= 0:
 		_animationPlayer.play("AttackRight")
 	elif Dir.x < 0:
 		_animationPlayer.play("AttackLeft")
 func MovementDir():
+	$HitBoxPivot/Area2D/CollisionShape2D.disabled = true
 	if Dir.x >= 0:
+		
 		_animationPlayer.play("RunRight")
 	elif Dir.x < 0:
 		_animationPlayer.play("RunLeft")
 ##########
 
 func Attack():
-	Velocity=Vector2.ZERO
-	Dir = Velocity.normalized()
-	AttackDir()
-	_attackTimer.start(0)
 
-	
+	if Target != null:
+		Velocity=Vector2.ZERO
+		Dir = Velocity.normalized()
+		AttackDir()
+		_attackTimer.start(0)
+	if Target == null:
+		_attackTimer.stop()
+		
 func Move():
-
+	
 	if Target != null:
 		if HasTarget == true :
 			if MoveTowardsTarget:
 				Velocity = Target.get_parent().position - self.position 
 				MovementDir()
-				move_and_slide(Dir * 70)
+				move_and_slide(Dir * 100)
 			Dir = Velocity.normalized()
 			
 			
@@ -74,9 +92,11 @@ func Move():
 		
 		Dir = Velocity.normalized()
 		MovementDir()
-		move_and_slide(Dir* 70)
+		move_and_slide(Dir* 100)
+		
 onready var AttackNum := 0	
 func _on_re_AttackTimer_timeout():
+	
 	Attack()
 
 	AttackNum += 1
@@ -108,6 +128,6 @@ func _on_Vision_area_exited(area):
 		Velocity = TargetPos - self.position
 
 func _on_patrolTimer_timeout():
-	print(TargetPos, " hi ")
+
 	_random_direction()
 	Velocity = TargetPos - self.position

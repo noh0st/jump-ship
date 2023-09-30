@@ -42,11 +42,12 @@ func HealthCalculations():
 		HpBar.visible = true
 	if health <= 0:
 		health = 0
-		emit_signal("BoidDied", self)
-
+		emit_signal("BoidDied")
+		print(self, "died")
 		PlayerStats.FollowingBoids.remove(PlayerStats.FollowingBoids.find(self))
 		PlayerStats.BoidsCollectedNum = len(PlayerStats.FollowingBoids)
 		boids.remove(boids.find(self))
+		BoidsGlobal.AllBoidsArray.remove(BoidsGlobal.AllBoidsArray.find(self))
 		self.visible = false
 		self.get_parent().remove_child(self)
 		self.set_process(false)
@@ -100,6 +101,7 @@ func find_all_boids():
 		if(c.has_meta("Boid")):
 			if(c.get_meta("Boid")):
 				boids.append(c)
+				BoidsGlobal.AllBoidsArray.append(c)
 	return boids
 	
 	
@@ -175,3 +177,9 @@ func _enemy_moused_over_false(enemy):
 func _on_AwakenBoidTrigger_area_entered(area):
 	if(area.get_collision_layer_bit(4)):
 		DamageBoid(10)
+
+
+func _on_HurtBox_area_entered(area):
+	print(1)
+		
+	DamageBoid(50)
