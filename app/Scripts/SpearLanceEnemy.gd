@@ -17,8 +17,9 @@ func _ready():
 	
 	Velocity = TargetPos - self.position
 	_animationPlayer.play("Idle")
-	
+	PlayerStats.connect("Death", self, "TargetDead")
 func _on_Vision_area_entered(area): #if you dont have target, set a target
+	$Vision/CollisionShape2D.disabled = true
 	if HasTarget == false: 
 		
 		if area.get_parent().has_meta("Player") or area.get_parent().has_meta("Boid"):
@@ -27,13 +28,13 @@ func _on_Vision_area_entered(area): #if you dont have target, set a target
 			MoveTowardsTarget = true
 			HasTarget = true
 			_patrolTimer.stop()
-	
+			
 		
 func _physics_process(delta): #Target death
 	if Target != null && Target.get_parent().has_meta("Boid"):
 		if !BoidsGlobal.AllBoidsArray.has(Target.get_parent()):
 			TargetDead()
-			
+	
 	Move() # movement
 	
 func TargetDead(): #what to do when target dies
@@ -43,11 +44,10 @@ func TargetDead(): #what to do when target dies
 	MoveTowardsTarget = false
 	_patrolTimer.start(0)
 	Velocity = TargetPos - self.position
+	$Vision/CollisionShape2D.disabled = false
 	
-	
-func _on_AttackRange_area_entered(area): #if entered the attack range attacks, 
-	#whether you are target or not, as long as you are a player or boid attacks, can be changed
-	if area.get_parent().has_meta("Player") or area.get_parent().has_meta("Boid"):
+func _on_AttackRange_area_entered(area): #if entered the attack range attacks
+	if area == Target:
 		Attack()
 		Velocity=Vector2.ZERO
 		MoveTowardsTarget = false
@@ -125,13 +125,14 @@ func _random_direction() -> Vector2:
 	return TargetPos
 	
 func _on_Vision_area_exited(area):#if exited vision, immedietly lost aggro
+	$Vision/CollisionShape2D.disabled = false
 	if area == Target:
 		Target = null
 		HasTarget = false
 		MoveTowardsTarget = false
 		_patrolTimer.start(0)
 		Velocity = TargetPos - self.position
-
+		
 func _on_patrolTimer_timeout():
 	#change patrol direction every few seconds
 	_random_direction()

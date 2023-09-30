@@ -7,7 +7,7 @@
 radius = 10.198
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 72.0278
+radius = 140.057
 
 [node name="Enemy" type="KinematicBody2D"]
 collision_layer = 40
@@ -37,13 +37,18 @@ collision_mask = 129
 shape = SubResource( 3 )
 
 [node name="LeapTimer" type="Timer" parent="."]
+wait_time = 0.5
 
 [node name="TargetLockTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 1.5
 one_shot = true
+
+[node name="refreshTimer" type="Timer" parent="."]
+wait_time = 0.5
 
 [connection signal="input_event" from="MouseDetectionTrigger" to="." method="_on_MouseDetectionTrigger_input_event"]
 [connection signal="area_entered" from="VisionTrigger" to="." method="_on_VisionTrigger_area_entered"]
 [connection signal="area_exited" from="VisionTrigger" to="." method="_on_VisionTrigger_area_exited"]
 [connection signal="timeout" from="LeapTimer" to="." method="_on_LeapTimer_timeout"]
 [connection signal="timeout" from="TargetLockTimer" to="." method="_on_TargetLockTimer_timeout"]
+[connection signal="timeout" from="refreshTimer" to="." method="_on_refreshTimer_timeout"]

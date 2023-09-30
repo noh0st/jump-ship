@@ -85,14 +85,13 @@ anims/RockTurtleAttack = SubResource( 3 )
 
 [node name="TurtleVision" type="Area2D" parent="."]
 collision_layer = 32
-collision_mask = 131
+collision_mask = 129
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TurtleVision"]
 position = Vector2( -168.952, -2.81588 )
 shape = SubResource( 5 )
 
 [node name="AttackTimer" type="Timer" parent="."]
-one_shot = true
 
 [node name="Death" parent="." instance=ExtResource( 7 )]
 
@@ -108,7 +107,7 @@ shape = SubResource( 4 )
 
 [node name="DamageZone" type="Area2D" parent="."]
 collision_layer = 8
-collision_mask = 2
+collision_mask = 514
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageZone"]
 position = Vector2( -146.425, 0 )

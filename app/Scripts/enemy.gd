@@ -18,6 +18,7 @@ onready var _health: int = 30
 onready var _current_state: int = State.IDLE
 onready var _timer: Timer = $Timer
 onready var _targetlocktimer: Timer = $TargetLockTimer
+onready var _refreshtimer: Timer = $refreshTimer
 var Target: Area2D 
 
 # Called when the node enters the scene tree for the first time.
@@ -27,14 +28,16 @@ func _ready():
 	_timer.start(rand_range(2, 5))
 	set_meta("Enemy", false)
 
-func _process(delta: float) -> void:
+func _physics_process(delta) -> void:
 	match _current_state:
 		State.IDLE:
 			pass
 		State.WALKING:
 			_process_walking(delta)
-	if Target != null:
-		TargetDir =  Target.get_parent().position - self.position
+	
+	
+		
+
 func _process_walking(delta: float):
 	move_and_collide(_walk_direction * walk_speed * delta)
 		
@@ -86,22 +89,24 @@ func _apply_damage(amount: int) -> void:
 
 var HasTarget := false
 func _on_VisionTrigger_area_entered(area):
-	if HasTarget == true:
-		if area != Target:
-			
-			if _targetlocktimer.time_left == 0:
-				_leaptimer.stop()
+	if area.get_parent().has_meta("Player") or area.get_parent().has_meta("Boid"):
+		if HasTarget == true:
+			if area != Target:
+				
+				if _targetlocktimer.time_left == 0:
+					_leaptimer.stop()
+					pass
 				pass
-			pass
-		if area == Target && _targetlocktimer.time_left > 0:
+			if area == Target && _targetlocktimer.time_left > 0:
+				TargetSetter(area)
+				_targetlocktimer.start(0)
+				
+		if HasTarget == false:
 			TargetSetter(area)
-			_targetlocktimer.start(0)
-			
-	if HasTarget == false:
-		TargetSetter(area)
 		
 func TargetSetter(targetArea):
 	Target = targetArea
+	TargetDir = Target.get_parent().position - self.position
 	HasTarget = true
 	_walk_direction = Vector2.ZERO
 	_current_state = State.IDLE
@@ -112,12 +117,9 @@ func Leap(LeapPower):
 	move_and_slide(TargetDir.normalized() * LeapPower)
 	
 func _on_LeapTimer_timeout():
-	
 	Leap(3000)
-	if Target != null:
-		Leap(3000)
-		
-	
+	$VisionTrigger/VisionCollision.disabled = true	
+	_refreshtimer.start(0)
 
 
 
@@ -133,3 +135,7 @@ func _on_TargetLockTimer_timeout():
 	HasTarget = false
 	_current_state = State.WALKING
 	_walk_direction = _random_normalized_direction()
+
+
+func _on_refreshTimer_timeout():
+	$VisionTrigger/VisionCollision.disabled = false

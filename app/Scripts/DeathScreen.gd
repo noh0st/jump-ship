@@ -11,7 +11,7 @@ func _ready():
 func _on_QuitButton_pressed():
 	print("EXIT")
 	PlayerStats.ResetValues()
-	var main_menu_instance : Node = main_menu_scene.instance()
+
 	get_tree().change_scene("res://Scenes/MainMenu.tscn")
 	
 	
@@ -25,5 +25,5 @@ func _on_RestartButton_pressed():
  
 func _on_PlayerStats_Death():
 	print("died")
-	get_tree().paused = true	
+	
 	visible = true# Replace with function body.
