@@ -5,6 +5,7 @@
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=3]
 [ext_resource path="res://Assets/LilKing.png" type="Texture" id=4]
 [ext_resource path="res://Scripts/CameraZoom.gd" type="Script" id=5]
+[ext_resource path="res://Scenes/BoidFlock.tscn" type="PackedScene" id=6]
 
 [sub_resource type="CapsuleShape2D" id=13]
 radius = 7.0
@@ -161,6 +162,7 @@ smoothing_enabled = true
 smoothing_speed = 7.0
 script = ExtResource( 5 )
 
+[node name="BoidFlock" parent="." instance=ExtResource( 6 )]
 [node name="PlayerArea" type="Area2D" parent="."]
 collision_mask = 96
 
@@ -168,12 +170,12 @@ collision_mask = 96
 position = Vector2( 0, 9 )
 scale = Vector2( 1, 0.479999 )
 shape = SubResource( 25 )
-
 [connection signal="timeout" from="StaminaTimer" to="." method="_on_Timer_timeout"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
 [connection signal="Death" from="PlayerStats" to="." method="_on_PlayerStats_Death"]
 [connection signal="healthChange" from="PlayerStats" to="." method="_on_PlayerStats_healthChange"]
 [connection signal="staminaChange" from="PlayerStats" to="." method="_on_PlayerStats_staminaChange"]
+[connection signal="boid_count_update" from="BoidFlock" to="." method="_on_BoidFlock_boid_count_update"]
 
 [editable path="HurtBox"]
 [editable path="PlayerStats"]

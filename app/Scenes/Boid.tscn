@@ -23,7 +23,6 @@ max_speed = 200.0
 cohesion_force = 2.0
 separation_force = 20.0
 alignment_force = 0.002
-follow_force = 5.0
 separation_threshold = 10.0
 
 [node name="Sprite" type="Sprite" parent="."]

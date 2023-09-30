@@ -16,15 +16,14 @@ func _on_QuitButton_pressed():
 	
 	
 
-
-
 func _on_RestartButton_pressed():
 	PlayerStats.ResetValues()
+	get_tree().paused = false	
 	get_tree().reload_current_scene()
 	get_tree().change_scene("res://Scenes/Main.tscn")
 	
  
-
 func _on_PlayerStats_Death():
 	print("died")
+	get_tree().paused = true	
 	visible = true# Replace with function body.
