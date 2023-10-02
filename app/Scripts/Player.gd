@@ -22,6 +22,7 @@ onready var sectimer = $StaminaRegenPause
 onready var animationPlayer = $AnimationPlayer
 onready var animationTree = $AnimationTree
 onready var boid_flock = $BoidFlock
+export var initialBoidNum := 3
 #_____________________#
 func _onready():
 	PlayerStats.Stamina = PlayerStats.MaxStamina # set stamina to the max value of stamina in the stats script
@@ -30,9 +31,9 @@ func _onready():
 #_____________________#
 func _ready():
 	boid_flock.owner = self
-	boid_flock.spawn_boid()
-	boid_flock.spawn_boid()
-	boid_flock.spawn_boid()
+	for i in range(0, initialBoidNum):
+		boid_flock.spawn_boid()
+		i += 1
 		
 	self.set_meta("Player", true)
 	

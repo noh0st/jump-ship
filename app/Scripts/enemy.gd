@@ -19,6 +19,9 @@ onready var _current_state: int = State.IDLE
 onready var _timer: Timer = $Timer
 onready var _targetlocktimer: Timer = $TargetLockTimer
 onready var _refreshtimer: Timer = $refreshTimer
+onready var _animationplayer = $AnimationPlayer
+onready var _animationtree = $AnimationTree
+onready var _animationstate = _animationtree.get("parameters/playback")
 var Target: Area2D 
 
 # Called when the node enters the scene tree for the first time.
@@ -27,7 +30,7 @@ func _ready():
 	_timer.connect("timeout", self, "_on_timer_timeout")
 	_timer.start(rand_range(2, 5))
 	set_meta("Enemy", false)
-
+	_animationstate.travel("Idle")
 func _physics_process(delta) -> void:
 	match _current_state:
 		State.IDLE:
@@ -35,9 +38,12 @@ func _physics_process(delta) -> void:
 		State.WALKING:
 			_process_walking(delta)
 	
-	
+	_animationtree.set("parameters/Attack/blend_position", TargetDir.normalized().x)
+	_animationtree.set("parameters/Idle/blend_position", TargetDir.normalized().x)
+	_animationtree.set("parameters/Leap/blend_position", TargetDir.normalized().x)
+	_animationtree.set("parameters/Walk/blend_position", TargetDir.normalized().x)
 		
-
+	
 func _process_walking(delta: float):
 	move_and_collide(_walk_direction * walk_speed * delta)
 		
@@ -117,16 +123,17 @@ func Leap(LeapPower):
 	move_and_slide(TargetDir.normalized() * LeapPower)
 	
 func _on_LeapTimer_timeout():
+	_animationstate.travel("Leap")
 	Leap(3000)
 	$VisionTrigger/VisionCollision.disabled = true	
 	_refreshtimer.start(0)
-
+	
 
 
 func _on_VisionTrigger_area_exited(area):
 	
 	_targetlocktimer.start(0)
-
+	_animationstate.travel("Idle")
 
 func _on_TargetLockTimer_timeout():
 	
@@ -138,4 +145,6 @@ func _on_TargetLockTimer_timeout():
 
 
 func _on_refreshTimer_timeout():
+	print(TargetDir.normalized().x, _animationtree.get("parameters/Leap/blend_position"))
+	_animationstate.travel("Idle")
 	$VisionTrigger/VisionCollision.disabled = false

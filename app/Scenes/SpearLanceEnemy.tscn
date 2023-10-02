@@ -330,9 +330,15 @@ collision_mask = 64
 position = Vector2( 3.48808, 20.9285 )
 shape = SubResource( 11 )
 
+[node name="TargetLockOnTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]
 [connection signal="area_entered" from="Vision" to="." method="_on_Vision_area_entered"]
 [connection signal="area_exited" from="Vision" to="." method="_on_Vision_area_exited"]
 [connection signal="area_entered" from="AttackRange" to="." method="_on_AttackRange_area_entered"]
 [connection signal="area_exited" from="AttackRange" to="." method="_on_AttackRange_area_exited"]
 [connection signal="timeout" from="re_AttackTimer" to="." method="_on_re_AttackTimer_timeout"]
 [connection signal="timeout" from="patrolTimer" to="." method="_on_patrolTimer_timeout"]
+[connection signal="timeout" from="TargetLockOnTimer" to="." method="_on_TargetLockOnTimer_timeout"]

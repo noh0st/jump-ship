@@ -4,19 +4,22 @@ extends KinematicBody2D
 var TargetPos: Vector2
 var Velocity := Vector2.ZERO
 var Target : Area2D
-
+var OverlappingTargetArray:= []
 var Dir := Vector2.ZERO
 var HasTarget := false
 onready var _animationPlayer = $AnimationPlayer
 onready var _attackTimer = $re_AttackTimer
 onready var _patrolTimer = $patrolTimer
+onready var _targetLockTimer = $TargetLockOnTimer
 var MoveTowardsTarget := false
-
+var isAttackingAnimation :=false
 func _ready():
+	_random_direction()
 	set_meta("Enemy", false)
-	
+	isAttackingAnimation = false
 	Velocity = TargetPos - self.position
 	_animationPlayer.play("Idle")
+	Move()
 	PlayerStats.connect("Death", self, "TargetDead")
 func _on_Vision_area_entered(area): #if you dont have target, set a target
 	$Vision/CollisionShape2D.disabled = true
@@ -34,7 +37,7 @@ func _physics_process(delta): #Target death
 	if Target != null && Target.get_parent().has_meta("Boid"):
 		if !BoidsGlobal.AllBoidsArray.has(Target.get_parent()):
 			TargetDead()
-	
+	print(_targetLockTimer.time_left)
 	Move() # movement
 	
 func TargetDead(): #what to do when target dies
@@ -45,7 +48,7 @@ func TargetDead(): #what to do when target dies
 	_patrolTimer.start(0)
 	Velocity = TargetPos - self.position
 	$Vision/CollisionShape2D.disabled = false
-	
+	_targetLockTimer.start()
 func _on_AttackRange_area_entered(area): #if entered the attack range attacks
 	if area == Target:
 		Attack()
@@ -64,12 +67,12 @@ func AttackDir():
 		_animationPlayer.play("AttackLeft")
 func MovementDir():
 	#find direction of movement
-	$HitBoxPivot/Area2D/CollisionShape2D.disabled = true
-	if Dir.x >= 0:
-		
-		_animationPlayer.play("RunRight")
-	elif Dir.x < 0:
-		_animationPlayer.play("RunLeft")
+	if(!isAttackingAnimation):
+		if Dir.x >= 0:
+			
+			_animationPlayer.play("RunRight")
+		elif Dir.x < 0:
+			_animationPlayer.play("RunLeft")
 ##########
 
 func Attack():
@@ -87,9 +90,10 @@ func Move():
 	if Target != null:
 		if HasTarget == true :
 			if MoveTowardsTarget:
-				Velocity = Target.get_parent().position - self.position 
-				MovementDir()
-				move_and_slide(Dir * 100)
+				if(!isAttackingAnimation):
+					Velocity = Target.get_parent().position - self.position 
+					MovementDir()
+					move_and_slide(Dir * 100)
 			Dir = Velocity.normalized()
 			
 			
@@ -125,15 +129,34 @@ func _random_direction() -> Vector2:
 	return TargetPos
 	
 func _on_Vision_area_exited(area):#if exited vision, immedietly lost aggro
-	$Vision/CollisionShape2D.disabled = false
+	
 	if area == Target:
 		Target = null
 		HasTarget = false
 		MoveTowardsTarget = false
 		_patrolTimer.start(0)
 		Velocity = TargetPos - self.position
+		_targetLockTimer.start(0)
 		
 func _on_patrolTimer_timeout():
 	#change patrol direction every few seconds
+	
 	_random_direction()
 	Velocity = TargetPos - self.position
+
+
+func _on_TargetLockOnTimer_timeout():
+	if $Vision/CollisionShape2D.disabled == true:
+		$Vision/CollisionShape2D.disabled = false
+	elif $Vision/CollisionShape2D.disabled == false:
+		$Vision/CollisionShape2D.disabled = true
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "AttackLeft" or anim_name =="AttackRight":
+		isAttackingAnimation = false
+
+
+func _on_AnimationPlayer_animation_started(anim_name):
+	if anim_name == "AttackLeft" or anim_name =="AttackRight":
+		isAttackingAnimation = true
