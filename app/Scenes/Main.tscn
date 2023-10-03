@@ -19,13 +19,14 @@
 [node name="Player" parent="." instance=ExtResource( 2 )]
 
 [node name="Sprite" parent="Player" index="1"]
+light_mask = 513
 scale = Vector2( 1, -1 )
 
 [node name="AnimationTree" parent="Player" index="3"]
 parameters/playback = SubResource( 1 )
 
 [node name="Map" parent="." instance=ExtResource( 7 )]
-position = Vector2( 1, 126 )
+position = Vector2( -108, 89 )
 
 [node name="Death" parent="." instance=ExtResource( 4 )]
 
