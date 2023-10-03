@@ -1,0 +1,128 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scripts/MainMenu.gd" type="Script" id=1]
+[ext_resource path="res://BebasNeue-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Scenes/PlayerMainMenu.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/main menu backround.PNG" type="Texture" id=4]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.784314, 0.105882, 0.105882, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="DynamicFont" id=3]
+size = 25
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 33
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 113
+outline_size = 3
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.407843, 0.737255, 0.705882, 1 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+margin_right = 1024.0
+margin_bottom = 600.0
+rect_pivot_offset = Vector2( 430, 404 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
+margin_left = 460.0
+margin_top = 293.0
+margin_right = 564.0
+margin_bottom = 307.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
+margin_right = 104.0
+margin_bottom = 14.0
+size_flags_vertical = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer"]
+margin_right = 104.0
+margin_bottom = 14.0
+size_flags_horizontal = 0
+size_flags_vertical = 3
+
+[node name="MainMenuBackround" type="Sprite" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/CenterContainer"]
+position = Vector2( 59, 304 )
+scale = Vector2( 2.58216, 2.92528 )
+texture = ExtResource( 4 )
+
+[node name="Button" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/CenterContainer"]
+margin_right = 104.0
+margin_bottom = 14.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_styles/normal = SubResource( 1 )
+text = "                          "
+
+[node name="Label2" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/CenterContainer/Button"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -40.0
+margin_top = -14.0
+margin_right = 45.0
+margin_bottom = 17.0
+custom_fonts/font = SubResource( 3 )
+text = "play game"
+
+[node name="DashTutorial" type="Label" parent="."]
+anchor_left = 0.939
+anchor_top = 0.951
+anchor_right = 0.939
+anchor_bottom = 0.951
+margin_left = -213.536
+margin_top = 11.4001
+margin_right = 67.464
+margin_bottom = 51.4001
+custom_fonts/font = SubResource( 4 )
+text = "Tip: Press \"Space\" to dash"
+align = 1
+valign = 1
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.215
+anchor_right = 0.5
+anchor_bottom = 0.215
+margin_left = -327.0
+margin_top = -68.0
+margin_right = 357.0
+margin_bottom = 207.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "backstreet boids²
+"
+align = 1
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+position = Vector2( 512, 305 )
+
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/CenterContainer/Button" to="." method="_on_PlayButton_pressed"]
