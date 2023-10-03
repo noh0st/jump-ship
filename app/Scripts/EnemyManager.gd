@@ -3,10 +3,12 @@ extends Node
 var _enemies = []
 const Enemy: PackedScene = preload("res://Scenes/Enemy.tscn")
 const RockTurtle: PackedScene = preload("res://Scenes/RockTurtle.tscn")
+const SpearEnemy: PackedScene = preload("res://Scenes/SpearLanceEnemy.tscn")
 
 enum Type {
 	ENEMY,
 	ROCK_TURTLE,
+	SPEAR
 }
 
 # manages pools for each enemy type
@@ -15,15 +17,17 @@ enum Type {
 func spawn(type: int) -> Node:
 	match type:
 		Type.ENEMY:
-			return spawn_enemy()
+			return _spawn_enemy()
 		Type.ROCK_TURTLE:
-			return spawn_rock_turtle()
+			return _spawn_rock_turtle()
+		Type.SPEAR:
+			return _spawn_spear()
 		_:
 			print("ERROR: type not valid %d" % type)
-			return spawn_enemy()
+			return _spawn_enemy()
 
 
-func spawn_enemy() -> Node:
+func _spawn_enemy() -> Node:
 	var new_enemy: Node = Enemy.instance()
 	_enemies.append(new_enemy)
 	add_child(new_enemy)
@@ -31,8 +35,15 @@ func spawn_enemy() -> Node:
 	return new_enemy
 
 
-func spawn_rock_turtle() -> Node:
+func _spawn_rock_turtle() -> Node:
 	var new_enemy: Node = RockTurtle.instance()
+	_enemies.append(new_enemy)
+	add_child(new_enemy)
+	
+	return new_enemy
+
+func _spawn_spear() -> Node:
+	var new_enemy: Node = SpearEnemy.instance()
 	_enemies.append(new_enemy)
 	add_child(new_enemy)
 	

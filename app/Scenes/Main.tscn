@@ -8,7 +8,7 @@
 [ext_resource path="res://Scenes/PauseMenu.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Map.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/EnemyManager.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Scenes/SpearLanceEnemy.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/SpearEnemySpawner.tscn" type="PackedScene" id=9]
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=1]
 
@@ -23,6 +23,8 @@
 [node name="Death" parent="." instance=ExtResource( 4 )]
 
 [node name="EnemyManager" parent="." instance=ExtResource( 8 )]
+
+[node name="SpearEnemySpawner" parent="." instance=ExtResource( 9 )]
 
 [node name="EnemySpawner" parent="." instance=ExtResource( 1 )]
 
@@ -41,9 +43,6 @@ root_node = NodePath("../../..")
 
 [node name="AnimationTree" parent="YSort/Player" index="3"]
 parameters/playback = SubResource( 1 )
-
-[node name="SpearLanceEnemy" parent="." instance=ExtResource( 10 )]
-position = Vector2( 210, -129 )
 
 [connection signal="ChangedStamina" from="YSort/Player" to="HUD" method="_on_Player_ChangedStamina"]
 
