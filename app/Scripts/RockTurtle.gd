@@ -40,7 +40,6 @@ func _on_AttackTimer_timeout():
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
-	print("done")
 	Target = null
 	HasTarget = false
 

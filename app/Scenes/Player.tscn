@@ -130,7 +130,6 @@ shape = SubResource( 13 )
 texture = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../..")
 anims/DownWalk = SubResource( 14 )
 anims/LeftWalk = SubResource( 15 )
 anims/RightWalk = SubResource( 16 )

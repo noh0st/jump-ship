@@ -13,7 +13,7 @@
 resource_name = "AttackLeft"
 length = 0.4
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:scale")
+tracks/0/path = NodePath("Sprite:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -21,23 +21,23 @@ tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( -1, 1 ), Vector2( -1, 1 ), Vector2( -1, 1 ), Vector2( -1, 1 ), Vector2( -1, 1 ) ]
+"update": 1,
+"values": [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:texture")
+tracks/1/path = NodePath("HitBoxPivot/Area2D/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0.06, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 1 ) ]
+"values": [ false, false, false, true ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("HitBoxPivot/Area2D/CollisionShape2D:disabled")
+tracks/2/path = NodePath("HitBoxPivot:rotation_degrees")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -46,27 +46,15 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ false, false, false, false, true ]
+"values": [ 0.0, -90.0, 180.0, 90.0, 90.0 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("HitBoxPivot:rotation_degrees")
+tracks/3/path = NodePath("HitBoxPivot:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0.0, -90.0, 180.0, 90.0, 90.0 ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("HitBoxPivot:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
@@ -89,36 +77,24 @@ tracks/0/keys = {
 "values": [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:scale")
+tracks/1/path = NodePath("HitBoxPivot:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("HitBoxPivot:rotation_degrees")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 180.0, -90.0, 0.0, 90.0, 90.0 ]
 }
-tracks/3/type = "value"
-tracks/3/path = NodePath("HitBoxPivot/Area2D/CollisionShape2D:disabled")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
+tracks/2/type = "value"
+tracks/2/path = NodePath("HitBoxPivot/Area2D/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
@@ -145,7 +121,7 @@ tracks/0/keys = {
 [sub_resource type="Animation" id=2]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:scale")
+tracks/0/path = NodePath("Sprite:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -154,10 +130,10 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -1, 1 ) ]
+"values": [ ExtResource( 3 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:texture")
+tracks/1/path = NodePath("HitBoxPivot:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -166,10 +142,10 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ ExtResource( 3 ) ]
+"values": [ -90.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("HitBoxPivot:rotation_degrees")
+tracks/2/path = NodePath("HitBoxPivot:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -178,27 +154,15 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ -90.0 ]
+"values": [ Vector2( 0, 0 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("HitBoxPivot:position")
+tracks/3/path = NodePath("HitBoxPivot/Area2D/CollisionShape2D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("HitBoxPivot/Area2D/CollisionShape2D:disabled")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
@@ -210,24 +174,12 @@ resource_name = "RunLeft"
 length = 0.2
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:scale")
+tracks/0/path = NodePath("Sprite:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ Vector2( -1, 1 ), Vector2( -1, 1 ), Vector2( -1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:texture")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
@@ -250,38 +202,25 @@ tracks/0/keys = {
 "update": 1,
 "values": [ ExtResource( 3 ), ExtResource( 2 ), ExtResource( 1 ) ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 1, 1 ) ]
-}
 
 [sub_resource type="CircleShape2D" id=6]
-radius = 15.4107
+radius = 23.57
 
 [sub_resource type="CircleShape2D" id=7]
-radius = 649.007
+radius = 200.0
 
 [sub_resource type="CircleShape2D" id=9]
-radius = 230.239
+radius = 50.0
 
 [sub_resource type="CapsuleShape2D" id=11]
-radius = 41.8569
-height = 196.261
+radius = 30.85
+height = 25.59
 
 [node name="SpearLanceEnemy" type="KinematicBody2D"]
-scale = Vector2( 0.286691, 0.286691 )
 script = ExtResource( 8 )
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( -1, 1 )
+scale = Vector2( -0.25, 0.25 )
 texture = ExtResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -296,12 +235,12 @@ anims/RunRight = SubResource( 3 )
 rotation = -1.5708
 
 [node name="Area2D" type="Area2D" parent="HitBoxPivot"]
+position = Vector2( -36.593, -8.07 )
 collision_layer = 8
 collision_mask = 642
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxPivot/Area2D"]
-position = Vector2( -160, 1 )
-scale = Vector2( -6.79942, 12.6152 )
+position = Vector2( 1, 1 )
 shape = SubResource( 6 )
 disabled = true
 
@@ -322,16 +261,26 @@ wait_time = 2.0
 wait_time = 3.0
 autostart = true
 
+[node name="TargetLockOnTimer" type="Timer" parent="."]
+wait_time = 0.5
+
 [node name="Collisions" type="Area2D" parent="."]
 collision_layer = 32
 collision_mask = 64
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions"]
-position = Vector2( 3.48808, 20.9285 )
+position = Vector2( -0.085, 7.346 )
 shape = SubResource( 11 )
 
-[node name="TargetLockOnTimer" type="Timer" parent="."]
-wait_time = 0.5
+[node name="DebugUI" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Text" type="RichTextLabel" parent="DebugUI"]
+margin_left = -47.0
+margin_top = -45.0
+margin_right = 44.0
+margin_bottom = 47.0
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]

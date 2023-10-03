@@ -1,162 +1,272 @@
 extends KinematicBody2D
 
 
-var TargetPos: Vector2
-var Velocity := Vector2.ZERO
-var Target : Area2D
-var OverlappingTargetArray:= []
+var Target : Node
 var Dir := Vector2.ZERO
-var HasTarget := false
+
 onready var _animationPlayer = $AnimationPlayer
-onready var _attackTimer = $re_AttackTimer
+onready var _cooldownTimer = $re_AttackTimer
 onready var _patrolTimer = $patrolTimer
 onready var _targetLockTimer = $TargetLockOnTimer
-var MoveTowardsTarget := false
-var isAttackingAnimation :=false
+
+onready var _current_state: int = State.PATROLLING setget set_current_state
+onready var _attack_state: int = AttackState.COOLING setget set_attack_state
+
+enum State {
+	PATROLLING,
+	APPROACHING,
+	ATTACKING
+}
+
+enum AttackState {
+	ATTACKING,
+	COOLING
+}
+
 func _ready():
-	_random_direction()
 	set_meta("Enemy", false)
-	isAttackingAnimation = false
-	Velocity = TargetPos - self.position
+	
+	self._current_state = State.PATROLLING
+	
 	_animationPlayer.play("Idle")
-	Move()
-	PlayerStats.connect("Death", self, "TargetDead")
-func _on_Vision_area_entered(area): #if you dont have target, set a target
-	$Vision/CollisionShape2D.disabled = true
-	if HasTarget == false: 
-		
-		if area.get_parent().has_meta("Player") or area.get_parent().has_meta("Boid"):
-			Target = area
-			
-			MoveTowardsTarget = true
-			HasTarget = true
-			_patrolTimer.stop()
-			
-		
+	
+const VISION_RANGE: int = 250
+const ATTACK_RANGE: int = 50
+
+	
 func _physics_process(delta): #Target death
-	if Target != null && Target.get_parent().has_meta("Boid"):
-		if !BoidsGlobal.AllBoidsArray.has(Target.get_parent()):
-			TargetDead()
-	print(_targetLockTimer.time_left)
-	Move() # movement
+	match _current_state:
+		State.PATROLLING:
+			var speed = 100
+			PlayRunAnimationDirection(Dir)
+			move_and_slide(Dir * speed)
+		State.APPROACHING:
+			process_approaching(delta)
+		State.ATTACKING:
+			process_attacking(delta)
+			
 	
-func TargetDead(): #what to do when target dies
+func process_approaching(delta) -> void:
+	if not (is_instance_valid(Target)):
+		print(Target)
+		print("target not valid - approaching")
+		self._current_state = State.PATROLLING
+		return
 	
-	Target = null
-	HasTarget = false
-	MoveTowardsTarget = false
-	_patrolTimer.start(0)
-	Velocity = TargetPos - self.position
-	$Vision/CollisionShape2D.disabled = false
-	_targetLockTimer.start()
-func _on_AttackRange_area_entered(area): #if entered the attack range attacks
-	if area == Target:
-		Attack()
-		Velocity=Vector2.ZERO
-		MoveTowardsTarget = false
+	if Target.position.distance_to(position) > VISION_RANGE:
+		print("target out of range")
+		self._current_state = State.PATROLLING
+		return
+
+	if Target.position.distance_to(position) < ATTACK_RANGE:
+		print("APPROACH IN RANGE")
+		self._current_state = State.ATTACKING
+		return
+		
+	var direction = (Target.position - position).normalized()
+	var speed = 100
+	PlayRunAnimationDirection(direction)
+	move_and_slide(direction * speed)
+	
+	
+func process_attacking(delta) -> void:
+	match _attack_state:
+		AttackState.ATTACKING:
+			pass
+		AttackState.COOLING:
+			return
+			if Target.position.distance_to(position) > ATTACK_RANGE + 10: # extra buffer
+				self._current_state = State.APPROACHING
+			
+
+func set_current_state(value: int) -> void:
+	match value:
+		State.PATROLLING:
+			if _current_state == value:
+				return
+			
+			_current_state = value
+			
+			Dir = _random_direction()
+			Target = null
+			#$HitBoxPivot/Area2D/CollisionShape2D.set_deferred("disabled",  true)
+			#$Vision/CollisionShape2D.set_deferred("disabled",  false)
+			_patrolTimer.start()
+			_cooldownTimer.stop()
+		State.APPROACHING:
+			if _current_state == value:
+				return
+			
+			_current_state = value
+			
+			#$Vision/CollisionShape2D.set_deferred("disabled",  true)
+			#$HitBoxPivot/Area2D/CollisionShape2D.set_deferred("disabled",  true)
+			_cooldownTimer.stop()
+			_patrolTimer.stop()
+			_patrolTimer.stop()
+		State.ATTACKING:					
+			_current_state = value
+			self._attack_state = AttackState.ATTACKING
+			Dir = Vector2(0,0)
+			
+	$DebugUI/Text.text = "state: %d \nattack_state %d" % [_current_state, _attack_state]
+	
+			
+func set_attack_state(value: int) -> void:
+	if _attack_state == value:
+		return
+	
+	_attack_state = value
+	
+	$DebugUI/Text.text = "state: %d \nattack_state %d" % [_current_state, _attack_state]
+	
+	match value:
+		AttackState.ATTACKING:
+
+			#$HitBoxPivot/Area2D/CollisionShape2D.set_deferred("disabled",  true)
+			#$Vision/CollisionShape2D.set_deferred("disabled",  false)
+			
+			PlayAttackAnimation()
+		AttackState.COOLING:
+
+			
+			#$Vision/CollisionShape2D.set_deferred("disabled",  true)
+			$HitBoxPivot/Area2D/CollisionShape2D.set_deferred("disabled",  true)
+			_cooldownTimer.start(2.0)
+			pass
 
 ##########
-func AttackDir():
+func PlayAttackAnimation():
 	#find direction of attack
-	if Target.get_parent() != null:
-		Dir = (Target.get_parent().position - self.position).normalized()
+	if not (is_instance_valid(Target)):
+		return
+		
+	var direction = (Target.position - self.position).normalized()
 
-	if Dir.x >= 0:
+	if direction.x >= 0:
 		_animationPlayer.play("AttackRight")
-	elif Dir.x < 0:
+	else:
 		_animationPlayer.play("AttackLeft")
-func MovementDir():
-	#find direction of movement
-	if(!isAttackingAnimation):
-		if Dir.x >= 0:
-			
-			_animationPlayer.play("RunRight")
-		elif Dir.x < 0:
-			_animationPlayer.play("RunLeft")
-##########
+		
+		
+func PlayRunAnimationDirection(direction: Vector2):
+	if direction.x >= 0:
+		_animationPlayer.play("RunRight")
+	else:
+		_animationPlayer.play("RunLeft")
 
-func Attack():
+
+func Attack():		
+	print("attacking")
+	self._current_state = State.ATTACKING
+	
 	#attacking - stops the attacks, the hitboxes are controlled through the animation player
-	if Target != null:
-		Velocity=Vector2.ZERO
-		Dir = Velocity.normalized()
-		AttackDir()
-		_attackTimer.start(0)
-	if Target == null:
-		_attackTimer.stop()
+
+
 		
-func Move():
-	# how to move, if have target move towards, else patrol in a random direction
-	if Target != null:
-		if HasTarget == true :
-			if MoveTowardsTarget:
-				if(!isAttackingAnimation):
-					Velocity = Target.get_parent().position - self.position 
-					MovementDir()
-					move_and_slide(Dir * 100)
-			Dir = Velocity.normalized()
-			
-			
-	if HasTarget == false:
-		
-		Dir = Velocity.normalized()
-		MovementDir()
-		move_and_slide(Dir* 100)
-		
+func _random_direction() -> Vector2:
+	var angle = rand_range(0, 2 * PI)
+	return Vector2(cos(angle), sin(angle)).normalized()
+	
+	
+	############ SIGNALS #################
+	
+	
 onready var AttackNum := 0	
 func _on_re_AttackTimer_timeout():
+	if _current_state != State.ATTACKING:
+		print("attack timer went off while not attacking")
+		return
+		
 	#attacking , won't stop unless you exit the attacking range
-	Attack()
+	match _attack_state:
+		AttackState.ATTACKING:
+			pass
+		AttackState.COOLING:
+			if not (is_instance_valid(Target)):
+				print("target not valid - cooling")
+				self._current_state = State.PATROLLING
+				return
+					
+			if Target.position.distance_to(position) > ATTACK_RANGE + 10: # extra buffer
+				self._current_state = State.APPROACHING
+				return
+			
+			Attack()
+			AttackNum += 1
+			if AttackNum > 3:
+				AttackNum = 0
+				_cooldownTimer.wait_time = _cooldownTimer.wait_time - 0.2
+	
 
-	AttackNum += 1
-	if AttackNum > 3:
-		AttackNum = 0
-		_attackTimer.wait_time = _attackTimer.wait_time - 0.2
-#############
+func _on_Vision_area_entered(area: Node) -> void: #if you dont have target, set a target
+	match _current_state:
+		State.PATROLLING:
+			if area.get_parent().has_meta("Player") or area.get_parent().has_meta("Boid"):
+				Target = area.get_parent()
+				print("setting target")
+				print(Target.position)
+				print(Target)
+				self._current_state = State.APPROACHING
+			else:
+				print("area is not player nor boid")
+		
+	
+func _on_AttackRange_area_entered(area): #if entered the attack range attacks
+	if area.get_parent() != Target: # or should this become the new target?
+		return
+	
+	match _current_state:
+		State.ATTACKING:
+			pass
+		_: 
+			Attack()
+
 
 func _on_AttackRange_area_exited(area):# if you exit, stops attacking and follows you
-	if area == Target:
-		_attackTimer.stop()
-
-		MoveTowardsTarget = true
-
-
-func _random_direction() -> Vector2:
-	#random patrol direction movement
-	TargetPos.x = rand_range(self.position.x - 300, self.position.x + 300 )
-	TargetPos.y = rand_range(self.position.y - 300, self.position.y + 300 )
-	 
-	return TargetPos
+	if area.get_parent() != Target:
+		return
 	
-func _on_Vision_area_exited(area):#if exited vision, immedietly lost aggro
+	match _current_state:
+		State.ATTACKING:
+			match _attack_state:
+				AttackState.ATTACKING:
+					pass
+				AttackState.COOLING:
+					self._current_state = State.APPROACHING
+			pass
+		_: 
+			print("target left attack range but was not in attack state")
+			self._current_state = State.APPROACHING
+
 	
-	if area == Target:
-		Target = null
-		HasTarget = false
-		MoveTowardsTarget = false
-		_patrolTimer.start(0)
-		Velocity = TargetPos - self.position
-		_targetLockTimer.start(0)
-		
-func _on_patrolTimer_timeout():
+func _on_patrolTimer_timeout() -> void:
 	#change patrol direction every few seconds
-	
-	_random_direction()
-	Velocity = TargetPos - self.position
+	match _current_state:
+		State.PATROLLING:
+			Dir = _random_direction() # change direction
+		_:
+			print("patrol timer was running while not patrolling")
+			_patrolTimer.stop()
 
-
+# ??
 func _on_TargetLockOnTimer_timeout():
-	if $Vision/CollisionShape2D.disabled == true:
-		$Vision/CollisionShape2D.disabled = false
-	elif $Vision/CollisionShape2D.disabled == false:
-		$Vision/CollisionShape2D.disabled = true
+	pass #$Vision/CollisionShape2D.disabled = !$Vision/CollisionShape2D.disabled 
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "AttackLeft" or anim_name =="AttackRight":
-		isAttackingAnimation = false
+		match _current_state:
+			State.ATTACKING:
+				# self._current_state = State.APPROACHING
+				match _attack_state:
+					AttackState.ATTACKING:
+						print("COOL DOWN")
+						self._attack_state = AttackState.COOLING
+			_:
+				print("attack timer finished while not in attack state")
 
 
 func _on_AnimationPlayer_animation_started(anim_name):
-	if anim_name == "AttackLeft" or anim_name =="AttackRight":
-		isAttackingAnimation = true
+	# self._current_state = State.ATTACKING ?
+	pass

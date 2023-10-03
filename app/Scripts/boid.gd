@@ -61,12 +61,11 @@ func _ready():
 	BoidsGlobal.AllBoidsArray.append(self)
 	HpBar.value = 100
 	health = MaxHealth
-	#self.set_meta("Boid", false)
 	# these were breaking the game, because there are no enemies at the start of the game
 	#get_parent().get_node("Enemy").connect("_enemy_moused_over_true", self, "_enemy_moused_over_true") 
 	#get_parent().get_node("Enemy").connect("_enemy_moused_over_false", self, "_enemy_moused_over_false") 
 	health_calculation()
-	set_meta("Boid", false)
+	set_meta("Boid", true)
 
 func _physics_process(delta):
 	#this part is for the boids to maybe stay asleep till the player touches them
