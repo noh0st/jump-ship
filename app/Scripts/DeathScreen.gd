@@ -24,6 +24,13 @@ func _on_RestartButton_pressed():
 	
  
 func _on_PlayerStats_Death():
+	death()
+
+func death():
 	print("died")
 	get_tree().paused = true
 	visible = true# Replace with function body.
+
+func _on_Player_player_boid_count_update(new_value):
+	if new_value == 0:
+		death()
