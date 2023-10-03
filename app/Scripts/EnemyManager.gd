@@ -1,7 +1,7 @@
 extends Node
 
 var _enemies = []
-const Enemy: PackedScene = preload("res://Scenes/RatEnemy.tscn")
+const Enemy: PackedScene = preload("res://Scenes/Enemy.tscn")
 
 # Function to spawn a new enemy
 func spawn_enemy() -> Node:
