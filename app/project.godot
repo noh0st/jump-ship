@@ -18,6 +18,17 @@ config/icon="res://icon.png"
 
 PlayerStats="*res://Scenes/PlayerStats.tscn"
 
+[display]
+
+window/size/width=1280
+window/size/height=700
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
+
+[global]
+
+resolution=false
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
