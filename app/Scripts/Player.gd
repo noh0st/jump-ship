@@ -22,6 +22,7 @@ onready var sectimer = $StaminaRegenPause
 onready var animationPlayer = $AnimationPlayer
 onready var animationTree = $AnimationTree
 onready var boid_flock = $BoidFlock
+export var initialBoidNum := 3
 #_____________________#
 func _onready():
 	PlayerStats.Stamina = PlayerStats.MaxStamina # set stamina to the max value of stamina in the stats script
@@ -30,13 +31,12 @@ func _onready():
 #_____________________#
 func _ready():
 	boid_flock.owner = self
-	boid_flock.spawn_boid()
-	boid_flock.spawn_boid()
-	boid_flock.spawn_boid()
+	for i in range(0, initialBoidNum):
+		boid_flock.spawn_boid()
+		i += 1
 		
 	self.set_meta("Player", true)
-
-
+	
 #_____________________#
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -106,6 +106,6 @@ func _on_Timer_timeout():
 	StaminaRefill()# Replace with function body.
 
 
-
 func _on_BoidFlock_boid_count_update(new_value):
+	print("emiting boid")
 	emit_signal("player_boid_count_update", new_value)

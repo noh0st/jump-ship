@@ -77,4 +77,4 @@ text = "Press \"Space\" to dash"
 align = 1
 valign = 1
 
-[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/CenterContainer/Button" to="." method="_on_PlayButton_pressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/CenterContainer/Button" to="." method="_on_Button_pressed"]

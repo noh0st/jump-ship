@@ -50,7 +50,7 @@ func health_calculation():
 	if health <= 0:
 		health = 0
 		emit_signal("BoidDied", self)
-
+		BoidsGlobal.AllBoidsArray.remove(BoidsGlobal.AllBoidsArray.find(self))
 		flock.remove(self)
 	elif health >= MaxHealth:
 		health = MaxHealth
@@ -58,14 +58,14 @@ func health_calculation():
 		
 ######		
 func _ready():
+	BoidsGlobal.AllBoidsArray.append(self)
 	HpBar.value = 100
 	health = MaxHealth
-	#self.set_meta("Boid", false)
 	# these were breaking the game, because there are no enemies at the start of the game
 	#get_parent().get_node("Enemy").connect("_enemy_moused_over_true", self, "_enemy_moused_over_true") 
 	#get_parent().get_node("Enemy").connect("_enemy_moused_over_false", self, "_enemy_moused_over_false") 
 	health_calculation()
-	
+	set_meta("Boid", true)
 
 func _physics_process(delta):
 	#this part is for the boids to maybe stay asleep till the player touches them
@@ -169,5 +169,9 @@ func clamp_vector(value : Vector2, minVal : float, maxVal : float):
 
 	
 func _on_AwakenBoidTrigger_area_entered(area):
-	if(area.get_parent().has_meta("Enemy")):
-		damage_boid(50)
+	pass
+
+
+func _on_HurtBox_area_entered(area):
+	
+	damage_boid(50)

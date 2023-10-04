@@ -23,14 +23,14 @@ func _ready():
 func _on_ResumeButton_pressed():
 	print("RESUME")
 	self.is_paused = false
-
+	
 
 func _on_QuitButton_pressed():
 	print("EXIT")
 	PlayerStats.ResetValues()
 	var main_menu_instance : Node = main_menu_scene.instance()
-	get_tree().get_root().add_child(main_menu_instance)
 	
-	get_parent().queue_free()
+	get_tree().change_scene("res://Scenes/MainMenu.tscn")
+	
 	
 	self.is_paused = false
