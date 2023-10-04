@@ -67,9 +67,9 @@ func process_approaching(delta) -> void:
 		
 	var direction = (Target.position - position).normalized()
 	Dir = direction
-	var speed = 100
-	PlayRunAnimationDirection(direction)
-	move_and_slide(direction * speed)
+	var leap_speed = 100
+	PlayLeapAnimationDirection(direction)
+	position += leap_speed * direction
 	
 	
 func process_attacking(delta) -> void:
@@ -141,21 +141,27 @@ func PlayAttackAnimation():
 	var direction = (Target.position - self.position).normalized()
 
 	if direction.x > 0:
-		_animationPlayer.play("AttackRight")
+		_animationPlayer.play("RatAttackRight")
 	else:
-		_animationPlayer.play("AttackLeft")
+		_animationPlayer.play("RatAttackLeft")
 
 		
 		
 func PlayRunAnimationDirection(direction: Vector2):
 	if direction.x > 0:
-		_animationPlayer.play("RunRight")
+		_animationPlayer.play("RatWalkRight")
 	elif direction.x < 0:
-		_animationPlayer.play("RunLeft")
+		_animationPlayer.play("RatWalkLeft")
 	else:
-		_animationPlayer.play("Idle")
+		_animationPlayer.play("RatIdleRight")
 
-
+func PlayLeapAnimationDirection(direction: Vector2):
+	if direction.x > 0:
+		_animationPlayer.play("RatLeapRight")
+	elif direction.x < 0:
+		_animationPlayer.play("RatLeapLeft")
+	else:
+		_animationPlayer.play("RatIdleRight")
 func Attack():		
 	print("attacking")
 	self._current_state = State.ATTACKING
@@ -257,7 +263,7 @@ func _on_patrolTimer_timeout() -> void:
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
-	if anim_name == "AttackLeft" or anim_name =="AttackRight":
+	if anim_name == "RatAttackLeft" or anim_name =="RatAttackRight":
 		match _current_state:
 			State.ATTACKING:
 				# self._current_state = State.APPROACHING
