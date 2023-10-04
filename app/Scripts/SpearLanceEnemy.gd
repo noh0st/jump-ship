@@ -18,10 +18,12 @@ enum State {
 	ATTACKING
 }
 
+
 enum AttackState {
 	ATTACKING,
 	COOLING
 }
+
 
 func _ready():
 	set_meta("Enemy", false)
@@ -64,6 +66,9 @@ func process_approaching(delta) -> void:
 		return
 		
 	var direction = (Target.position - position).normalized()
+	print("direction")
+	print(direction)
+	Dir = direction
 	var speed = 100
 	PlayRunAnimationDirection(direction)
 	move_and_slide(direction * speed)
@@ -143,17 +148,20 @@ func PlayAttackAnimation():
 		
 	var direction = (Target.position - self.position).normalized()
 
-	if direction.x >= 0:
+	if direction.x > 0:
 		_animationPlayer.play("AttackRight")
 	else:
 		_animationPlayer.play("AttackLeft")
+
 		
 		
 func PlayRunAnimationDirection(direction: Vector2):
-	if direction.x >= 0:
+	if direction.x > 0:
 		_animationPlayer.play("RunRight")
-	else:
+	elif direction.x < 0:
 		_animationPlayer.play("RunLeft")
+	else:
+		_animationPlayer.play("Idle")
 
 
 func Attack():		
