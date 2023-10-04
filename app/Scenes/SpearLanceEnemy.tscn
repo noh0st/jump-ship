@@ -321,9 +321,6 @@ wait_time = 2.0
 wait_time = 3.0
 autostart = true
 
-[node name="TargetLockOnTimer" type="Timer" parent="."]
-wait_time = 0.5
-
 [node name="Collisions" type="Area2D" parent="."]
 collision_layer = 32
 collision_mask = 64
@@ -350,4 +347,3 @@ margin_bottom = 47.0
 [connection signal="area_exited" from="AttackRange" to="." method="_on_AttackRange_area_exited"]
 [connection signal="timeout" from="re_AttackTimer" to="." method="_on_re_AttackTimer_timeout"]
 [connection signal="timeout" from="patrolTimer" to="." method="_on_patrolTimer_timeout"]
-[connection signal="timeout" from="TargetLockOnTimer" to="." method="_on_TargetLockOnTimer_timeout"]

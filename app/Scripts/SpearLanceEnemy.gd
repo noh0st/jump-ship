@@ -7,7 +7,6 @@ var Dir := Vector2.ZERO
 onready var _animationPlayer = $AnimationPlayer
 onready var _cooldownTimer = $re_AttackTimer
 onready var _patrolTimer = $patrolTimer
-onready var _targetLockTimer = $TargetLockOnTimer
 
 onready var _current_state: int = State.PATROLLING setget set_current_state
 onready var _attack_state: int = AttackState.COOLING setget set_attack_state
@@ -17,7 +16,6 @@ enum State {
 	APPROACHING,
 	ATTACKING
 }
-
 
 enum AttackState {
 	ATTACKING,
@@ -52,12 +50,14 @@ func process_approaching(delta) -> void:
 	if not (is_instance_valid(Target)):
 		print(Target)
 		print("target not valid - approaching")
-		self._current_state = State.PATROLLING
+		if not _check_vision_and_set_target():
+			self._current_state = State.PATROLLING
 		return
 	
 	if Target.position.distance_to(position) > VISION_RANGE:
 		print("target out of range")
-		self._current_state = State.PATROLLING
+		if not _check_vision_and_set_target():
+			self._current_state = State.PATROLLING
 		return
 
 	if Target.position.distance_to(position) < ATTACK_RANGE:
@@ -66,8 +66,6 @@ func process_approaching(delta) -> void:
 		return
 		
 	var direction = (Target.position - position).normalized()
-	print("direction")
-	print(direction)
 	Dir = direction
 	var speed = 100
 	PlayRunAnimationDirection(direction)
@@ -79,9 +77,7 @@ func process_attacking(delta) -> void:
 		AttackState.ATTACKING:
 			pass
 		AttackState.COOLING:
-			return
-			if Target.position.distance_to(position) > ATTACK_RANGE + 10: # extra buffer
-				self._current_state = State.APPROACHING
+			pass
 			
 
 func set_current_state(value: int) -> void:
@@ -94,8 +90,7 @@ func set_current_state(value: int) -> void:
 			
 			Dir = _random_direction()
 			Target = null
-			#$HitBoxPivot/Area2D/CollisionShape2D.set_deferred("disabled",  true)
-			#$Vision/CollisionShape2D.set_deferred("disabled",  false)
+
 			_patrolTimer.start()
 			_cooldownTimer.stop()
 		State.APPROACHING:
@@ -104,10 +99,7 @@ func set_current_state(value: int) -> void:
 			
 			_current_state = value
 			
-			#$Vision/CollisionShape2D.set_deferred("disabled",  true)
-			#$HitBoxPivot/Area2D/CollisionShape2D.set_deferred("disabled",  true)
 			_cooldownTimer.stop()
-			_patrolTimer.stop()
 			_patrolTimer.stop()
 		State.ATTACKING:					
 			_current_state = value
@@ -193,7 +185,7 @@ func _on_re_AttackTimer_timeout():
 		AttackState.COOLING:
 			if not (is_instance_valid(Target)):
 				print("target not valid - cooling")
-				self._current_state = State.PATROLLING
+				self._current_state = State.APPROACHING
 				return
 					
 			if Target.position.distance_to(position) > ATTACK_RANGE + 10: # extra buffer
@@ -210,7 +202,7 @@ func _on_re_AttackTimer_timeout():
 func _on_Vision_area_entered(area: Node) -> void: #if you dont have target, set a target
 	match _current_state:
 		State.PATROLLING:
-			if area.get_parent().has_meta("Player") or area.get_parent().has_meta("Boid"):
+			if _area_is_hostile(area):
 				Target = area.get_parent()
 				print("setting target")
 				print(Target.position)
@@ -221,8 +213,10 @@ func _on_Vision_area_entered(area: Node) -> void: #if you dont have target, set 
 		
 	
 func _on_AttackRange_area_entered(area): #if entered the attack range attacks
-	if area.get_parent() != Target: # or should this become the new target?
+	if not _area_is_hostile(area):
 		return
+	
+	Target = area.get_parent()
 	
 	match _current_state:
 		State.ATTACKING:
@@ -230,6 +224,8 @@ func _on_AttackRange_area_entered(area): #if entered the attack range attacks
 		_: 
 			Attack()
 
+func _area_is_hostile(area: Node) -> bool:
+	return (area.get_parent().has_meta("Player") or area.get_parent().has_meta("Boid"))
 
 func _on_AttackRange_area_exited(area):# if you exit, stops attacking and follows you
 	if area.get_parent() != Target:
@@ -248,6 +244,8 @@ func _on_AttackRange_area_exited(area):# if you exit, stops attacking and follow
 			self._current_state = State.APPROACHING
 
 	
+
+	
 func _on_patrolTimer_timeout() -> void:
 	#change patrol direction every few seconds
 	match _current_state:
@@ -256,10 +254,6 @@ func _on_patrolTimer_timeout() -> void:
 		_:
 			print("patrol timer was running while not patrolling")
 			_patrolTimer.stop()
-
-# ??
-func _on_TargetLockOnTimer_timeout():
-	pass #$Vision/CollisionShape2D.disabled = !$Vision/CollisionShape2D.disabled 
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
@@ -278,3 +272,15 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 func _on_AnimationPlayer_animation_started(anim_name):
 	# self._current_state = State.ATTACKING ?
 	pass
+
+
+func _check_vision_and_set_target() -> bool:
+	for area in $Vision.get_overlapping_areas():	
+		if not _area_is_hostile(area): 
+			continue
+			
+		Target = area.get_parent()
+		return true
+	
+	Target = null
+	return false
