@@ -70,10 +70,6 @@ position = Vector2( -108, 89 )
 [node name="Death" parent="." instance=ExtResource( 4 )]
 
 [node name="BackgroundColor" parent="Death/Control/CenterContainer" index="0"]
-margin_left = 490.0
-margin_top = 210.0
-margin_right = 790.0
-margin_bottom = 510.0
 color = Color( 0.113725, 0.113725, 0.113725, 1 )
 
 [node name="VBoxContainer" parent="Death/Control/CenterContainer" index="1"]
