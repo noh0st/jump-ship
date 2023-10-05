@@ -23,7 +23,7 @@ tracks/0/keys = {
 "values": [ ExtResource( 6 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("DamageZone/CollisionShape2D:disabled")
+tracks/1/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -50,7 +50,7 @@ tracks/0/keys = {
 "values": [ ExtResource( 6 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 6 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("DamageZone/CollisionShape2D:disabled")
+tracks/1/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -84,8 +84,9 @@ anims/RESET = SubResource( 2 )
 anims/RockTurtleAttack = SubResource( 3 )
 
 [node name="TurtleVision" type="Area2D" parent="."]
-collision_layer = 32
-collision_mask = 129
+collision_layer = 8
+collision_mask = 16
+input_pickable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TurtleVision"]
 position = Vector2( -168.952, -2.81588 )
@@ -95,21 +96,21 @@ shape = SubResource( 5 )
 
 [node name="Death" parent="." instance=ExtResource( 7 )]
 
-[node name="Collisions" type="StaticBody2D" parent="."]
+[node name="Hurtbox" type="Area2D" parent="."]
 light_mask = 2
-collision_layer = 96
-collision_mask = 193
+collision_layer = 18
+collision_mask = 12
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2( -2.81587, -2.81587 )
 scale = Vector2( 14.9652, 7.98167 )
 shape = SubResource( 4 )
 
-[node name="DamageZone" type="Area2D" parent="."]
-collision_layer = 8
-collision_mask = 514
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageZone"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2( -146.425, 0 )
 shape = SubResource( 6 )
 disabled = true
@@ -118,4 +119,4 @@ disabled = true
 [connection signal="area_entered" from="TurtleVision" to="." method="_on_TurtleVision_area_entered"]
 [connection signal="area_exited" from="TurtleVision" to="." method="_on_TurtleVision_area_exited"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
-[connection signal="area_entered" from="DamageZone" to="." method="_on_DamageZone_area_entered"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_DamageZone_area_entered"]

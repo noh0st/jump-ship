@@ -25,7 +25,7 @@ tracks/0/keys = {
 "values": [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("HitBoxPivot/Area2D/CollisionShape2D:disabled")
+tracks/1/path = NodePath("HitBoxPivot/HitBox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -101,7 +101,7 @@ tracks/1/keys = {
 "values": [ 180.0, -90.0, 0.0, 90.0, 90.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("HitBoxPivot/Area2D/CollisionShape2D:disabled")
+tracks/2/path = NodePath("HitBoxPivot/HitBox/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -181,7 +181,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("HitBoxPivot/Area2D/CollisionShape2D:disabled")
+tracks/3/path = NodePath("HitBoxPivot/HitBox/CollisionShape2D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -264,7 +264,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="CircleShape2D" id=6]
-radius = 23.57
+radius = 49.27
 
 [sub_resource type="CircleShape2D" id=7]
 radius = 200.0
@@ -294,22 +294,26 @@ anims/RunRight = SubResource( 3 )
 [node name="HitBoxPivot" type="Position2D" parent="."]
 rotation = -1.5708
 
-[node name="Area2D" type="Area2D" parent="HitBoxPivot"]
+[node name="HitBox" type="Area2D" parent="HitBoxPivot"]
 position = Vector2( -36.593, -8.07 )
-collision_layer = 8
-collision_mask = 642
+collision_layer = 4
+collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxPivot/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxPivot/HitBox"]
 position = Vector2( 1, 1 )
 shape = SubResource( 6 )
 disabled = true
 
 [node name="Vision" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Vision"]
 shape = SubResource( 7 )
 
 [node name="AttackRange" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
 shape = SubResource( 9 )
@@ -322,8 +326,8 @@ wait_time = 3.0
 autostart = true
 
 [node name="Collisions" type="Area2D" parent="."]
-collision_layer = 32
-collision_mask = 64
+collision_layer = 18
+collision_mask = 12
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions"]
 position = Vector2( -0.085, 7.346 )
@@ -341,6 +345,7 @@ margin_bottom = 47.0
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]
+[connection signal="area_entered" from="HitBoxPivot/HitBox" to="." method="_on_HitBox_area_entered"]
 [connection signal="area_entered" from="Vision" to="." method="_on_Vision_area_entered"]
 [connection signal="area_exited" from="Vision" to="." method="_on_Vision_area_exited"]
 [connection signal="area_entered" from="AttackRange" to="." method="_on_AttackRange_area_entered"]

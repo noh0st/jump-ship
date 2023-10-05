@@ -49,12 +49,6 @@ onready var HpBar = $HPbar
 var health: float
 var MaxHealth := 100
 
-
-func damage_boid(damage): # use this function when damaging the boid
-	health -= damage
-	health_calculation()
-	
-	
 func health_calculation():
 	HpBar.value = health
 	
@@ -65,6 +59,7 @@ func health_calculation():
 		
 	if health <= 0:
 		health = 0
+		
 		emit_signal("BoidDied", self)
 		BoidsGlobal.AllBoidsArray.remove(BoidsGlobal.AllBoidsArray.find(self))
 		flock.remove(self)
@@ -82,9 +77,10 @@ func _ready():
 	#get_parent().get_node("Enemy").connect("_enemy_moused_over_true", self, "_enemy_moused_over_true") 
 	#get_parent().get_node("Enemy").connect("_enemy_moused_over_false", self, "_enemy_moused_over_false") 
 	health_calculation()
-	set_meta("Boid", true)
 
 func _physics_process(delta) -> void:
+	$DebugUI/Label.text = "state: %d \nattack_state %d" % [_current_state, _attack_state]
+	
 	match _current_state:
 		State.BOIDING:
 			process_boiding(delta)
@@ -94,13 +90,13 @@ func _physics_process(delta) -> void:
 	
 func process_attacking(delta) -> void:
 	if not (is_instance_valid(attack_target)):
-		print("attack target not valid")
-		_current_state = State.BOIDING
+		# print("attack target not valid")
+		self._current_state = State.BOIDING
 		return
 	
 	if attack_target.position.distance_to(position) >= 200.0: 
-		_current_state = State.BOIDING
-		print("target too far")
+		self._current_state = State.BOIDING
+		# print("target too far")
 		print(attack_target.position.distance_to(position))
 		return
 		
@@ -113,7 +109,7 @@ func process_attacking(delta) -> void:
 		AttackState.LUNGE_RETREAT:
 			# move away from target 
 			if attack_target.position.distance_to(position) >= 100.0: 
-				print("change to circling")
+				# print("change to circling")
 				_attack_state = AttackState.CIRCLING
 				print(attack_target.position.distance_to(position))
 				return
@@ -125,8 +121,9 @@ func process_attacking(delta) -> void:
 			process_boiding(delta)
 			
 			if attack_target.position.distance_to(position) <= 80.0: 
-				_attack_state = AttackState.LUNGE_FORWARD
-				print("lunging")
+				self._attack_state = AttackState.LUNGE_FORWARD
+				# print("lunging")
+
 
 func process_boiding(delta) -> void:
 		#this part is for the boids to maybe stay asleep till the player touches them
@@ -232,18 +229,57 @@ func clamp_vector(value : Vector2, minVal : float, maxVal : float):
 
 	
 func _on_AwakenBoidTrigger_area_entered(area):
-	if area.is_in_group("Hitbox") and area.get_parent().has_meta("Enemy"):
-		damage_boid(50)
+	pass
+	#if area.is_in_group("Hitbox") and area.get_parent().has_meta("Enemy"):
+	#	damage_boid(50)
 
+func add_damage(value: int) -> void:
+	health -= value
+	health_calculation()
 
 func _on_EnemyDetectionTrigger_area_entered(area):
+	#print("HELLO===============")
 	if area.get_parent().has_meta("Enemy"):
-		_current_state = State.ATTACKING
-		_attack_state = AttackState.CIRCLING
-		attack_target = area.get_parent()
+		#print("enemy detection")
+		#print(area.get_parent())
+		match _current_state:
+			State.BOIDING:
+				#print("setting vision entered")
+				self._current_state = State.ATTACKING
+				self._attack_state = AttackState.CIRCLING
+				attack_target = area.get_parent()
+			_:
+				pass #print("unhandled vision entered")
 		
 
-func _on_Hitbox_area_entered(area):
+func _on_Hitbox_area_entered(area) -> void:
 	if area.get_parent().has_meta("Enemy"):
-		_current_state = State.ATTACKING
-		_attack_state = AttackState.LUNGE_RETREAT
+		print("enemy enterred hitbox")
+		match _current_state:
+			State.ATTACKING:
+				_on_hitbox_attacking(area)
+			_:
+				pass #print("current state unhandled")
+		
+		
+func _on_hitbox_attacking(area) -> void:
+	pass
+	match _attack_state:
+		AttackState.CIRCLING:
+			# APPLY DAMAGAGE
+			#print("retreating")
+			self._attack_state = AttackState.LUNGE_RETREAT
+		AttackState.LUNGE_FORWARD:
+			# APPLY DAMAGAGE
+			if area.get_parent() == flock.flock_owner:
+				return
+			
+			if area.get_parent().has_method("add_damage"):
+				area.get_parent().add_damage(10)
+			
+				print("retreating")
+				self._attack_state = AttackState.LUNGE_RETREAT
+			else:
+				print("method not found")
+		_:
+			print("hitbox unhandled")
