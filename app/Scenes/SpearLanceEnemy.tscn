@@ -327,7 +327,7 @@ autostart = true
 
 [node name="Collisions" type="Area2D" parent="."]
 collision_layer = 18
-collision_mask = 12
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions"]
 position = Vector2( -0.085, 7.346 )

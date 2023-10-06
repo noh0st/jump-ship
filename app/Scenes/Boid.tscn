@@ -11,7 +11,7 @@ radius = 12.0
 height = 10.0
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 75.93
+radius = 53.71
 
 [sub_resource type="CircleShape2D" id=4]
 radius = 20.0
@@ -29,7 +29,7 @@ texture = ExtResource( 1 )
 
 [node name="AwakenBoidTrigger" type="Area2D" parent="."]
 collision_layer = 18
-collision_mask = 12
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AwakenBoidTrigger"]
 position = Vector2( 0, 2 )
