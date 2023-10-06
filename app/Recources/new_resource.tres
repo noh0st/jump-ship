@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Recources/UpgradeBluePrint.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+UpgradeName = ""
+UpgradeDescription = ""
+AddedHealthToBoidsAndPlayer = 100.0
+AddedStaminaToPlayer = 5.0
+AddedDamageToBoids = 200.0
+AddedHealthToEnemies = 0.0
+AddedDamageToEnemies = 0.0

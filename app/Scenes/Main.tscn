@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Assets/BebasNeue-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://Scenes/Map.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/EnemyManager.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/SpearEnemySpawner.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/GlobalStats.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/Upgrades.tscn" type="PackedScene" id=11]
 
 [sub_resource type="DynamicFont" id=2]
 size = 20
@@ -119,6 +121,10 @@ root_node = NodePath("../../..")
 
 [node name="AnimationTree" parent="YSort/Player" index="3"]
 parameters/playback = SubResource( 1 )
+
+[node name="GlobalStats" parent="." instance=ExtResource( 10 )]
+
+[node name="Upgrades" parent="." instance=ExtResource( 11 )]
 
 [connection signal="ChangedStamina" from="YSort/Player" to="HUD" method="_on_Player_ChangedStamina"]
 [connection signal="player_boid_count_update" from="YSort/Player" to="HUD" method="_on_Player_player_boid_count_update"]
