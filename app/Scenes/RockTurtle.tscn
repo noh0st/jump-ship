@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/RockTurtle.gd" type="Script" id=1]
 [ext_resource path="res://Assets/TurtleRockEnemy/05.png" type="Texture" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://Assets/TurtleRockEnemy/04.png" type="Texture" id=4]
 [ext_resource path="res://Assets/TurtleRockEnemy/03.png" type="Texture" id=5]
 [ext_resource path="res://Assets/TurtleRockEnemy/01.png" type="Texture" id=6]
-[ext_resource path="res://Scenes/Death.tscn" type="PackedScene" id=7]
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -93,8 +92,6 @@ position = Vector2( -168.952, -2.81588 )
 shape = SubResource( 5 )
 
 [node name="AttackTimer" type="Timer" parent="."]
-
-[node name="Death" parent="." instance=ExtResource( 7 )]
 
 [node name="Hurtbox" type="Area2D" parent="."]
 light_mask = 2

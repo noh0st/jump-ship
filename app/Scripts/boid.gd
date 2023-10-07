@@ -275,7 +275,7 @@ func _on_hitbox_attacking(area) -> void:
 				return
 			
 			if area.get_parent().has_method("add_damage"):
-				area.get_parent().add_damage(10)
+				area.get_parent().add_damage(GlobalUpgradeStats.boidDamage)
 			
 				print("retreating")
 				self._attack_state = AttackState.LUNGE_RETREAT

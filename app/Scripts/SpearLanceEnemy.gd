@@ -13,7 +13,7 @@ onready var _current_state: int = State.PATROLLING setget set_current_state
 onready var _attack_state: int = AttackState.COOLING setget set_attack_state
 
 var health: int = 50
-
+export var healthMultiple : int = 1
 enum State {
 	PATROLLING,
 	APPROACHING,
@@ -28,7 +28,7 @@ enum AttackState {
 
 func _ready():
 	set_meta("Enemy", true)
-	
+	health = GlobalUpgradeStats.globalEnemyHealth * healthMultiple
 	self._current_state = State.PATROLLING
 	
 	_animationPlayer.play("Idle")
@@ -293,4 +293,4 @@ func _check_vision_and_set_target() -> bool:
 
 func _on_HitBox_area_entered(area):
 	if area.get_parent().has_method("add_damage") and (not area.get_parent().has_meta("Enemy")):
-		area.get_parent().add_damage(50)
+		area.get_parent().add_damage(GlobalUpgradeStats.globalEnemyDamage)

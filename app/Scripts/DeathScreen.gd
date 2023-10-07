@@ -11,7 +11,7 @@ func _ready():
 func _on_QuitButton_pressed():
 	print("EXIT")
 	PlayerStats.ResetValues()
-	
+	GlobalUpgradeStats.GlobalReset()
 	
 	get_tree().change_scene_to(main_menu_scene)
 	
@@ -19,6 +19,7 @@ func _on_QuitButton_pressed():
 
 func _on_RestartButton_pressed():
 	PlayerStats.ResetValues()
+	GlobalUpgradeStats.GlobalReset()
 	get_tree().paused = false	
 	get_tree().reload_current_scene()
 	get_tree().change_scene("res://Scenes/Main.tscn")
