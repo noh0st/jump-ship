@@ -70,6 +70,7 @@ func _on_MouseDetectionTrigger_input_event(viewport, event, shape_idx):
 			_apply_damage(10)
 			
 func _apply_damage(amount: int) -> void:
+	print("enenmy taking damage")
 	_health -= amount
 		
 	# play hurt animation?
@@ -77,3 +78,8 @@ func _apply_damage(amount: int) -> void:
 	if _health <= 0:
 		# handle death
 		queue_free()
+
+
+func _on_HurtBox_area_entered(area):
+	if area.is_in_group("Hitbox") and area.get_parent().has_meta("Boid"):
+		_apply_damage(2)

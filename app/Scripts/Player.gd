@@ -37,6 +37,10 @@ func _ready():
 		
 	self.set_meta("Player", true)
 	
+func add_damage(value: int) -> void:
+	PlayerStats.Health -= value
+
+	
 #_____________________#
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -87,9 +91,6 @@ func StaminaRefill():
 	
 #_____________________#
 # Hurt player if enemy enters
-func _on_HurtBox_area_entered(area):
-	PlayerStats.Health -= 10 
-
 	
 #_____________________#
 # Signal from stats,  if the health stats ever changes this function starts
