@@ -330,10 +330,6 @@ wait_time = 2.0
 wait_time = 3.0
 autostart = true
 
-[node name="Collisions" type="Area2D" parent="."]
-collision_layer = 18
-collision_mask = 64
-
 [node name="DebugUI" type="Control" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
