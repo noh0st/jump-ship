@@ -62,3 +62,7 @@ func ResetValues():
 	Health = defValuesDic["defHealth"]
 	Stamina = defValuesDic["defStamina"]
 	BoidsCollectedNum = defValuesDic["defBoidsNum"] 
+func UpgradedValues():
+	Health = GlobalUpgradeStats.globalSelfHealth
+	Stamina = GlobalUpgradeStats.playerStamina
+	
