@@ -7,7 +7,7 @@ func AddAndApplyUpgrade(added_upgrade):
 		presentUpgrades.append(added_upgrade)
 		if added_upgrade.has_method("Upgrade"):
 			added_upgrade.Upgrade()
-			PlayerStats.UpgradedValues()
+
 		
 func _ready():
 
