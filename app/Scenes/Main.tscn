@@ -10,6 +10,7 @@
 [ext_resource path="res://Scenes/EnemyManager.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/SpearEnemySpawner.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/GlobalStats.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/MusicPlayer.tscn" type="PackedScene" id=10]
 
 [sub_resource type="DynamicFont" id=2]
 size = 20
@@ -30,6 +31,8 @@ font_data = ExtResource( 1 )
 [sub_resource type="AnimationNodeStateMachinePlayback" id=1]
 
 [node name="Main" type="Node"]
+
+[node name="MusicPlayer" parent="." instance=ExtResource( 10 )]
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 
