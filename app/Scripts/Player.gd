@@ -91,7 +91,7 @@ func StaminaRefill():
 	
 	if PlayerStats.Stamina != PlayerStats.MaxStamina: # if stamina is not full, start recovering stamina again
 		timer.start() 
-	
+		
 #_____________________#
 # Hurt player if enemy enters
 	
@@ -108,7 +108,7 @@ func _on_PlayerStats_healthChange(value):
 # If stamina timer runs out, regen stamina 
 func _on_Timer_timeout():
 	StaminaRefill()# Replace with function body.
-
+	
 
 func _on_BoidFlock_boid_count_update(new_value):
 	print("emiting boid")
