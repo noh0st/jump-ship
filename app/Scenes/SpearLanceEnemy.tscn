@@ -9,6 +9,10 @@
 [ext_resource path="res://Assets/SpearLanceEnemy/08.png" type="Texture" id=7]
 [ext_resource path="res://Scripts/SpearLanceEnemy.gd" type="Script" id=8]
 
+[sub_resource type="CapsuleShape2D" id=11]
+radius = 30.85
+height = 25.59
+
 [sub_resource type="Animation" id=4]
 resource_name = "AttackLeft"
 length = 0.4
@@ -272,12 +276,13 @@ radius = 200.0
 [sub_resource type="CircleShape2D" id=9]
 radius = 50.0
 
-[sub_resource type="CapsuleShape2D" id=11]
-radius = 30.85
-height = 25.59
-
 [node name="SpearLanceEnemy" type="KinematicBody2D"]
+collision_mask = 65
 script = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.085, 7.346 )
+shape = SubResource( 11 )
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.25, 0.25 )
@@ -324,14 +329,6 @@ wait_time = 2.0
 [node name="patrolTimer" type="Timer" parent="."]
 wait_time = 3.0
 autostart = true
-
-[node name="Collisions" type="Area2D" parent="."]
-collision_layer = 18
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions"]
-position = Vector2( -0.085, 7.346 )
-shape = SubResource( 11 )
 
 [node name="DebugUI" type="Control" parent="."]
 margin_right = 40.0
