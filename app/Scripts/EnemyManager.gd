@@ -11,6 +11,8 @@ enum Type {
 	SPEAR
 }
 
+var _on_death_callbacks: Array = []
+
 # manages pools for each enemy type
 
 # Function to spawn a new enemy
@@ -59,3 +61,14 @@ func remove_enemy(enemy: Node) -> void:
 	if _enemies.has(enemy):
 		enemy.queue_free()
 		_enemies.erase(enemy)
+		
+		fire_death_event()
+
+
+func subscribe_to_deaths(callback: FuncRef) -> void:
+	_on_death_callbacks.append(callback)
+
+
+func fire_death_event() -> void:
+	for callback in _on_death_callbacks:
+		callback.call_func()

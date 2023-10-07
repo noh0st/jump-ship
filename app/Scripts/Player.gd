@@ -39,6 +39,9 @@ func _ready():
 	
 func add_damage(value: int) -> void:
 	PlayerStats.Health -= value
+	
+func add_boid() -> void:
+	boid_flock.spawn_boid()
 
 	
 #_____________________#
