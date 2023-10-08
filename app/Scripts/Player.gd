@@ -38,7 +38,9 @@ func _ready():
 	self.set_meta("Player", true)
 	
 func add_damage(value: int) -> void:
-	PlayerStats.Health -= value
+	#PlayerStats.Health -= value
+	# release boid
+	boid_flock.release_boid();
 	
 func add_boid() -> void:
 	boid_flock.spawn_boid()
