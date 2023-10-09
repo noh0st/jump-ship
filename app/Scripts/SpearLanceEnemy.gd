@@ -71,7 +71,7 @@ func process_approaching(delta) -> void:
 	Dir = direction
 	var speed = 100
 	PlayRunAnimationDirection(direction)
-	move_and_slide(direction * speed)
+	move_and_collide(direction * speed * delta)
 	
 	
 func process_attacking(delta) -> void:
