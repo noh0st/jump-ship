@@ -28,6 +28,7 @@ font_data = ExtResource( 1 )
 [node name="Main" type="Node"]
 
 [node name="MusicPlayer" parent="." instance=ExtResource( 10 )]
+pause_mode = 2
 volume_db = -45.877
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
