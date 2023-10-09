@@ -35,11 +35,6 @@ func size() -> int:
 func owner_position() -> Vector2:
 	return flock_owner.position
 
-func release_boid() -> void:
-	if _boids.size() == 0:
-		return
-		
-	remove(_boids[0])
 
 func remove(object: Node) -> void:
 	if _boids.has(object):

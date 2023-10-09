@@ -27,10 +27,12 @@ func _on_TurtleVision_area_entered(area):
 		HasTarget = true
 		
 		attackTimer.start(0)
+		#print(TargetDir, area)
 		
 
 func _on_TurtleVision_area_exited(area):
 	if area == Target:
+		#print("exit")
 		if HasTarget == true:
 			attackTimer.stop()
 			Target = null
@@ -38,6 +40,7 @@ func _on_TurtleVision_area_exited(area):
 			
 
 func add_damage(value: int) -> void:
+	#print("turtle taking damage")
 	health -= value
 	
 	if health <= 0:
@@ -55,6 +58,10 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 
 
 func _on_DamageZone_area_entered(area):
+	#print("entered turtle hit box")
 	if area.get_parent().has_method("add_damage") and (not area.get_parent().has_meta("Enemy")):
 		area.get_parent().add_damage(GlobalUpgradeStats.globalEnemyDamage)
-
+	else:
+		#print("turtle cannot apply damage")
+		#print(area.get_parent())
+		pass

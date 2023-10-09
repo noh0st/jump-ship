@@ -4,10 +4,7 @@ var _enemies = []
 const Enemy: PackedScene = preload("res://Scenes/Enemy.tscn")
 const RockTurtle: PackedScene = preload("res://Scenes/RockTurtle.tscn")
 const SpearEnemy: PackedScene = preload("res://Scenes/SpearLanceEnemy.tscn")
-
-const X_BOUNDS = Vector2(-1000, 1000)
-const Y_BOUNDS = Vector2(-1000, 350)
-
+var XPPlayer : int = 50 #xp added to player on death
 enum Type {
 	ENEMY,
 	ROCK_TURTLE,
@@ -64,7 +61,7 @@ func remove_enemy(enemy: Node) -> void:
 	if _enemies.has(enemy):
 		enemy.queue_free()
 		_enemies.erase(enemy)
-		
+		PlayerStats.XP += XPPlayer
 		fire_death_event()
 
 
