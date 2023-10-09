@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/HealthUIController.gd" type="Script" id=1]
 [ext_resource path="res://Assets/HealthBarPNG/8.png" type="Texture" id=2]
 [ext_resource path="res://Assets/HealthBarPNG/5.png" type="Texture" id=3]
 [ext_resource path="res://Assets/HealthBarPNG/6.png" type="Texture" id=4]
 [ext_resource path="res://Scenes/Upgrades.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/BebasNeue-Regular.ttf" type="DynamicFontData" id=9]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 9 )
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -26,6 +30,7 @@ margin_top = 187.0
 margin_right = 187.0
 margin_bottom = 224.0
 rect_scale = Vector2( 1.55533, 2.43503 )
+custom_fonts/font = SubResource( 1 )
 text = "Number Of Followers"
 
 [node name="StaminaBar" type="TextureProgress" parent="."]
