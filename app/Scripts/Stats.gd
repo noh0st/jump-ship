@@ -18,6 +18,8 @@ var XP setget ChangedXP
 var staminaForDash = 10
 
 var MaxHealth := 100
+var MaxXP : int = 100
+export var MaxXpMultiplyer: float = 2
 var MaxStamina = 100
 var staminaRegen = 5
 export var HealthPerBoid = 10
@@ -59,14 +61,17 @@ func ChangedXP(value):
 	XP = value
 	print(XP)
 	emit_signal("xpChange", XP)
-	if XP >= 100:
+	if XP >= MaxXP:
 		XP = 0
+		MaxXP *= MaxXpMultiplyer
 		ChangedXP(XP)
 		emit_signal("newLevel")
 func ResetValues():
 	Health = MaxHealth
 	Stamina = MaxStamina
 	BoidsCollectedNum = 3
+	XP = 0
+	MaxXP = 150
 func UpgradedValues():
 	MaxHealth= GlobalUpgradeStats.globalSelfHealth
 	MaxStamina = GlobalUpgradeStats.playerStamina

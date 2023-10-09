@@ -4,7 +4,7 @@ var _enemies = []
 const Enemy: PackedScene = preload("res://Scenes/Enemy.tscn")
 const RockTurtle: PackedScene = preload("res://Scenes/RockTurtle.tscn")
 const SpearEnemy: PackedScene = preload("res://Scenes/SpearLanceEnemy.tscn")
-var XPPlayer : int = 100 #xp added to player on death
+var XPPlayer : int = 50 #xp added to player on death
 enum Type {
 	ENEMY,
 	ROCK_TURTLE,

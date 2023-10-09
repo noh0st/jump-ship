@@ -18,6 +18,8 @@ func _ready():
 	staminabar.value = PlayerStats.Stamina/ (PlayerStats.MaxStamina/100)
 	xpbar.value = 0
 	BoidsLabel.text = "Number Of Followers : %s" % PlayerStats.BoidsCollectedNum	
+	$XPBar/XP.text = "0"
+	$XPBar/MaxXP.text = str(PlayerStats.MaxXP)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
@@ -36,4 +38,7 @@ func _on_Player_player_boid_count_update(new_value):
 	PlayerStats.BoidsCollectedNum = new_value
 	BoidsLabel.text = "Number Of Followers : %s" % PlayerStats.BoidsCollectedNum
 func _on_PlayerStats_xpChange(new_value):
+	xpbar.max_value = PlayerStats.MaxXP
 	xpbar.value = new_value
+	$XPBar/XP.text = str(PlayerStats.XP )
+	$XPBar/MaxXP.text = str(PlayerStats.MaxXP)
