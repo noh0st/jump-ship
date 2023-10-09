@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/HealthUIController.gd" type="Script" id=1]
 [ext_resource path="res://Assets/HealthBarPNG/8.png" type="Texture" id=2]
@@ -8,6 +8,10 @@
 [ext_resource path="res://Assets/XPbar/XPOutline.png" type="Texture" id=6]
 [ext_resource path="res://Assets/XPbar/XPFilling.png" type="Texture" id=7]
 [ext_resource path="res://Assets/XPbar/XPBackground.png" type="Texture" id=8]
+[ext_resource path="res://Assets/BebasNeue-Regular.ttf" type="DynamicFontData" id=9]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 9 )
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -30,6 +34,7 @@ margin_top = 28.0
 margin_right = 204.0
 margin_bottom = 65.0
 rect_scale = Vector2( 1.55533, 2.43503 )
+custom_fonts/font = SubResource( 1 )
 text = "Number Of Followers"
 
 [node name="StaminaBar" type="TextureProgress" parent="."]
