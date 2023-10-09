@@ -4,11 +4,11 @@
 
 [resource]
 script = ExtResource( 1 )
-UpgradeName = "hp"
+UpgradeName = "stamina"
 UpgradeDescription = ""
 UpgradeSpritePath = ""
-AddedHealthToBoidsAndPlayer = 200.0
-AddedStaminaToPlayer = 0.0
+AddedHealthToBoidsAndPlayer = 0.0
+AddedStaminaToPlayer = 200.0
 AddedDamageToBoids = 0.0
 AddedHealthToEnemies = 0.0
 AddedDamageToEnemies = 0.0

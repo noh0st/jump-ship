@@ -1,101 +1,72 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/UpgradesHandler.gd" type="Script" id=1]
-[ext_resource path="res://Scripts/UpgradeCardsHandler.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/UpgradeCards.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Recources/AddDamageBoid_200.tres" type="Resource" id=3]
 [ext_resource path="res://Recources/AddHealth_200.tres" type="Resource" id=4]
 [ext_resource path="res://Assets/Upgrade_Station.png" type="Texture" id=5]
-[ext_resource path="res://Assets/icon.png" type="Texture" id=6]
-[ext_resource path="res://Assets/Card.png" type="Texture" id=7]
+[ext_resource path="res://Recources/AddStamina_200.tres" type="Resource" id=6]
 
 [node name="Upgrades" type="Node2D"]
 pause_mode = 2
 script = ExtResource( 1 )
-AllUpgrades = [ ExtResource( 3 ), ExtResource( 4 ) ]
+AllUpgrades = [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 6 ) ]
 
 [node name="UpgradeStation" type="Sprite" parent="."]
 position = Vector2( 671, 362 )
 scale = Vector2( 0.500781, 0.496528 )
 texture = ExtResource( 5 )
 
-[node name="Upgrade_1" type="TextureButton" parent="."]
-margin_left = 297.0
-margin_top = 189.0
-margin_right = 797.0
-margin_bottom = 889.0
-rect_scale = Vector2( 0.47524, 0.486914 )
-texture_normal = ExtResource( 7 )
-texture_pressed = ExtResource( 7 )
-script = ExtResource( 2 )
+[node name="Upgrade_1" parent="." instance=ExtResource( 2 )]
 
-[node name="Description" type="RichTextLabel" parent="Upgrade_1"]
-margin_left = -172.0
-margin_top = 101.0
-margin_right = 174.0
-margin_bottom = 247.0
-__meta__ = {
-"_editor_description_": ""
-}
+[node name="Description" parent="Upgrade_1" index="0"]
+margin_left = 75.7512
+margin_top = 447.718
+margin_right = 421.751
+margin_bottom = 593.718
 
-[node name="Name" type="RichTextLabel" parent="Upgrade_1"]
-margin_left = -164.0
-margin_top = 8.0
-margin_right = 166.0
-margin_bottom = 75.0
+[node name="Name" parent="Upgrade_1" index="1"]
+margin_left = 75.7512
+margin_top = 379.944
+margin_right = 405.751
+margin_bottom = 446.944
 
-[node name="Sprite" type="Sprite" parent="Upgrade_1"]
-position = Vector2( 250.23, 193.34 )
-scale = Vector2( 5.15362, 3.59478 )
-texture = ExtResource( 6 )
+[node name="Upgrade_2" parent="." instance=ExtResource( 2 )]
+margin_left = 532.0
+margin_right = 1032.0
 
-[node name="Upgrade_2" type="Sprite" parent="."]
-position = Vector2( 651, 361.5 )
-scale = Vector2( 0.476, 0.477143 )
-texture = ExtResource( 7 )
+[node name="Description" parent="Upgrade_2" index="0"]
+margin_left = 77.8554
+margin_top = 451.825
+margin_right = 423.855
+margin_bottom = 597.825
 
-[node name="Description" type="RichTextLabel" parent="Upgrade_2"]
-margin_left = -172.0
-margin_top = 101.0
-margin_right = 174.0
-margin_bottom = 247.0
-__meta__ = {
-"_editor_description_": ""
-}
+[node name="Name" parent="Upgrade_2" index="1"]
+margin_left = 71.5428
+margin_top = 369.675
+margin_right = 401.543
+margin_bottom = 436.675
 
-[node name="Name" type="RichTextLabel" parent="Upgrade_2"]
-margin_left = -164.0
-margin_top = 8.0
-margin_right = 166.0
-margin_bottom = 75.0
+[node name="Upgrade_3" parent="." instance=ExtResource( 2 )]
+margin_left = 768.0
+margin_right = 1268.0
 
-[node name="Sprite" type="Sprite" parent="Upgrade_2"]
-position = Vector2( -4.2019, -154.042 )
-scale = Vector2( 5.15362, 3.59478 )
-texture = ExtResource( 6 )
+[node name="Description" parent="Upgrade_3" index="0"]
+margin_left = 77.8553
+margin_top = 449.771
+margin_right = 423.855
+margin_bottom = 595.771
 
-[node name="Upgrade_3" type="Sprite" parent="."]
-position = Vector2( 886, 361.5 )
-scale = Vector2( 0.476, 0.477143 )
-texture = ExtResource( 7 )
+[node name="Name" parent="Upgrade_3" index="1"]
+margin_left = 77.8552
+margin_top = 365.568
+margin_right = 407.855
+margin_bottom = 432.568
 
-[node name="Description" type="RichTextLabel" parent="Upgrade_3"]
-margin_left = -172.0
-margin_top = 101.0
-margin_right = 174.0
-margin_bottom = 247.0
-__meta__ = {
-"_editor_description_": ""
-}
+[connection signal="pressed" from="Upgrade_1" to="." method="_on_Upgrade_1_pressed"]
+[connection signal="pressed" from="Upgrade_2" to="." method="_on_Upgrade_2_pressed"]
+[connection signal="pressed" from="Upgrade_3" to="." method="_on_Upgrade_3_pressed"]
 
-[node name="Name" type="RichTextLabel" parent="Upgrade_3"]
-margin_left = -164.0
-margin_top = 8.0
-margin_right = 166.0
-margin_bottom = 75.0
-
-[node name="Sprite" type="Sprite" parent="Upgrade_3"]
-position = Vector2( -4.2019, -154.042 )
-scale = Vector2( 5.15362, 3.59478 )
-texture = ExtResource( 6 )
-
-[connection signal="pressed" from="Upgrade_1" to="Upgrade_1" method="_on_Upgrade_pressed"]
+[editable path="Upgrade_1"]
+[editable path="Upgrade_2"]
+[editable path="Upgrade_3"]
