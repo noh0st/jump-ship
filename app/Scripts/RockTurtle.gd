@@ -62,5 +62,6 @@ func _on_DamageZone_area_entered(area):
 	if area.get_parent().has_method("add_damage") and (not area.get_parent().has_meta("Enemy")):
 		area.get_parent().add_damage(GlobalUpgradeStats.globalEnemyDamage)
 	else:
-		print("turtle cannot apply damage")
-		print(area.get_parent())
+		#print("turtle cannot apply damage")
+		#print(area.get_parent())
+		pass
