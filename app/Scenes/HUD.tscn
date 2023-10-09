@@ -51,7 +51,32 @@ margin_top = 667.0
 margin_right = 1288.0
 margin_bottom = 717.0
 rect_scale = Vector2( 0.993339, 1.01484 )
+step = 0.1
 value = 50.0
 texture_under = ExtResource( 8 )
 texture_over = ExtResource( 6 )
 texture_progress = ExtResource( 7 )
+
+[node name="XP" type="RichTextLabel" parent="XPBar"]
+margin_left = 1098.32
+margin_top = 17.8099
+margin_right = 1128.32
+margin_bottom = 52.8099
+bbcode_text = "2"
+text = "2"
+
+[node name="MaxXP" type="RichTextLabel" parent="XPBar"]
+margin_left = 1142.32
+margin_top = 17.8099
+margin_right = 1198.32
+margin_bottom = 52.8099
+bbcode_text = "2"
+text = "2"
+
+[node name="Slash" type="RichTextLabel" parent="XPBar"]
+margin_left = 1128.83
+margin_top = 17.7368
+margin_right = 1145.83
+margin_bottom = 52.7368
+bbcode_text = "/"
+text = "/"
