@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Assets/SpearLanceEnemy/01.png" type="Texture" id=1]
 [ext_resource path="res://Assets/SpearLanceEnemy/04.png" type="Texture" id=2]
@@ -8,6 +8,10 @@
 [ext_resource path="res://Assets/SpearLanceEnemy/06.png" type="Texture" id=6]
 [ext_resource path="res://Assets/SpearLanceEnemy/08.png" type="Texture" id=7]
 [ext_resource path="res://Scripts/SpearLanceEnemy.gd" type="Script" id=8]
+
+[sub_resource type="CapsuleShape2D" id=11]
+radius = 30.85
+height = 25.59
 
 [sub_resource type="Animation" id=4]
 resource_name = "AttackLeft"
@@ -272,12 +276,17 @@ radius = 200.0
 [sub_resource type="CircleShape2D" id=9]
 radius = 50.0
 
-[sub_resource type="CapsuleShape2D" id=11]
-radius = 30.85
-height = 25.59
+[sub_resource type="CircleShape2D" id=12]
+radius = 50.0
 
 [node name="SpearLanceEnemy" type="KinematicBody2D"]
+collision_layer = 16
+collision_mask = 72
 script = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.085, 7.346 )
+shape = SubResource( 11 )
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.25, 0.25 )
@@ -325,14 +334,6 @@ wait_time = 2.0
 wait_time = 3.0
 autostart = true
 
-[node name="Collisions" type="Area2D" parent="."]
-collision_layer = 18
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions"]
-position = Vector2( -0.085, 7.346 )
-shape = SubResource( 11 )
-
 [node name="DebugUI" type="Control" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
@@ -342,6 +343,13 @@ margin_left = -47.0
 margin_top = -45.0
 margin_right = 44.0
 margin_bottom = 47.0
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 18
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource( 12 )
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]

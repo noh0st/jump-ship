@@ -259,15 +259,14 @@ func _on_Hitbox_area_entered(area) -> void:
 			State.ATTACKING:
 				_on_hitbox_attacking(area)
 			_:
-				pass #print("current state unhandled")
+				print("current state unhandled")
+				pass #
 		
 		
 func _on_hitbox_attacking(area) -> void:
-	pass
 	match _attack_state:
 		AttackState.CIRCLING:
 			# APPLY DAMAGAGE
-			#print("retreating")
 			self._attack_state = AttackState.LUNGE_RETREAT
 		AttackState.LUNGE_FORWARD:
 			# APPLY DAMAGAGE
