@@ -97,7 +97,7 @@ func process_attacking(delta) -> void:
 	if attack_target.position.distance_to(position) >= 200.0: 
 		self._current_state = State.BOIDING
 		# print("target too far")
-		#print(attack_target.position.distance_to(position))
+		print(attack_target.position.distance_to(position))
 		return
 		
 	match _attack_state:
@@ -111,7 +111,7 @@ func process_attacking(delta) -> void:
 			if attack_target.position.distance_to(position) >= 100.0: 
 				# print("change to circling")
 				_attack_state = AttackState.CIRCLING
-				#print(attack_target.position.distance_to(position))
+				print(attack_target.position.distance_to(position))
 				return
 				
 			var direction = (attack_target.position - position).normalized()
@@ -254,20 +254,19 @@ func _on_EnemyDetectionTrigger_area_entered(area):
 
 func _on_Hitbox_area_entered(area) -> void:
 	if area.get_parent().has_meta("Enemy"):
-		#print("enemy enterred hitbox")
+		print("enemy enterred hitbox")
 		match _current_state:
 			State.ATTACKING:
 				_on_hitbox_attacking(area)
 			_:
-				pass #print("current state unhandled")
+				print("current state unhandled")
+				pass #
 		
 		
 func _on_hitbox_attacking(area) -> void:
-	pass
 	match _attack_state:
 		AttackState.CIRCLING:
 			# APPLY DAMAGAGE
-			#print("retreating")
 			self._attack_state = AttackState.LUNGE_RETREAT
 		AttackState.LUNGE_FORWARD:
 			# APPLY DAMAGAGE
@@ -277,7 +276,7 @@ func _on_hitbox_attacking(area) -> void:
 			if area.get_parent().has_method("add_damage"):
 				area.get_parent().add_damage(GlobalUpgradeStats.boidDamage)
 			
-				#print("retreating")
+				print("retreating")
 				self._attack_state = AttackState.LUNGE_RETREAT
 			else:
 				print("method not found")
