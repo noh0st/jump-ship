@@ -16,7 +16,7 @@ var Health :int setget ChangedHealth
 var XP setget ChangedXP
 #_____________________#
 var staminaForDash = 10
-var XP = 0 setget ChangedXP
+
 var MaxHealth := 100
 var MaxXP : int = 100
 export var MaxXpMultiplyer: float = 2
