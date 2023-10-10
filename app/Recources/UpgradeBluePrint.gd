@@ -4,7 +4,6 @@ class_name Upgrades
 
 export var UpgradeName : String = ""
 export var UpgradeDescription : String = ""
-export var UpgradeSpritePath: String = ""
 export var AddedHealthToBoidsAndPlayer : float
 export var AddedStaminaToPlayer : float
 export var AddedDamageToBoids : float
