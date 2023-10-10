@@ -1,19 +1,21 @@
 extends Node
-
+var defValuesDic = {
+	"defHealth" : 100,
+	"defStamina" : 100,
+	"defBoidsNum" : 0,
+}
 #_____________________#
 
 signal Death
 signal healthChange(value)
 signal staminaChange(value)
 signal boidsChange(value)
-signal xpChange(value)
-signal newLevel()
 #_____________________#
 
 var BoidsCollectedNum setget BoidsChanged
 var Stamina setget ChangedStamina
 var Health :int setget ChangedHealth
-var XP setget ChangedXP
+
 #_____________________#
 var staminaForDash = 10
 
@@ -39,7 +41,7 @@ func _ready():
 	Health = MaxHealth
 	Stamina = MaxStamina
 	#####
-	XP = 0
+	
 	
 # emits signals if any stat get set
 func ChangedHealth(value):
@@ -73,7 +75,6 @@ func ResetValues():
 	XP = 0
 	MaxXP = 150
 func UpgradedValues():
-	MaxHealth= GlobalUpgradeStats.globalSelfHealth
-	MaxStamina = GlobalUpgradeStats.playerStamina
-	Health = MaxHealth
-	Stamina = MaxStamina
+	Health = GlobalUpgradeStats.globalSelfHealth
+	Stamina = GlobalUpgradeStats.playerStamina
+	
