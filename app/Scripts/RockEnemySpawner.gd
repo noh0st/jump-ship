@@ -17,6 +17,7 @@ func _on_Timer_timeout():
 	if _enemy_manager.size() < MAX_COUNT:
 		# spawn enemy
 		var enemy = _enemy_manager.spawn(_enemy_manager.Type.ROCK_TURTLE)
+		
 		enemy.position = _player.position + _random_normalized_direction() * SPAWN_RADIUS
 
 

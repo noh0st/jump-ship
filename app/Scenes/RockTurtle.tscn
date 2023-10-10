@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/RockTurtle.gd" type="Script" id=1]
 [ext_resource path="res://Assets/TurtleRockEnemy/05.png" type="Texture" id=2]
@@ -70,6 +70,9 @@ extents = Vector2( 7.71462, 9.52539 )
 [sub_resource type="CircleShape2D" id=6]
 radius = 116.101
 
+[sub_resource type="CircleShape2D" id=7]
+radius = 101.371
+
 [node name="RockTurtle" type="Node2D"]
 scale = Vector2( 0.177565, 0.177565 )
 script = ExtResource( 1 )
@@ -111,6 +114,15 @@ collision_mask = 2
 position = Vector2( -146.425, 0 )
 shape = SubResource( 6 )
 disabled = true
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2( -5.63174, 16.8952 )
+scale = Vector2( 1, 1 )
+shape = SubResource( 7 )
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="area_entered" from="TurtleVision" to="." method="_on_TurtleVision_area_entered"]

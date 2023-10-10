@@ -8,7 +8,7 @@ signal player_boid_count_update(new_value)
 signal PlayerDeath
 #_____________________#
 
-const MaxSpeed = 350.0
+const MaxSpeed = 250.0
 const Acceleration_Friction = 20.0
 const DashPower = 5
 #_____________________#

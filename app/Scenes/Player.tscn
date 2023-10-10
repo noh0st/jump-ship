@@ -115,8 +115,8 @@ start_node = "Idle"
 
 [sub_resource type="CapsuleShape2D" id=24]
 
-[sub_resource type="CapsuleShape2D" id=25]
-height = 0.0
+[sub_resource type="RectangleShape2D" id=29]
+extents = Vector2( 10, 11.3542 )
 
 [node name="Player" type="KinematicBody2D"]
 collision_mask = 64
@@ -168,9 +168,9 @@ script = ExtResource( 5 )
 collision_mask = 96
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerArea"]
-position = Vector2( 0, 9 )
+position = Vector2( -2.84217e-14, 10.45 )
 scale = Vector2( 1, 0.479999 )
-shape = SubResource( 25 )
+shape = SubResource( 29 )
 
 [node name="BoidAbsorptionComponent" type="Node" parent="."]
 script = ExtResource( 7 )
