@@ -8,7 +8,7 @@ signal player_boid_count_update(new_value)
 signal PlayerDeath
 #_____________________#
 
-const MaxSpeed = 350.0
+const MaxSpeed = 250.0
 const Acceleration_Friction = 20.0
 const DashPower = 5
 #_____________________#
@@ -18,9 +18,7 @@ var Dir: Vector2
 
 #_____________________#
 onready var timer = $StaminaTimer
-onready var sectimer = $StaminaRegenPause
-onready var animationPlayer = $AnimationPlayer
-onready var animationTree = $AnimationTree
+onready var _animation_player = $AnimationPlayer
 onready var boid_flock = $BoidFlock
 export var initialBoidNum := 3
 #_____________________#
@@ -36,20 +34,22 @@ func _ready():
 		i += 1
 		
 	self.set_meta("Player", true)
+	_animation_player.play("IdleRight")
+	
 	
 func add_damage(value: int) -> void:
 	#PlayerStats.Health -= value
 	# release boid
 	boid_flock.release_boid();
 	
+	
 func add_boid() -> void:
 	boid_flock.spawn_boid()
-
-	
+		
 #_____________________#
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	
+	print(_animation_player.current_animation_position)
 	#_____________________#
 	# Getting the inputs, 1 for right, -1 for left, 1 for up, -1 for down (Horizontal, Vertical)
 	var inputvector : Vector2 = Vector2.ZERO
@@ -66,11 +66,11 @@ func _physics_process(delta):
 	if inputvector != Vector2.ZERO:
 		velocity = inputvector.normalized() * MaxSpeed * delta # acceleration 
 		Dir = inputvector # Direction vector for setting the look direction of player
-		animationTree.set("parameters/Idle/blend_position", Dir) # change direction player is facing based on "Dir" value
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, Acceleration_Friction* delta) # deceleration
 	
 
+	PlayRunAnimationDirection(inputvector)
 	move_and_collide(velocity) # movement
 	#_____________________#
 	Dash() # Dash function
@@ -93,6 +93,18 @@ func StaminaRefill():
 	
 	if PlayerStats.Stamina != PlayerStats.MaxStamina: # if stamina is not full, start recovering stamina again
 		timer.start() 
+
+
+func PlayRunAnimationDirection(direction: Vector2):
+	
+	if direction.x > 0:
+		_animation_player.play("WalkRight")
+	elif direction.x < 0:
+		_animation_player.play("WalkLeft")
+	elif direction.length() > 0:
+		_animation_player.play("Walk")
+	else:
+		_animation_player.play("Idle")
 	
 #_____________________#
 # Hurt player if enemy enters

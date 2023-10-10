@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Assets/BebasNeue-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -26,8 +26,6 @@ font_data = ExtResource( 1 )
 [sub_resource type="DynamicFont" id=5]
 size = 20
 font_data = ExtResource( 1 )
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id=1]
 
 [node name="Main" type="Node"]
 
@@ -117,12 +115,6 @@ position = Vector2( -123, -127 )
 __meta__ = {
 "_edit_group_": true
 }
-
-[node name="AnimationPlayer" parent="YSort/Player" index="2"]
-root_node = NodePath("../../..")
-
-[node name="AnimationTree" parent="YSort/Player" index="3"]
-parameters/playback = SubResource( 1 )
 
 [node name="GlobalStats" parent="." instance=ExtResource( 10 )]
 

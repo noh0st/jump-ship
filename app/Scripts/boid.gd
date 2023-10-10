@@ -1,7 +1,5 @@
 extends KinematicBody2D
 
-onready var _boid_manager = get_node("/root/Main/BoidManager")
-
 export var max_speed = 10.0
 
 
