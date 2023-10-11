@@ -34,7 +34,7 @@ func _ready():
 		i += 1
 		
 	self.set_meta("Player", true)
-	_animation_player.play("IdleRight")
+	_animation_player.play("Idle")
 	
 	
 func add_damage(value: int) -> void:
@@ -96,7 +96,6 @@ func StaminaRefill():
 
 
 func PlayRunAnimationDirection(direction: Vector2):
-	
 	if direction.x > 0:
 		_animation_player.play("WalkRight")
 	elif direction.x < 0:
@@ -127,3 +126,7 @@ func _on_Timer_timeout():
 func _on_BoidFlock_boid_count_update(new_value):
 	print("emiting boid")
 	emit_signal("player_boid_count_update", new_value)
+
+
+func _on_HurtBox_area_entered(area):
+	pass # Replace with function body.
