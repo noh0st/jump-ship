@@ -5,13 +5,13 @@
 [ext_resource path="res://Assets/HealthBarPNG/5.png" type="Texture" id=3]
 [ext_resource path="res://Assets/HealthBarPNG/6.png" type="Texture" id=4]
 [ext_resource path="res://Scenes/Upgrades.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/XPbar/XPOutline.png" type="Texture" id=6]
+[ext_resource path="res://Assets/XPbar/XPFilling.png" type="Texture" id=7]
+[ext_resource path="res://Assets/XPbar/XPBackground.png" type="Texture" id=8]
 [ext_resource path="res://Assets/BebasNeue-Regular.ttf" type="DynamicFontData" id=9]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 9 )
-[ext_resource path="res://Assets/XPbar/XPOutline.png" type="Texture" id=6]
-[ext_resource path="res://Assets/XPbar/XPFilling.png" type="Texture" id=7]
-[ext_resource path="res://Assets/XPbar/XPBackground.png" type="Texture" id=8]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource( 1 )

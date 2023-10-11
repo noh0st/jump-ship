@@ -8,7 +8,7 @@ const SpearEnemy: PackedScene = preload("res://Scenes/SpearLanceEnemy.tscn")
 const X_BOUNDS = Vector2(-1000, 1000)
 const Y_BOUNDS = Vector2(-1000, 350)
 
-var XPPlayer : int = 100 #xp added to player on death
+
 var XPPlayer : int = 50 #xp added to player on death
 enum Type {
 	ENEMY,
