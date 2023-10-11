@@ -15,7 +15,7 @@ func _on_enemy_death() -> void:
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_player = get_parent()
-	#_enemy_manager.subscribe_to_deaths(funcref(self, "_on_enemy_death"))
+	_enemy_manager.subscribe_to_deaths(funcref(self, "_on_enemy_death"))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

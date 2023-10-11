@@ -45,6 +45,10 @@ func add_damage(value: int) -> void:
 	
 func add_boid() -> void:
 	boid_flock.spawn_boid()
+	
+	
+func flock_size() -> int:
+	return boid_flock.size()
 		
 #_____________________#
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -121,7 +125,7 @@ func _on_PlayerStats_healthChange(value):
 # If stamina timer runs out, regen stamina 
 func _on_Timer_timeout():
 	StaminaRefill()# Replace with function body.
-
+	
 
 func _on_BoidFlock_boid_count_update(new_value):
 	print("emiting boid")
