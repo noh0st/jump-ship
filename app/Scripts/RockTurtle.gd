@@ -27,10 +27,12 @@ func _on_TurtleVision_area_entered(area):
 		HasTarget = true
 		
 		attackTimer.start(0)
+		#print(TargetDir, area)
 		
 
 func _on_TurtleVision_area_exited(area):
 	if area == Target:
+		#print("exit")
 		if HasTarget == true:
 			attackTimer.stop()
 			Target = null
@@ -57,4 +59,3 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 func _on_DamageZone_area_entered(area):
 	if area.get_parent().has_method("add_damage") and (not area.get_parent().has_meta("Enemy")):
 		area.get_parent().add_damage(GlobalUpgradeStats.globalEnemyDamage)
-
