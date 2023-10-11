@@ -10,9 +10,9 @@ signal xpChange(value)
 signal newLevel()
 #_____________________#
 
-var BoidsCollectedNum setget BoidsChanged
+#var BoidsCollectedNum setget BoidsChanged
 var Stamina setget ChangedStamina
-var Health :int setget ChangedHealth
+#var Health :int setget ChangedHealth
 var XP setget ChangedXP
 #_____________________#
 var staminaForDash = 10
@@ -27,16 +27,16 @@ export var HealthPerBoid = 10
 #_____________________#
 
 func BoidsChanged(value): # change the value of the number of boids you get
-	BoidsCollectedNum = value
+	pass #BoidsCollectedNum = value
 	
-	emit_signal("boidsChange", BoidsCollectedNum)
-	emit_signal("healthChange", Health)
+	#emit_signal("boidsChange", BoidsCollectedNum)
+	#emit_signal("healthChange", Health)
 	
 	
 #set stats to their maximum at the start of the game
 func _ready():
-	BoidsCollectedNum = 0
-	Health = MaxHealth
+	# BoidsCollectedNum = 0
+	#Health = MaxHealth
 	Stamina = MaxStamina
 	#####
 	XP = 0
@@ -44,12 +44,12 @@ func _ready():
 # emits signals if any stat get set
 func ChangedHealth(value):
 	if value > 0:
-		Health = value
+		pass #Health = value
 	elif value <= 0:
-		Health = 0
+		#Health = 0
 		emit_signal("Death")
 		
-	emit_signal("healthChange", Health)
+	#emit_signal("healthChange", Health)
 	#######
 	
 	
@@ -66,14 +66,18 @@ func ChangedXP(value):
 		MaxXP *= MaxXpMultiplyer
 		ChangedXP(XP)
 		emit_signal("newLevel")
+		
+		
 func ResetValues():
-	Health = MaxHealth
+	#Health = MaxHealth
 	Stamina = MaxStamina
-	BoidsCollectedNum = 3
+	# BoidsCollectedNum = 3
 	XP = 0
 	MaxXP = 150
+	
+	
 func UpgradedValues():
 	MaxHealth= GlobalUpgradeStats.globalSelfHealth
 	MaxStamina = GlobalUpgradeStats.playerStamina
-	Health = MaxHealth
+	#Health = MaxHealth
 	Stamina = MaxStamina

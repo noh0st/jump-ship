@@ -69,7 +69,7 @@ start_node = "Idle"
 [sub_resource type="CapsuleShape2D" id=25]
 height = 0.0
 
-[node name="Player" type="KinematicBody2D"]
+[node name="MenuPlayer" type="KinematicBody2D"]
 collision_mask = 64
 script = ExtResource( 3 )
 

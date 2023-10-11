@@ -291,6 +291,7 @@ shape = SubResource( 11 )
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 3 )
+flip_h = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/AttackLeft = SubResource( 4 )

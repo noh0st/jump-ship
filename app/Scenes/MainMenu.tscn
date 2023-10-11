@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://Assets/MainMenuBackround.PNG" type="Texture" id=2]
-[ext_resource path="res://Scenes/MenuPlayer.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/BebasNeue-Regular.ttf" type="DynamicFontData" id=4]
 
 [sub_resource type="DynamicFont" id=4]
@@ -105,8 +104,5 @@ custom_fonts/font = SubResource( 2 )
 text = "Press \"Space\" to dash"
 align = 1
 valign = 1
-
-[node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 648, 351 )
 
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/CenterContainer/Button" to="." method="_on_Button_pressed"]

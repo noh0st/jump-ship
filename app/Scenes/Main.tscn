@@ -11,6 +11,7 @@
 [ext_resource path="res://Scenes/SpearEnemySpawner.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/MusicPlayer.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scenes/GlobalStats.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scripts/Main.gd" type="Script" id=12]
 
 [sub_resource type="DynamicFont" id=3]
 size = 46
@@ -24,12 +25,11 @@ font_data = ExtResource( 1 )
 size = 20
 font_data = ExtResource( 1 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=1]
-
 [node name="Main" type="Node"]
+script = ExtResource( 12 )
 
 [node name="MusicPlayer" parent="." instance=ExtResource( 10 )]
-volume_db = -45.877
+volume_db = 10.554
 
 [node name="PauseMenu" parent="." instance=ExtResource( 6 )]
 
@@ -83,19 +83,12 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="AnimationPlayer" parent="YSort/Player" index="2"]
-root_node = NodePath("../../..")
-
-[node name="AnimationTree" parent="YSort/Player" index="3"]
-parameters/playback = SubResource( 1 )
-
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 
-[node name="GlobalStats" type="Node" parent="."]
-
-[node name="GlobalStats" parent="GlobalStats" instance=ExtResource( 11 )]
+[node name="GlobalStats@GlobalStats" parent="." instance=ExtResource( 11 )]
 
 [connection signal="player_boid_count_update" from="YSort/Player" to="Death" method="_on_Player_player_boid_count_update"]
+[connection signal="player_boid_count_update" from="YSort/Player" to="HUD" method="_on_Player_player_boid_count_update"]
 
 [editable path="Death"]
 [editable path="YSort/Player"]
