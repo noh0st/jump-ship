@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-onready var _enemy_manager = get_node("/root/Main/EnemyManager")
+onready var _enemy_manager = get_node("/root/Main/YSort/EnemyManager")
 
 var Target : Node
 var Dir := Vector2.ZERO
@@ -173,6 +173,9 @@ func add_damage(value: int) -> void:
 	health -= value
 	
 	$HPbar.update_ui(health, GlobalUpgradeStats.globalEnemyHealth * healthMultiple)
+	
+	print("spear guy hit for")
+	print(value)
 	
 	if health <= 0:
 		# enemy is dead

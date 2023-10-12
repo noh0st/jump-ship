@@ -9,7 +9,7 @@ signal player_boid_count_update(new_value)
 signal PlayerDeath
 #_____________________#
 
-onready var _enemy_manager = get_node("/root/Main/EnemyManager")
+onready var _enemy_manager = get_node("/root/Main/YSort/EnemyManager")
 
 const MaxSpeed = 250.0
 const Acceleration_Friction = 20.0
@@ -39,6 +39,8 @@ func _ready():
 		
 	self.set_meta("Player", true)
 	_animation_player.play("Idle")
+	
+	$BoidAbsorptionComponent.init(_enemy_manager)
 	
 	_enemy_manager.subscribe_to_deaths(funcref(self, "_on_enemy_death"))
 	

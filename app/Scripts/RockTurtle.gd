@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var _enemy_manager = get_node("/root/Main/EnemyManager")
+onready var _enemy_manager = get_node("/root/Main/YSort/EnemyManager")
 
 var Target: Area2D
 var HasTarget := false
@@ -11,7 +11,7 @@ onready var _sprite = $Sprite
 var health: int
 export var healthMultiple : int = 5
 
-var xp_worth: int = 20
+var xp_worth: int = 100
 
 func _ready():
 	set_meta("Enemy", true)

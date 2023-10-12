@@ -77,11 +77,11 @@ __meta__ = {
 "_edit_group_": true
 }
 
+[node name="EnemyManager" parent="YSort" instance=ExtResource( 8 )]
+
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 
 [node name="GlobalStatsGlobalStats" parent="." instance=ExtResource( 11 )]
-
-[node name="EnemyManager" parent="." instance=ExtResource( 8 )]
 
 [node name="WaveManager" parent="." instance=ExtResource( 13 )]
 

@@ -11,7 +11,7 @@ func _ready():
 	# initialize health UI with player
 	$HUD.init($YSort/Player)
 	
-	$WaveManager.init($YSort/Player, $Upgrades, $EnemyManager, $HUD)
+	$WaveManager.init($YSort/Player, $Upgrades, $YSort/EnemyManager, $HUD)
 	
 	pass # Replace with function body.
 
