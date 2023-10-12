@@ -5,6 +5,7 @@ var wave_count : int = 0
 # wave manager has max threshold
 # wave also has the current xp
 
+
 const Wave1: PackedScene = preload("res://Scenes/Wave1.tscn")
 
 var _enemy_manager: Node
@@ -41,8 +42,8 @@ func spawn_wave(wave: Node) -> void:
 	current_wave = wave
 	print("spawning wave one")
 	
-	for child_index in current_wave.get_child_count():
-		var child_node = current_wave.get_child(child_index)
+	for child_index in current_wave.get_node("Enemies").get_child_count():
+		var child_node = current_wave.get_node("Enemies").get_child(child_index)
 		
 		_enemy_manager.add_enemy(child_node)
 

@@ -159,6 +159,7 @@ func process_boiding(delta) -> void:
 		return 
 	
 	if boids.size() == 1:
+		print("boids single")
 		handle_single(delta, follow_target) # float around owner 
 		return
 	
@@ -261,6 +262,7 @@ func _on_EnemyDetectionTrigger_area_entered(area):
 				self._attack_state = AttackState.CIRCLING
 				attack_target = area.get_parent()
 			_:
+				print("unhandled vision entered")
 				pass #print("unhandled vision entered")
 		
 
@@ -271,7 +273,7 @@ func _on_Hitbox_area_entered(area) -> void:
 			State.ATTACKING:
 				_on_hitbox_attacking(area)
 			_:
-				print("current state unhandled")
+				print("current hitbox area entered state unhandled")
 				pass #
 		
 		
@@ -292,5 +294,5 @@ func _on_hitbox_attacking(area) -> void:
 				self._attack_state = AttackState.LUNGE_RETREAT
 			else:
 				print("method not found")
-		_:
-			print("hitbox unhandled")
+		AttackState.LUNGE_RETREAT:
+			pass
