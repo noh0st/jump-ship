@@ -16,6 +16,9 @@ var _player: Node # the plyaer
 func init(player: Node) -> void:
 	_player = player
 	
+	$XPBar.visible = true
+	$BossHealthBar.visible = false
+	
 	PlayerStats.connect("healthChange",self, "_on_Player_health_update")
 	PlayerStats.connect("staminaChange",self, "_on_Player_ChangedStamina")
 	PlayerStats.connect("xpChange",self, "_on_PlayerStats_xpChange")
@@ -28,6 +31,16 @@ func init(player: Node) -> void:
 	
 	print(BoidsLabel)
 	_is_ready = true
+
+
+func enable_boss_health_bar() -> void:
+	$XPBar.visible = false
+	$BossHealthBar.visible = true
+
+
+func reset() -> void:
+	$XPBar.visible = true
+	$BossHealthBar.visible = false
 
 
 func _on_Player_ChangedStamina(value):

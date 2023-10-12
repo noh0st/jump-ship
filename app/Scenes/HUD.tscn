@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/HealthUIController.gd" type="Script" id=1]
 [ext_resource path="res://Assets/HealthBarPNG/8.png" type="Texture" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://Assets/XPbar/XPFilling.png" type="Texture" id=7]
 [ext_resource path="res://Assets/XPbar/XPBackground.png" type="Texture" id=8]
 [ext_resource path="res://Assets/BebasNeue-Regular.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://Scripts/HPbar.gd" type="Script" id=10]
+[ext_resource path="res://Assets/HealthBarPNG/HPFilling.png" type="Texture" id=11]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 9 )
@@ -39,6 +41,7 @@ texture_progress = ExtResource( 3 )
 [node name="Upgrades" parent="." instance=ExtResource( 5 )]
 
 [node name="XPBar" type="TextureProgress" parent="."]
+visible = false
 margin_left = 8.0
 margin_top = 667.0
 margin_right = 1288.0
@@ -73,3 +76,16 @@ margin_right = 1145.83
 margin_bottom = 52.7368
 bbcode_text = "/"
 text = "/"
+
+[node name="BossHealthBar" type="TextureProgress" parent="."]
+margin_left = 8.0
+margin_top = 667.0
+margin_right = 1288.0
+margin_bottom = 717.0
+rect_scale = Vector2( 0.993339, 1.01484 )
+step = 0.1
+value = 50.0
+texture_under = ExtResource( 8 )
+texture_over = ExtResource( 6 )
+texture_progress = ExtResource( 11 )
+script = ExtResource( 10 )
