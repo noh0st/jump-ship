@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/RockTurtle.gd" type="Script" id=1]
 [ext_resource path="res://Assets/TurtleRockEnemy/05.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Assets/TurtleRockEnemy/04.png" type="Texture" id=4]
 [ext_resource path="res://Assets/TurtleRockEnemy/03.png" type="Texture" id=5]
 [ext_resource path="res://Assets/TurtleRockEnemy/01.png" type="Texture" id=6]
+[ext_resource path="res://Scenes/HPbar.tscn" type="PackedScene" id=7]
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -102,6 +103,10 @@ collision_mask = 12
 position = Vector2( -2.81587, -2.81587 )
 scale = Vector2( 14.9652, 7.98167 )
 shape = SubResource( 4 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 4
@@ -111,6 +116,13 @@ collision_mask = 2
 position = Vector2( -146.425, 0 )
 shape = SubResource( 6 )
 disabled = true
+
+[node name="HPbar" parent="." instance=ExtResource( 7 )]
+margin_left = -51.32
+margin_top = -95.735
+margin_right = 2248.68
+margin_bottom = 504.265
+rect_scale = Vector2( 0.044, -0.047 )
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="area_entered" from="TurtleVision" to="." method="_on_TurtleVision_area_entered"]

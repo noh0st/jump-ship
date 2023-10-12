@@ -4,9 +4,12 @@ extends KinematicBody2D
 
 signal ChangedStamina(value)
 signal health_update(new_value)
+signal xp_update(new_value)
 signal player_boid_count_update(new_value)
 signal PlayerDeath
 #_____________________#
+
+onready var _enemy_manager = get_node("/root/Main/EnemyManager")
 
 const MaxSpeed = 250.0
 const Acceleration_Friction = 20.0
@@ -15,6 +18,7 @@ const DashPower = 5
 
 var velocity = Vector2.ZERO
 var Dir: Vector2
+
 
 #_____________________#
 onready var timer = $StaminaTimer
@@ -36,11 +40,17 @@ func _ready():
 	self.set_meta("Player", true)
 	_animation_player.play("Idle")
 	
+	_enemy_manager.subscribe_to_deaths(funcref(self, "_on_enemy_death"))
+	
 	
 func add_damage(value: int) -> void:
 	#PlayerStats.Health -= value
 	# release boid
 	boid_flock.release_boid();
+	
+	
+func _on_enemy_death(enemy: Node) -> void: # this can take the enemy as a param to get xp per enemy
+	emit_signal("xp_update", enemy.xp_worth)
 	
 	
 func add_boid() -> void:
@@ -53,7 +63,6 @@ func flock_size() -> int:
 #_____________________#
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	print(_animation_player.current_animation_position)
 	#_____________________#
 	# Getting the inputs, 1 for right, -1 for left, 1 for up, -1 for down (Horizontal, Vertical)
 	var inputvector : Vector2 = Vector2.ZERO

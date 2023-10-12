@@ -1,16 +1,18 @@
 extends TextureButton
 
-var AssignedUpgrade : Upgrades setget CardAssign
+var AssignedUpgrade : Upgrades
 
-
+var _on_selection: FuncRef
 
 func _on_Upgrade_pressed():
-	get_tree().paused = false
-	print("pressed", AssignedUpgrade.UpgradeName)
-	get_parent().HideUpgrade()
+	_on_selection.call_func(self)
+
 	print($Description.text, $Name.text)
 
-func CardAssign(value):
+
+func CardAssign(value, on_selection):
+	_on_selection = on_selection
+	
 	AssignedUpgrade = value
 	$Description.text = AssignedUpgrade.UpgradeDescription
 	$Name.text = AssignedUpgrade.UpgradeName

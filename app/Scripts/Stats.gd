@@ -6,19 +6,16 @@ signal Death
 signal healthChange(value)
 signal staminaChange(value)
 signal boidsChange(value)
-signal xpChange(value)
 signal newLevel()
 #_____________________#
 
 #var BoidsCollectedNum setget BoidsChanged
 var Stamina setget ChangedStamina
 #var Health :int setget ChangedHealth
-var XP setget ChangedXP
 #_____________________#
 var staminaForDash = 10
 
 var MaxHealth := 100
-var MaxXP : int = 100
 export var MaxXpMultiplyer: float = 2
 var MaxStamina = 100
 var staminaRegen = 5
@@ -39,7 +36,7 @@ func _ready():
 	#Health = MaxHealth
 	Stamina = MaxStamina
 	#####
-	XP = 0
+	#XP = 0
 	
 # emits signals if any stat get set
 func ChangedHealth(value):
@@ -57,23 +54,11 @@ func ChangedStamina(value):
 	Stamina = value
 	emit_signal("staminaChange", Stamina)
 	
-func ChangedXP(value):
-	XP = value
-	print(XP)
-	emit_signal("xpChange", XP)
-	if XP >= MaxXP:
-		XP = 0
-		MaxXP *= MaxXpMultiplyer
-		ChangedXP(XP)
-		emit_signal("newLevel")
-		
 		
 func ResetValues():
 	#Health = MaxHealth
 	Stamina = MaxStamina
 	# BoidsCollectedNum = 3
-	XP = 0
-	MaxXP = 150
 	
 	
 func UpgradedValues():

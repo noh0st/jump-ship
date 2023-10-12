@@ -52,13 +52,8 @@ var MaxHealth := 100
 var _last_position : Vector2
 
 func health_calculation():
-	HpBar.value = health
+	HpBar.update_ui(health, MaxHealth)
 	
-	if(health == MaxHealth):
-		HpBar.visible = false
-	elif(health != MaxHealth):
-		HpBar.visible = true
-		
 	if health <= 0:
 		health = 0
 		

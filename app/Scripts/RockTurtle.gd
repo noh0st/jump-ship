@@ -11,10 +11,18 @@ onready var _sprite = $Sprite
 
 var health: int
 export var healthMultiple : int = 5
+
+var xp_worth: int = 20
+
 func _ready():
 	set_meta("Enemy", true)
 	_sprite = "res://Assets/01.png"
 	health = GlobalUpgradeStats.globalEnemyHealth * healthMultiple
+	$HPbar.update_ui(health, health)
+	
+	
+	print("SETTING TURTLE HEALTH")
+	print(health)
 	
 func _process(delta):
 	if Target != null:
@@ -42,8 +50,9 @@ func _on_TurtleVision_area_exited(area):
 func add_damage(value: int) -> void:
 	health -= value
 	
+	$HPbar.update_ui(health, GlobalUpgradeStats.globalEnemyHealth * healthMultiple)
+	
 	if health <= 0:
-		# enemy is dead
 		_enemy_manager.remove_enemy(self)
 
 

@@ -8,7 +8,7 @@ onready var _enemy_manager = get_node("/root/Main/EnemyManager")
 var _player: Node 
 
 
-func _on_enemy_death() -> void:
+func _on_enemy_death(enemy: Node) -> void:
 	_player.add_boid()
 	
 

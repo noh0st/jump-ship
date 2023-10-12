@@ -12,8 +12,11 @@ onready var _patrolTimer = $patrolTimer
 onready var _current_state: int = State.PATROLLING setget set_current_state
 onready var _attack_state: int = AttackState.COOLING setget set_attack_state
 
-var health: int = 50
-export var healthMultiple : int = 1
+var xp_worth = 250
+
+var health: int = 0
+export var healthMultiple : int = 10
+
 enum State {
 	PATROLLING,
 	APPROACHING,
@@ -30,6 +33,8 @@ func _ready():
 	set_meta("Enemy", true)
 	health = GlobalUpgradeStats.globalEnemyHealth * healthMultiple
 	self._current_state = State.PATROLLING
+	
+	$HPbar.update_ui(health, health)
 	
 	_animationPlayer.play("Idle")
 	
@@ -166,6 +171,8 @@ func Attack():
 
 func add_damage(value: int) -> void:
 	health -= value
+	
+	$HPbar.update_ui(health, GlobalUpgradeStats.globalEnemyHealth * healthMultiple)
 	
 	if health <= 0:
 		# enemy is dead
