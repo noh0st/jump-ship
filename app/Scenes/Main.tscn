@@ -1,42 +1,25 @@
-[gd_scene load_steps=16 format=2]
-
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scenes/RatEnemy.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Assets/BebasNeue-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Death.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/Upgrades.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/RockEnemySpawner.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/PauseMenu.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Map.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/EnemyManager.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Scenes/MusicPlayer.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Scenes/GlobalStats.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Scripts/Main.gd" type="Script" id=12]
-[ext_resource path="res://Scenes/WaveManager.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Scenes/SpearEnemySpawner.tscn" type="PackedScene" id=9]
 
-[sub_resource type="DynamicFont" id=3]
-size = 46
-font_data = ExtResource( 1 )
-
-[sub_resource type="DynamicFont" id=4]
-size = 20
-font_data = ExtResource( 1 )
-
-[sub_resource type="DynamicFont" id=5]
-size = 20
-font_data = ExtResource( 1 )
+[sub_resource type="AnimationNodeStateMachinePlayback" id=1]
 
 [node name="Main" type="Node"]
-script = ExtResource( 12 )
 
-[node name="MusicPlayer" parent="." instance=ExtResource( 10 )]
-volume_db = -19.687
+[node name="HUD" parent="." instance=ExtResource( 3 )]
 
 [node name="PauseMenu" parent="." instance=ExtResource( 6 )]
 
 [node name="Map" parent="." instance=ExtResource( 7 )]
-position = Vector2( 0, 0 )
+position = Vector2( -108, 89 )
 
 [node name="Death" parent="." instance=ExtResource( 4 )]
 
@@ -53,35 +36,10 @@ margin_right = 668.0
 margin_bottom = 404.0
 
 [node name="EnemyManager" parent="." instance=ExtResource( 8 )]
-color = Color( 0.113725, 0.113725, 0.113725, 1 )
 
-[node name="VBoxContainer" parent="Death/Control/CenterContainer" index="1"]
-margin_left = 577.0
-margin_top = 285.0
-margin_right = 702.0
-margin_bottom = 435.0
+[node name="SpearEnemySpawner" parent="." instance=ExtResource( 9 )]
 
-[node name="Label" parent="Death/Control/CenterContainer/VBoxContainer" index="0"]
-margin_right = 125.0
-margin_bottom = 56.0
-custom_fonts/font = SubResource( 3 )
-
-[node name="Control" parent="Death/Control/CenterContainer/VBoxContainer" index="1"]
-margin_top = 64.0
-margin_right = 125.0
-margin_bottom = 74.0
-
-[node name="RestartButton" parent="Death/Control/CenterContainer/VBoxContainer" index="2"]
-margin_top = 82.0
-margin_right = 125.0
-margin_bottom = 112.0
-custom_fonts/font = SubResource( 4 )
-
-[node name="QuitButton" parent="Death/Control/CenterContainer/VBoxContainer" index="3"]
-margin_top = 120.0
-margin_right = 125.0
-margin_bottom = 150.0
-custom_fonts/font = SubResource( 5 )
+[node name="RockEnemySpawner" parent="." instance=ExtResource( 5 )]
 
 [node name="YSort" type="YSort" parent="."]
 
@@ -91,15 +49,11 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="EnemyManager" parent="YSort" instance=ExtResource( 8 )]
+[node name="AnimationPlayer" parent="YSort/Player" index="2"]
+root_node = NodePath("../../..")
 
-[node name="HUD" parent="." instance=ExtResource( 3 )]
-
-[node name="GlobalStatsGlobalStats" parent="." instance=ExtResource( 11 )]
-
-[node name="WaveManager" parent="." instance=ExtResource( 13 )]
-
-[node name="Upgrades" parent="." instance=ExtResource( 5 )]
+[node name="AnimationTree" parent="YSort/Player" index="3"]
+parameters/playback = SubResource( 1 )
 
 [node name="RatEnemy" parent="." instance=ExtResource( 1 )]
 position = Vector2( -497, -42 )
@@ -107,10 +61,8 @@ position = Vector2( -497, -42 )
 [connection signal="ChangedStamina" from="YSort/Player" to="HUD" method="_on_Player_ChangedStamina"]
 [connection signal="player_boid_count_update" from="YSort/Player" to="HUD" method="_on_Player_player_boid_count_update"]
 [connection signal="player_boid_count_update" from="YSort/Player" to="Death" method="_on_Player_player_boid_count_update"]
-[connection signal="player_boid_count_update" from="YSort/Player" to="HUD" method="_on_Player_player_boid_count_update"]
-[connection signal="xp_update" from="YSort/Player" to="HUD" method="_on_Player_xp_update"]
-[connection signal="xp_update" from="YSort/Player" to="WaveManager" method="_on_Player_xp_update"]
 
+[editable path="HUD"]
 [editable path="Death"]
 [editable path="YSort/Player"]
 [editable path="YSort/Player/HurtBox"]

@@ -4,20 +4,12 @@ var _enemies = []
 const Enemy: PackedScene = preload("res://Scenes/Enemy.tscn")
 const RockTurtle: PackedScene = preload("res://Scenes/RockTurtle.tscn")
 const SpearEnemy: PackedScene = preload("res://Scenes/SpearLanceEnemy.tscn")
-onready var MainYsort = get_node("../YSort")
 
-const X_BOUNDS = Vector2(-1000, 1000)
-const Y_BOUNDS = Vector2(-1000, 350)
-
-
-var XPPlayer : int = 50 #xp added to player on death
 enum Type {
 	ENEMY,
 	ROCK_TURTLE,
 	SPEAR
 }
-
-var _on_death_callbacks: Array = []
 
 # manages pools for each enemy type
 
@@ -38,27 +30,23 @@ func spawn(type: int) -> Node:
 func _spawn_enemy() -> Node:
 	var new_enemy: Node = Enemy.instance()
 	_enemies.append(new_enemy)
-	MainYsort.add_child(new_enemy)
+	add_child(new_enemy)
 	
 	return new_enemy
 
 
-func add_enemy(enemy: Node) -> void:
-	_enemies.append(enemy)
-	
-
 func _spawn_rock_turtle() -> Node:
 	var new_enemy: Node = RockTurtle.instance()
 	_enemies.append(new_enemy)
-	MainYsort.add_child(new_enemy)
+	add_child(new_enemy)
 	
 	return new_enemy
 
 func _spawn_spear() -> Node:
 	var new_enemy: Node = SpearEnemy.instance()
 	_enemies.append(new_enemy)
+	add_child(new_enemy)
 	
-	MainYsort.add_child(new_enemy)
 	return new_enemy
 
 
@@ -69,15 +57,5 @@ func size() -> int:
 # Function to remove an enemy
 func remove_enemy(enemy: Node) -> void:
 	if _enemies.has(enemy):
-		fire_death_event(enemy)
+		enemy.queue_free()
 		_enemies.erase(enemy)
-	enemy.queue_free()
-
-
-func subscribe_to_deaths(callback: FuncRef) -> void:
-	_on_death_callbacks.append(callback)
-
-
-func fire_death_event(enemy: Node) -> void:
-	for callback in _on_death_callbacks:
-		callback.call_func(enemy)

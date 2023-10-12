@@ -8,16 +8,6 @@
 
 config_version=4
 
-_global_script_classes=[ {
-"base": "Resource",
-"class": "Upgrades",
-"language": "GDScript",
-"path": "res://Recources/UpgradeBluePrint.gd"
-} ]
-_global_script_class_icons={
-"Upgrades": ""
-}
-
 [application]
 
 config/name="jump-ship"
