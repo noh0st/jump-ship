@@ -7,6 +7,8 @@ onready var upgrade_1 = $Control/Upgrade_1
 onready var upgrade_2 = $Control/Upgrade_2
 onready var upgrade_3 = $Control/Upgrade_3
 
+var on_select_callback: FuncRef
+
 func AddAndApplyUpgrade(added_upgrade):
 	if added_upgrade != null:
 		added_upgrade.Upgrade()
@@ -23,11 +25,12 @@ func _ready():
 	# self.get_child(i).connect("ChoseUpgrade", self, "AddAndApplyUpgrade", [self.get_child(i).AssignedUpgrade])
 	
 			
-func UpgradesPOPUP():
+func UpgradesPOPUP(callback: FuncRef):
 	#print(AvailableUpgrades)
 	get_tree().paused = true
 	ShowUpgrade()
 	AssignRandomUpgrades()
+	on_select_callback = callback
 	
 	
 func AssignRandomUpgrades():
@@ -44,6 +47,7 @@ func _on_selection(card: Node) -> void:
 	get_tree().paused = false
 	print("pressed", card.AssignedUpgrade.UpgradeName)
 	HideUpgrade()
+	on_select_callback.call_func()
 
 
 func HideUpgrade():

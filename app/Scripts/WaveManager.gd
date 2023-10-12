@@ -56,9 +56,12 @@ func _on_Player_xp_update(value: int) -> void:
 	_ui.update_xp(_xp, current_wave.xp_threshold)
 	
 	if _xp >= current_wave.xp_threshold:
-		_upgrade_menu.UpgradesPOPUP()
-		_xp = 0
-		var nextWave = current_wave.NextWave
-		current_wave.queue_free()
-		spawn_wave(nextWave.instance())
-		
+		_upgrade_menu.UpgradesPOPUP(funcref(self, "_on_upgrade_selection"))
+
+
+func _on_upgrade_selection() -> void:
+	# show bar, spawn next wave
+	_xp = 0
+	var nextWave = current_wave.NextWave
+	current_wave.queue_free()
+	spawn_wave(nextWave.instance())
