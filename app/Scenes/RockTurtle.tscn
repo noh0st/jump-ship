@@ -124,11 +124,11 @@ shape = SubResource( 6 )
 disabled = true
 
 [node name="HPbar" parent="." instance=ExtResource( 7 )]
-margin_left = -51.32
-margin_top = -95.735
-margin_right = 2248.68
-margin_bottom = 504.265
-rect_scale = Vector2( 0.044, -0.047 )
+margin_left = -68.0
+margin_top = -141.0
+margin_right = 3397.0
+margin_bottom = 585.0
+rect_scale = Vector2( 0.065, -0.047 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 16
