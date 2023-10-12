@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Assets/BebasNeue-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -11,8 +11,6 @@
 [ext_resource path="res://Scenes/SpearEnemySpawner.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/MusicPlayer.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scripts/GlobalUpgradeStats.gd" type="Script" id=11]
-[ext_resource path="res://TreesScene/Tree_02.tscn" type="PackedScene" id=12]
-[ext_resource path="res://TreesScene/Tree_01.tscn" type="PackedScene" id=13]
 
 [sub_resource type="DynamicFont" id=3]
 size = 46
@@ -75,6 +73,8 @@ custom_fonts/font = SubResource( 5 )
 [node name="RockEnemySpawner" parent="." instance=ExtResource( 5 )]
 
 [node name="YSort" type="YSort" parent="."]
+z_index = 1
+z_as_relative = false
 
 [node name="Player" parent="YSort" instance=ExtResource( 2 )]
 position = Vector2( -123, -127 )
@@ -90,12 +90,6 @@ parameters/playback = SubResource( 1 )
 
 [node name="Map" parent="YSort" instance=ExtResource( 7 )]
 position = Vector2( -108, 89 )
-
-[node name="Tree" parent="YSort" instance=ExtResource( 13 )]
-position = Vector2( -254, -111 )
-
-[node name="Tree2" parent="YSort" instance=ExtResource( 12 )]
-position = Vector2( -389, -139 )
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 

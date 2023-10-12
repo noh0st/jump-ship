@@ -119,16 +119,18 @@ start_node = "Idle"
 extents = Vector2( 10, 11.3542 )
 
 [node name="Player" type="KinematicBody2D"]
-collision_mask = 64
+collision_mask = 80
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 6 )
+position = Vector2( 0, -3 )
 scale = Vector2( 1, 0.5 )
 shape = SubResource( 13 )
 
 [node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.989457, 0.935104 )
 texture = ExtResource( 4 )
+offset = Vector2( 0, -15 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/DownWalk = SubResource( 14 )
@@ -152,6 +154,7 @@ collision_layer = 2
 collision_mask = 8
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2( 0, -14 )
 shape = SubResource( 24 )
 
 [node name="PlayerStats" parent="." instance=ExtResource( 1 )]
@@ -168,7 +171,7 @@ script = ExtResource( 5 )
 collision_mask = 96
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerArea"]
-position = Vector2( -2.84217e-14, 10.45 )
+position = Vector2( -1.69407e-21, -3 )
 scale = Vector2( 1, 0.479999 )
 shape = SubResource( 29 )
 
