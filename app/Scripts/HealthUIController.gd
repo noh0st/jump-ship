@@ -1,34 +1,66 @@
 extends CanvasLayer
 
-
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
 onready var hpbar = $HPBar
 onready var staminabar = $StaminaBar
 onready var BoidsLabel = $BoidsNum
+onready var xpbar = $XPBar
+
+export var _is_ready: bool = false
+
+var _player: Node # the plyaer
+
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func init(player: Node) -> void:
+	_player = player
+	
+	$XPBar.visible = true
+	$BossHealthBar.visible = false
+	
 	PlayerStats.connect("healthChange",self, "_on_Player_health_update")
 	PlayerStats.connect("staminaChange",self, "_on_Player_ChangedStamina")
-	PlayerStats.connect("boidsChange",self, "_on_PlayerStats_boidsChange")
-	hpbar.value = PlayerStats.Health
-	staminabar.value = PlayerStats.Stamina
-	BoidsLabel.text = "Number Of Followers : %s" % PlayerStats.BoidsCollectedNum	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+	PlayerStats.connect("xpChange",self, "_on_PlayerStats_xpChange")
 	
+	$BoidsNum.text = "Number Of Followers : %s" % _player.flock_size()
+	
+	staminabar.value = PlayerStats.Stamina / (PlayerStats.MaxStamina/100)
+	
+	update_xp(0, 0)
+	
+	print(BoidsLabel)
+	_is_ready = true
 
-func _on_Player_health_update(new_value):
-	hpbar.value  =new_value 
-	
+
+func enable_boss_health_bar() -> void:
+	$XPBar.visible = false
+	$BossHealthBar.visible = true
+
+
+func reset() -> void:
+	$XPBar.visible = true
+	$BossHealthBar.visible = false
+
 
 func _on_Player_ChangedStamina(value):
-	staminabar.value = value 
+	staminabar.value = value / (PlayerStats.MaxStamina/100)
 
 
 func _on_Player_player_boid_count_update(new_value):
+	if not _is_ready:
+		return
+	
 	print("player boid update")
-	PlayerStats.BoidsCollectedNum = new_value
-	BoidsLabel.text = "Number Of Followers : %s" % PlayerStats.BoidsCollectedNum
+	print(BoidsLabel)
+	print($BoidsNum)
+	# PlayerStats.BoidsCollectedNum = new_value
+	BoidsLabel.text = "Number Of Followers : %s" % new_value
+	
+
+func update_xp(xp: int, max_xp: int) -> void:
+	xpbar.max_value = max_xp
+	xpbar.value = xp
+	$XPBar/XP.text = str(xp)
+	$XPBar/MaxXP.text = str(max_xp)
+

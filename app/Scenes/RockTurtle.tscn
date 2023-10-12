@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/RockTurtle.gd" type="Script" id=1]
 [ext_resource path="res://Assets/TurtleRockEnemy/05.png" type="Texture" id=2]
@@ -6,7 +6,7 @@
 [ext_resource path="res://Assets/TurtleRockEnemy/04.png" type="Texture" id=4]
 [ext_resource path="res://Assets/TurtleRockEnemy/03.png" type="Texture" id=5]
 [ext_resource path="res://Assets/TurtleRockEnemy/01.png" type="Texture" id=6]
-[ext_resource path="res://Scenes/Death.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/HPbar.tscn" type="PackedScene" id=7]
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -23,7 +23,7 @@ tracks/0/keys = {
 "values": [ ExtResource( 6 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("DamageZone/CollisionShape2D:disabled")
+tracks/1/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -50,7 +50,7 @@ tracks/0/keys = {
 "values": [ ExtResource( 6 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 6 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("DamageZone/CollisionShape2D:disabled")
+tracks/1/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -63,13 +63,16 @@ tracks/1/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 95.7396, 115.451 )
+extents = Vector2( 269.554, 172.747 )
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 7.71462, 9.52539 )
 
 [sub_resource type="CircleShape2D" id=6]
 radius = 116.101
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 115.451, 33.7904 )
 
 [node name="RockTurtle" type="Node2D"]
 scale = Vector2( 0.177565, 0.177565 )
@@ -78,44 +81,65 @@ script = ExtResource( 1 )
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.996148, 1 )
 texture = ExtResource( 6 )
+offset = Vector2( 0, -70 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 2 )
 anims/RockTurtleAttack = SubResource( 3 )
 
 [node name="TurtleVision" type="Area2D" parent="."]
-collision_layer = 32
-collision_mask = 129
+collision_layer = 8
+collision_mask = 16
+input_pickable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TurtleVision"]
-position = Vector2( -168.952, -2.81588 )
+position = Vector2( -326.641, -8.05627e-06 )
+scale = Vector2( 1.10732, 1.40185 )
 shape = SubResource( 5 )
 
 [node name="AttackTimer" type="Timer" parent="."]
 
-[node name="Death" parent="." instance=ExtResource( 7 )]
-
-[node name="Collisions" type="StaticBody2D" parent="."]
+[node name="Hurtbox" type="Area2D" parent="."]
 light_mask = 2
-collision_layer = 96
-collision_mask = 193
+collision_layer = 18
+collision_mask = 12
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions"]
-position = Vector2( -2.81587, -2.81587 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2( 2.38419e-07, -56.3174 )
 scale = Vector2( 14.9652, 7.98167 )
 shape = SubResource( 4 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
 
-[node name="DamageZone" type="Area2D" parent="."]
-collision_layer = 8
-collision_mask = 514
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageZone"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2( -146.425, 0 )
+scale = Vector2( -1.61864, -1.69729 )
 shape = SubResource( 6 )
 disabled = true
+
+[node name="HPbar" parent="." instance=ExtResource( 7 )]
+margin_left = -68.0
+margin_top = -141.0
+margin_right = 3397.0
+margin_bottom = 585.0
+rect_scale = Vector2( 0.065, -0.047 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 16
+collision_mask = 65
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 0, -28.1587 )
+shape = SubResource( 7 )
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="area_entered" from="TurtleVision" to="." method="_on_TurtleVision_area_entered"]
 [connection signal="area_exited" from="TurtleVision" to="." method="_on_TurtleVision_area_exited"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
-[connection signal="area_entered" from="DamageZone" to="." method="_on_DamageZone_area_entered"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_DamageZone_area_entered"]

@@ -1,7 +1,7 @@
 extends Node2D
 
-onready var _player = get_node("../YSort/Player")
-onready var _enemy_manager = get_node("/root/Main/EnemyManager")
+onready var _player = get_node("root/Main/YSort/Player")
+onready var _enemy_manager = get_node("../EnemyManager")
 onready var _timer: Timer = $Timer
 
 const SPAWN_RADIUS = 400
@@ -18,6 +18,14 @@ func _on_Timer_timeout():
 		# spawn enemy
 		var enemy = _enemy_manager.spawn(_enemy_manager.Type.SPEAR)
 		enemy.position = _player.position + _random_normalized_direction() * SPAWN_RADIUS
+		enemy.position = _clamp_position(enemy.position, _enemy_manager.X_BOUNDS, _enemy_manager.Y_BOUNDS)
+
+
+func _clamp_position(position: Vector2, xBounds: Vector2, yBounds: Vector2) -> Vector2:
+	var x = clamp(position.x, xBounds.x, xBounds.y)
+	var y = clamp(position.y, yBounds.x, yBounds.y)
+	
+	return Vector2(x, y)
 
 
 func _random_normalized_direction() -> Vector2:

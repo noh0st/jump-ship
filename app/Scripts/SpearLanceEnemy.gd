@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+onready var _enemy_manager = get_node("/root/Main/YSort/EnemyManager")
 
 var Target : Node
 var Dir := Vector2.ZERO
@@ -10,6 +11,11 @@ onready var _patrolTimer = $patrolTimer
 
 onready var _current_state: int = State.PATROLLING setget set_current_state
 onready var _attack_state: int = AttackState.COOLING setget set_attack_state
+
+var xp_worth = 100
+
+var health: int = 0
+export var healthMultiple : int = 10
 
 enum State {
 	PATROLLING,
@@ -24,9 +30,11 @@ enum AttackState {
 
 
 func _ready():
-	set_meta("Enemy", false)
-	
+	set_meta("Enemy", true)
+	health = GlobalUpgradeStats.globalEnemyHealth * healthMultiple
 	self._current_state = State.PATROLLING
+	
+	$HPbar.update_ui(health, health)
 	
 	_animationPlayer.play("Idle")
 	
@@ -48,20 +56,19 @@ func _physics_process(delta): #Target death
 	
 func process_approaching(delta) -> void:
 	if not (is_instance_valid(Target)):
-		print(Target)
-		print("target not valid - approaching")
+		#print("target not valid - approaching")
 		if not _check_vision_and_set_target():
 			self._current_state = State.PATROLLING
 		return
 	
 	if Target.position.distance_to(position) > VISION_RANGE:
-		print("target out of range")
+		#print("target out of range")
 		if not _check_vision_and_set_target():
 			self._current_state = State.PATROLLING
 		return
 
 	if Target.position.distance_to(position) < ATTACK_RANGE:
-		print("APPROACH IN RANGE")
+		#print("APPROACH IN RANGE")
 		self._current_state = State.ATTACKING
 		return
 		
@@ -69,7 +76,7 @@ func process_approaching(delta) -> void:
 	Dir = direction
 	var speed = 100
 	PlayRunAnimationDirection(direction)
-	move_and_slide(direction * speed)
+	move_and_collide(direction * speed * delta)
 	
 	
 func process_attacking(delta) -> void:
@@ -128,7 +135,7 @@ func set_attack_state(value: int) -> void:
 
 			
 			#$Vision/CollisionShape2D.set_deferred("disabled",  true)
-			$HitBoxPivot/Area2D/CollisionShape2D.set_deferred("disabled",  true)
+			$HitBoxPivot/HitBox/CollisionShape2D.set_deferred("disabled",  true)
 			_cooldownTimer.start(2.0)
 			pass
 
@@ -157,11 +164,22 @@ func PlayRunAnimationDirection(direction: Vector2):
 
 
 func Attack():		
-	print("attacking")
+	#print("attacking")
 	self._current_state = State.ATTACKING
 	
 	#attacking - stops the attacks, the hitboxes are controlled through the animation player
 
+func add_damage(value: int) -> void:
+	health -= value
+	
+	$HPbar.update_ui(health, GlobalUpgradeStats.globalEnemyHealth * healthMultiple)
+	
+	print("spear guy hit for")
+	print(value)
+	
+	if health <= 0:
+		# enemy is dead
+		_enemy_manager.remove_enemy(self)
 
 		
 func _random_direction() -> Vector2:
@@ -184,7 +202,7 @@ func _on_re_AttackTimer_timeout():
 			pass
 		AttackState.COOLING:
 			if not (is_instance_valid(Target)):
-				print("target not valid - cooling")
+				#print("target not valid - cooling")
 				self._current_state = State.APPROACHING
 				return
 					
@@ -204,12 +222,9 @@ func _on_Vision_area_entered(area: Node) -> void: #if you dont have target, set 
 		State.PATROLLING:
 			if _area_is_hostile(area):
 				Target = area.get_parent()
-				print("setting target")
-				print(Target.position)
-				print(Target)
 				self._current_state = State.APPROACHING
 			else:
-				print("area is not player nor boid")
+				pass#	print("area is not player nor boid")
 		
 	
 func _on_AttackRange_area_entered(area): #if entered the attack range attacks
@@ -284,3 +299,8 @@ func _check_vision_and_set_target() -> bool:
 	
 	Target = null
 	return false
+
+
+func _on_HitBox_area_entered(area):
+	if area.get_parent().has_method("add_damage") and (not area.get_parent().has_meta("Enemy")):
+		area.get_parent().add_damage(GlobalUpgradeStats.globalEnemyDamage)

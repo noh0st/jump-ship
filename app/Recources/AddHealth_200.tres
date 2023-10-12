@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Recources/UpgradeBluePrint.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+UpgradeName = "hp"
+UpgradeDescription = ""
+UpgradeSpritePath = ""
+AddedHealthToBoidsAndPlayer = 200.0
+AddedStaminaToPlayer = 0.0
+AddedDamageToBoids = 0.0
+AddedHealthToEnemies = 0.0
+AddedDamageToEnemies = 0.0

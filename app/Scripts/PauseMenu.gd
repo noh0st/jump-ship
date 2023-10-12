@@ -28,7 +28,7 @@ func _on_ResumeButton_pressed():
 func _on_QuitButton_pressed():
 	print("EXIT")
 	PlayerStats.ResetValues()
-	var main_menu_instance : Node = main_menu_scene.instance()
+	GlobalUpgradeStats.GlobalReset()
 	
 	get_tree().change_scene("res://Scenes/MainMenu.tscn")
 	

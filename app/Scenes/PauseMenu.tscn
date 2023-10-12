@@ -1,6 +1,19 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/PauseMenu.gd" type="Script" id=1]
+[ext_resource path="res://Assets/BebasNeue-Regular.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 40
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 20
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 20
+font_data = ExtResource( 2 )
 
 [node name="PauseMenu" type="CanvasLayer"]
 pause_mode = 2
@@ -15,43 +28,46 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="BackgroundColor" type="ColorRect" parent="Control/CenterContainer"]
-margin_left = 362.0
-margin_top = 150.0
-margin_right = 662.0
-margin_bottom = 450.0
+margin_left = 490.0
+margin_top = 210.0
+margin_right = 790.0
+margin_bottom = 510.0
 rect_min_size = Vector2( 300, 300 )
-color = Color( 0.266667, 0.529412, 0.533333, 1 )
+color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/CenterContainer"]
-margin_left = 480.0
-margin_top = 256.0
-margin_right = 544.0
-margin_bottom = 344.0
+margin_left = 593.0
+margin_top = 289.0
+margin_right = 686.0
+margin_bottom = 431.0
 custom_constants/separation = 8
 
 [node name="Label" type="Label" parent="Control/CenterContainer/VBoxContainer"]
-margin_right = 64.0
-margin_bottom = 14.0
+margin_right = 93.0
+margin_bottom = 48.0
+custom_fonts/font = SubResource( 1 )
 text = "Paused"
 align = 1
 valign = 1
 
 [node name="Control" type="Control" parent="Control/CenterContainer/VBoxContainer"]
-margin_top = 22.0
-margin_right = 64.0
-margin_bottom = 32.0
+margin_top = 56.0
+margin_right = 93.0
+margin_bottom = 66.0
 rect_min_size = Vector2( 0, 10 )
 
 [node name="ResumeButton" type="Button" parent="Control/CenterContainer/VBoxContainer"]
-margin_top = 40.0
-margin_right = 64.0
-margin_bottom = 60.0
+margin_top = 74.0
+margin_right = 93.0
+margin_bottom = 104.0
+custom_fonts/font = SubResource( 2 )
 text = "Resume"
 
 [node name="QuitButton" type="Button" parent="Control/CenterContainer/VBoxContainer"]
-margin_top = 68.0
-margin_right = 64.0
-margin_bottom = 88.0
+margin_top = 112.0
+margin_right = 93.0
+margin_bottom = 142.0
+custom_fonts/font = SubResource( 3 )
 text = "Exit"
 
 [connection signal="pressed" from="Control/CenterContainer/VBoxContainer/ResumeButton" to="." method="_on_ResumeButton_pressed"]
