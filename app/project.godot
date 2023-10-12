@@ -18,6 +18,7 @@ config/icon="res://icon.png"
 
 PlayerStats="*res://Scenes/PlayerStats.tscn"
 BoidsGlobal="*res://Scripts/BoidsGlobal.gd"
+GlobalUpgradeStats="*res://Scripts/GlobalUpgradeStats.gd"
 
 [display]
 
@@ -123,18 +124,11 @@ LeftClick={
 [layer_names]
 
 2d_physics/layer_1="Player"
-2d_physics/layer_2="PlayerHurtBox"
-2d_physics/layer_3="PlayerHitBox"
-2d_physics/layer_4="EnemyHitBox"
-2d_physics/layer_5="EnemyHurtBox"
-2d_physics/layer_6="Enemy"
+2d_physics/layer_2="HurtBox"
+2d_physics/layer_3="HitBox"
+2d_physics/layer_4="Vision"
+2d_physics/layer_5="Bounds"
 2d_physics/layer_7="MapBoundary"
-2d_physics/layer_8="Boids"
-2d_physics/layer_9="BoidsHitBox"
-2d_physics/layer_10="BoidsHurtBox"
-2d_physics/layer_11="BoidsVision"
-2d_physics/layer_12="PlayerVision"
-2d_physics/layer_13="EnemyVison"
 
 [mono]
 
