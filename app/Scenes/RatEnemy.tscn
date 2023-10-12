@@ -1,6 +1,8 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
-[ext_resource path="res://Scenes/RatEnemy.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/RatEnemy.gd" type="Script" id=1]
+[ext_resource path="res://Assets/RatEnemy/Rat_About_to_Jump2.png" type="Texture" id=2]
+[ext_resource path="res://Assets/RatEnemy/Rat_About_to_Jump1.png" type="Texture" id=3]
 [ext_resource path="res://Assets/RatEnemy/Rat_Leaping.png" type="Texture" id=9]
 [ext_resource path="res://Assets/RatEnemy/Rat_Attacking1Frame1.png" type="Texture" id=10]
 [ext_resource path="res://Assets/RatEnemy/Rat_Attacking1Frame3.png" type="Texture" id=11]
@@ -19,10 +21,6 @@ radius = 200.0
 
 [sub_resource type="CircleShape2D" id=9]
 radius = 50.0
-
-[sub_resource type="CapsuleShape2D" id=22]
-radius = 12.0
-height = 66.0
 
 [sub_resource type="Animation" id=12]
 length = 0.001
@@ -213,7 +211,8 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=17]
 resource_name = "RatLeapLeft"
-length = 0.1
+length = 0.8
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
 tracks/0/interp = 1
@@ -221,10 +220,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 15 ), ExtResource( 9 ) ]
+"values": [ ExtResource( 3 ), ExtResource( 2 ), ExtResource( 9 ), ExtResource( 2 ), ExtResource( 3 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:scale")
@@ -239,9 +238,9 @@ tracks/1/keys = {
 "values": [ Vector2( -0.204, 0.204 ) ]
 }
 
-[sub_resource type="Animation" id=18]
+[sub_resource type="Animation" id=23]
 resource_name = "RatLeapRight"
-length = 0.6
+length = 0.8
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
@@ -250,10 +249,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 15 ), ExtResource( 9 ), ExtResource( 15 ), ExtResource( 9 ) ]
+"values": [ ExtResource( 3 ), ExtResource( 2 ), ExtResource( 9 ), ExtResource( 2 ), ExtResource( 3 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:scale")
@@ -326,6 +325,10 @@ tracks/1/keys = {
 "values": [ Vector2( 0.204, 0.204 ) ]
 }
 
+[sub_resource type="CapsuleShape2D" id=22]
+radius = 12.0
+height = 66.0
+
 [node name="RatEnemy" type="KinematicBody2D"]
 script = ExtResource( 1 )
 
@@ -364,15 +367,6 @@ wait_time = 2.0
 wait_time = 3.0
 autostart = true
 
-[node name="Collisions" type="Area2D" parent="."]
-collision_layer = 32
-collision_mask = 64
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions"]
-position = Vector2( 0, 9 )
-rotation = 1.5708
-shape = SubResource( 22 )
-
 [node name="DebugUI" type="Control" parent="."]
 visible = false
 margin_right = 40.0
@@ -391,9 +385,14 @@ anims/RatAttackRight = SubResource( 14 )
 anims/RatIdleLeft = SubResource( 15 )
 anims/RatIdleRight = SubResource( 16 )
 anims/RatLeapLeft = SubResource( 17 )
-anims/RatLeapRight = SubResource( 18 )
+anims/RatLeapRight = SubResource( 23 )
 anims/RatWalkLeft = SubResource( 19 )
 anims/RatWalkRight = SubResource( 20 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 9 )
+rotation = 1.5708
+shape = SubResource( 22 )
 
 [connection signal="area_entered" from="Vision" to="." method="_on_Vision_area_entered"]
 [connection signal="area_exited" from="Vision" to="." method="_on_Vision_area_exited"]

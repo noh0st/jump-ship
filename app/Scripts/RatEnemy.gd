@@ -4,6 +4,7 @@ extends KinematicBody2D
 var Target : Node
 var Dir := Vector2.ZERO
 
+
 onready var _animationPlayer = $AnimationPlayer
 onready var _cooldownTimer = $re_AttackTimer
 onready var _patrolTimer = $patrolTimer
@@ -14,7 +15,8 @@ onready var _attack_state: int = AttackState.COOLING setget set_attack_state
 enum State {
 	PATROLLING,
 	APPROACHING,
-	ATTACKING
+	ATTACKING,
+	RETREATING
 }
 
 enum AttackState {
@@ -67,11 +69,11 @@ func process_approaching(delta) -> void:
 		
 	var direction = (Target.position - position).normalized()
 	Dir = direction
-	var leap_speed = 100
+	
+	var leap_direction = direction
+	var leap_speed = 200
 	PlayLeapAnimationDirection(direction)
-	position += leap_speed * direction
-	
-	
+	move_and_slide(leap_speed * leap_direction)
 func process_attacking(delta) -> void:
 	match _attack_state:
 		AttackState.ATTACKING:
