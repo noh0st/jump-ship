@@ -43,6 +43,10 @@ func _spawn_enemy() -> Node:
 	return new_enemy
 
 
+func add_enemy(enemy: Node) -> void:
+	_enemies.append(enemy)
+	
+
 func _spawn_rock_turtle() -> Node:
 	var new_enemy: Node = RockTurtle.instance()
 	_enemies.append(new_enemy)
@@ -65,16 +69,15 @@ func size() -> int:
 # Function to remove an enemy
 func remove_enemy(enemy: Node) -> void:
 	if _enemies.has(enemy):
-		enemy.queue_free()
+		fire_death_event(enemy)
 		_enemies.erase(enemy)
-		PlayerStats.XP += XPPlayer
-		fire_death_event()
+	enemy.queue_free()
 
 
 func subscribe_to_deaths(callback: FuncRef) -> void:
 	_on_death_callbacks.append(callback)
 
 
-func fire_death_event() -> void:
+func fire_death_event(enemy: Node) -> void:
 	for callback in _on_death_callbacks:
-		callback.call_func()
+		callback.call_func(enemy)

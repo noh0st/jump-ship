@@ -8,21 +8,23 @@ onready var staminabar = $StaminaBar
 onready var BoidsLabel = $BoidsNum
 onready var xpbar = $XPBar
 
-export var _is_ready : bool = false
+export var _is_ready: bool = false
+
+var _player: Node # the plyaer
 
 # Called when the node enters the scene tree for the first time.
 func init(player: Node) -> void:
+	_player = player
 	
 	PlayerStats.connect("healthChange",self, "_on_Player_health_update")
 	PlayerStats.connect("staminaChange",self, "_on_Player_ChangedStamina")
 	PlayerStats.connect("xpChange",self, "_on_PlayerStats_xpChange")
 	
-	$BoidsNum.text = "Number Of Followers : %s" % player.flock_size()
+	$BoidsNum.text = "Number Of Followers : %s" % _player.flock_size()
 	
-	staminabar.value = PlayerStats.Stamina/ (PlayerStats.MaxStamina/100)
-	xpbar.value = 0
-	$XPBar/XP.text = "0"
-	$XPBar/MaxXP.text = str(PlayerStats.MaxXP)
+	staminabar.value = PlayerStats.Stamina / (PlayerStats.MaxStamina/100)
+	
+	update_xp(0, 0)
 	
 	print(BoidsLabel)
 	_is_ready = true
@@ -42,9 +44,10 @@ func _on_Player_player_boid_count_update(new_value):
 	# PlayerStats.BoidsCollectedNum = new_value
 	BoidsLabel.text = "Number Of Followers : %s" % new_value
 	
-	
-func _on_PlayerStats_xpChange(new_value):
-	xpbar.max_value = PlayerStats.MaxXP
-	xpbar.value = new_value
-	$XPBar/XP.text = str(PlayerStats.XP )
-	$XPBar/MaxXP.text = str(PlayerStats.MaxXP)
+
+func update_xp(xp: int, max_xp: int) -> void:
+	xpbar.max_value = max_xp
+	xpbar.value = xp
+	$XPBar/XP.text = str(xp)
+	$XPBar/MaxXP.text = str(max_xp)
+

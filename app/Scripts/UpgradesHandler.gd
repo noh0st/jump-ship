@@ -2,10 +2,10 @@ extends Node
 
 export(Array, Resource) var AllUpgrades
 var AvailableUpgrades = []
-onready var upgradeStation = $UpgradeStation
-onready var upgrade_1 = $Upgrade_1
-onready var upgrade_2 = $Upgrade_2
-onready var upgrade_3 = $Upgrade_3
+onready var upgradeStation = $Control/UpgradeStation
+onready var upgrade_1 = $Control/Upgrade_1
+onready var upgrade_2 = $Control/Upgrade_2
+onready var upgrade_3 = $Control/Upgrade_3
 
 func AddAndApplyUpgrade(added_upgrade):
 	if added_upgrade != null:
@@ -14,13 +14,13 @@ func AddAndApplyUpgrade(added_upgrade):
 		AvailableUpgrades.append_array(AllUpgrades)
 		print("added_upgrade")
 		print(AvailableUpgrades, AllUpgrades)
+		
+		
 func _ready():
 	HideUpgrade()
 	AvailableUpgrades.append_array(AllUpgrades)
 	print(AvailableUpgrades, AllUpgrades)
-	PlayerStats.connect("newLevel", self, "UpgradesPOPUP")
-	#self.get_child(i).connect("ChoseUpgrade", self, "AddAndApplyUpgrade", [self.get_child(i).AssignedUpgrade])
-	
+	# self.get_child(i).connect("ChoseUpgrade", self, "AddAndApplyUpgrade", [self.get_child(i).AssignedUpgrade])
 	
 			
 func UpgradesPOPUP():
@@ -29,28 +29,38 @@ func UpgradesPOPUP():
 	ShowUpgrade()
 	AssignRandomUpgrades()
 	
-
-	
 	
 func AssignRandomUpgrades():
-	
-	
-	upgrade_1.AssignedUpgrade = AvailableUpgrades[randi() % AvailableUpgrades.size()]
+	upgrade_1.CardAssign(AvailableUpgrades[randi() % AvailableUpgrades.size()], funcref(self, "_on_selection")) 
 	AvailableUpgrades.remove(AvailableUpgrades.find(upgrade_1.AssignedUpgrade))
-	upgrade_2.AssignedUpgrade = AvailableUpgrades[randi() % AvailableUpgrades.size()]
+	
+	upgrade_2.CardAssign(AvailableUpgrades[randi() % AvailableUpgrades.size()], funcref(self, "_on_selection")) 
 	AvailableUpgrades.remove(AvailableUpgrades.find(upgrade_2.AssignedUpgrade))
+
 	upgrade_3.AssignedUpgrade = AvailableUpgrades[randi() % AvailableUpgrades.size()]
+	AvailableUpgrades.remove(AvailableUpgrades.find(upgrade_3.AssignedUpgrade))
+	
+func _on_selection(card: Node) -> void:
+	get_tree().paused = false
+	print("pressed", card.AssignedUpgrade.UpgradeName)
+	HideUpgrade()
+
 
 func HideUpgrade():
-	upgradeStation.visible = false
-	upgrade_1.visible = false
-	upgrade_2.visible = false
-	upgrade_3.visible = false
+	self.visible = false
+	#upgradeStation.visible = false
+	#upgrade_1.visible = false
+	#upgrade_2.visible = false
+	#upgrade_3.visible = false
+	
+	
 func ShowUpgrade():
-	upgradeStation.visible = true
-	upgrade_1.visible = true
-	upgrade_2.visible = true
-	upgrade_3.visible = true
+	self.visible = true
+	
+	#upgradeStation.visible = true
+	#upgrade_1.visible = true
+	#upgrade_2.visible = true
+	#upgrade_3.visible = true
 
 
 func _on_Upgrade_1_pressed():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/RockTurtle.gd" type="Script" id=1]
 [ext_resource path="res://Assets/TurtleRockEnemy/05.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Assets/TurtleRockEnemy/04.png" type="Texture" id=4]
 [ext_resource path="res://Assets/TurtleRockEnemy/03.png" type="Texture" id=5]
 [ext_resource path="res://Assets/TurtleRockEnemy/01.png" type="Texture" id=6]
+[ext_resource path="res://Scenes/HPbar.tscn" type="PackedScene" id=7]
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -62,7 +63,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 95.7396, 115.451 )
+extents = Vector2( 269.554, 172.747 )
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 7.71462, 9.52539 )
@@ -92,7 +93,8 @@ collision_mask = 16
 input_pickable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TurtleVision"]
-position = Vector2( -163.32, -39.4222 )
+position = Vector2( -326.641, -8.05627e-06 )
+scale = Vector2( 1.10732, 1.40185 )
 shape = SubResource( 5 )
 
 [node name="AttackTimer" type="Timer" parent="."]
@@ -106,15 +108,27 @@ collision_mask = 12
 position = Vector2( 2.38419e-07, -56.3174 )
 scale = Vector2( 14.9652, 7.98167 )
 shape = SubResource( 4 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2( -140.794, -39.4222 )
+position = Vector2( -146.425, 0 )
+scale = Vector2( -1.61864, -1.69729 )
 shape = SubResource( 6 )
 disabled = true
+
+[node name="HPbar" parent="." instance=ExtResource( 7 )]
+margin_left = -68.0
+margin_top = -141.0
+margin_right = 3397.0
+margin_bottom = 585.0
+rect_scale = Vector2( 0.065, -0.047 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 16

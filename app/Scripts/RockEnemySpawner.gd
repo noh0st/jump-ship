@@ -1,7 +1,7 @@
 extends Node2D
 
-onready var _player = get_node("../YSort/Player")
-onready var _enemy_manager = get_node("/root/Main/EnemyManager")
+onready var _player = get_node("root/Main/YSort/Player")
+onready var _enemy_manager = get_node("../EnemyManager")
 onready var _timer: Timer = $Timer
 
 const SPAWN_RADIUS = 400

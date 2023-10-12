@@ -52,13 +52,8 @@ var MaxHealth := 100
 var _last_position : Vector2
 
 func health_calculation():
-	HpBar.value = health
+	HpBar.update_ui(health, MaxHealth)
 	
-	if(health == MaxHealth):
-		HpBar.visible = false
-	elif(health != MaxHealth):
-		HpBar.visible = true
-		
 	if health <= 0:
 		health = 0
 		
@@ -252,6 +247,7 @@ func _on_AwakenBoidTrigger_area_entered(area):
 func add_damage(value: int) -> void:
 	health -= value
 	health_calculation()
+
 
 func _on_EnemyDetectionTrigger_area_entered(area):
 	#print("HELLO===============")
