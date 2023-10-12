@@ -4,6 +4,7 @@ var _enemies = []
 const Enemy: PackedScene = preload("res://Scenes/Enemy.tscn")
 const RockTurtle: PackedScene = preload("res://Scenes/RockTurtle.tscn")
 const SpearEnemy: PackedScene = preload("res://Scenes/SpearLanceEnemy.tscn")
+onready var MainYsort = get_node("../YSort")
 
 const X_BOUNDS = Vector2(-1000, 1000)
 const Y_BOUNDS = Vector2(-1000, 350)
@@ -37,7 +38,7 @@ func spawn(type: int) -> Node:
 func _spawn_enemy() -> Node:
 	var new_enemy: Node = Enemy.instance()
 	_enemies.append(new_enemy)
-	add_child(new_enemy)
+	MainYsort.add_child(new_enemy)
 	
 	return new_enemy
 
@@ -49,15 +50,15 @@ func add_enemy(enemy: Node) -> void:
 func _spawn_rock_turtle() -> Node:
 	var new_enemy: Node = RockTurtle.instance()
 	_enemies.append(new_enemy)
-	add_child(new_enemy)
+	MainYsort.add_child(new_enemy)
 	
 	return new_enemy
 
 func _spawn_spear() -> Node:
 	var new_enemy: Node = SpearEnemy.instance()
 	_enemies.append(new_enemy)
-	add_child(new_enemy)
 	
+	MainYsort.add_child(new_enemy)
 	return new_enemy
 
 
