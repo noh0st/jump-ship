@@ -248,6 +248,7 @@ func add_damage(value: int) -> void:
 	health -= value
 	health_calculation()
 
+
 func _on_EnemyDetectionTrigger_area_entered(area):
 	#print("HELLO===============")
 	if area.get_parent().has_meta("Enemy"):
