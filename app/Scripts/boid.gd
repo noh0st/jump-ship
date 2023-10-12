@@ -1,7 +1,5 @@
 extends KinematicBody2D
 
-onready var _boid_manager = get_node("/root/Main/BoidManager")
-
 export var max_speed = 10.0
 
 
@@ -37,6 +35,8 @@ var flock: Node # set by BoidFlock
 
 var velocity = Vector2()
 
+onready var _animation_player = $AnimationPlayer
+
 #var enemy_target : bool = false
 #var enemy_to_target : Node2D
 #each boid needs to keep an array of each other boid in the scene. 
@@ -48,6 +48,8 @@ var velocity = Vector2()
 onready var HpBar = $HPbar
 var health: float
 var MaxHealth := 100
+
+var _last_position : Vector2
 
 func health_calculation():
 	HpBar.value = health
@@ -86,7 +88,21 @@ func _physics_process(delta) -> void:
 			process_boiding(delta)
 		State.ATTACKING:
 			process_attacking(delta)
+			
+	
+	PlayRunAnimationDirection(position - _last_position)
+	_last_position = position
+			
 
+
+
+func PlayRunAnimationDirection(direction: Vector2):
+	if direction.x > 0:
+		_animation_player.play("WalkRight")
+	else:
+		_animation_player.play("WalkLeft")
+	
+	
 	
 func process_attacking(delta) -> void:
 	if not (is_instance_valid(attack_target)):
@@ -259,15 +275,14 @@ func _on_Hitbox_area_entered(area) -> void:
 			State.ATTACKING:
 				_on_hitbox_attacking(area)
 			_:
-				pass #print("current state unhandled")
+				print("current state unhandled")
+				pass #
 		
 		
 func _on_hitbox_attacking(area) -> void:
-	pass
 	match _attack_state:
 		AttackState.CIRCLING:
 			# APPLY DAMAGAGE
-			#print("retreating")
 			self._attack_state = AttackState.LUNGE_RETREAT
 		AttackState.LUNGE_FORWARD:
 			# APPLY DAMAGAGE

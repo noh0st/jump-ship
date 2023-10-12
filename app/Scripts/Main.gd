@@ -9,7 +9,7 @@ extends Node
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# initialize health UI with player
-	
+	$HUD.init($YSort/Player)
 	
 	pass # Replace with function body.
 
