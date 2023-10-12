@@ -11,7 +11,7 @@ onready var _sprite = $Sprite
 var health: int
 export var healthMultiple : int = 5
 
-var xp_worth: int = 100
+var xp_worth: int = 20
 
 func _ready():
 	set_meta("Enemy", true)
