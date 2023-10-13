@@ -223,7 +223,8 @@ func _on_Vision_area_entered(area: Node) -> void: #if you dont have target, set 
 func _on_AttackRange_area_entered(area): #if entered the attack range attacks
 	if not _area_is_hostile(area):
 		return
-	
+	if area.get_parent().has_method("add_damage") and (not area.get_parent().has_meta("Enemy")):
+		area.get_parent().add_damage(GlobalUpgradeStats.globalEnemyDamage)
 	Target = area.get_parent()
 	
 	match _current_state:
@@ -292,3 +293,18 @@ func _check_vision_and_set_target() -> bool:
 	
 	Target = null
 	return false
+
+
+func _on_Area2D_area_entered(area):
+	if not _area_is_hostile(area):
+		return
+	if area.get_parent().has_method("add_damage") and (not area.get_parent().has_meta("Enemy")):
+		area.get_parent().add_damage(GlobalUpgradeStats.globalEnemyDamage)
+	Target = area.get_parent()
+	
+	match _current_state:
+		State.ATTACKING:
+			pass
+		_: 
+			Attack()
+
