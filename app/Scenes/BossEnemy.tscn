@@ -335,6 +335,8 @@ shape = SubResource( 9 )
 wait_time = 3.0
 autostart = true
 
+[node name="AttackTimer" type="Timer" parent="."]
+
 [node name="DebugUI" type="Control" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
@@ -360,3 +362,4 @@ shape = SubResource( 12 )
 [connection signal="area_entered" from="AttackRange" to="." method="_on_AttackRange_area_entered"]
 [connection signal="area_exited" from="AttackRange" to="." method="_on_AttackRange_area_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]

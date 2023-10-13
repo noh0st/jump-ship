@@ -1,6 +1,7 @@
 extends Node2D
 
 onready var _hud = get_node("/root/Main/HUD")
+onready var _player = get_node("/root/Main/YSort/Player")
 
 onready var NextWave: PackedScene = load("res://Scenes/Wave1.tscn")
 
@@ -12,7 +13,7 @@ export var xp_threshold: int = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Enemies/BossEnemy.init(_hud.get_node("BossHealthBar"))
+	$Enemies/BossEnemy.init(_hud.get_node("BossHealthBar"), _player)
 	_hud.enable_boss_health_bar()
 	pass # Replace with function body.
 

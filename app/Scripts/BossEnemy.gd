@@ -1,31 +1,35 @@
 extends KinematicBody2D
 
+const RockProjectile: PackedScene = preload("res://Scenes/RockProjectile.tscn")
+
 enum State {
 	ROAMING,
+	ROCK_THROW
 }
 
 onready var _enemy_manager = get_node("/root/Main/YSort/EnemyManager")
 onready var _animationPlayer = $AnimationPlayer
 onready var _timer = $Timer
+onready var _attackTimer = $AttackTimer
 onready var _current_state: int = State.ROAMING setget set_current_state
 
 var xp_worth = 1
 
 var _health_ui: Node
+var _player: Node
 
 var health: int = 0
-export var healthMultiple : int = 100
-
-
+export var healthMultiple : int = 30
 
 func _ready():
 	set_meta("Enemy", true)
-	health = GlobalUpgradeStats.globalEnemyHealth * healthMultiple
+	
 	self._current_state = State.ROAMING
 		
 	_animationPlayer.play("RunRight")
 	
 	_timer.start(2)
+	_attackTimer.start(4)
 	
 const VISION_RANGE: int = 250
 const ATTACK_RANGE: int = 50
@@ -39,12 +43,17 @@ func _physics_process(delta): #Target death
 		State.ROAMING:
 			#PlayRunAnimationDirection(_direction)
 			move_and_slide(_direction * _speed)
+		State.ROCK_THROW:
+			return
 			
 		
-func init(health_ui: Node):
+func init(health_ui: Node, player: Node):
 	_health_ui = health_ui
-	health = 1000
+	
+	health = GlobalUpgradeStats.globalEnemyHealth * healthMultiple
 	_health_ui.update_ui(health, health)
+	
+	_player = player
 	
 	
 func set_current_state(value: int) -> void:
@@ -81,6 +90,9 @@ func PlayRunAnimationDirection(direction: Vector2):
 func add_damage(value: int) -> void:
 	health -= value
 	
+	print("boss taking damage")
+	print(health)
+	
 	_health_ui.update_ui(health, GlobalUpgradeStats.globalEnemyHealth * healthMultiple)
 	
 	if health <= 0:
@@ -110,4 +122,20 @@ func _on_Timer_timeout():
 			_direction = _random_direction();
 			_speed = rand_range(0, 100)
 			_timer.start(2)
+	pass # Replace with function body.
+
+
+func _on_AttackTimer_timeout():
+	match _current_state:
+		State.ROAMING:
+			# change direction and speed
+			_direction = Vector2.ZERO
+			_speed = 0
+			
+			#_current_state = State.ROCK_THROW
+			
+			var rock = RockProjectile.instance()
+			rock.position = position
+			rock.init((_player.position - position).normalized(), rand_range(200, 450))	
+			_enemy_manager.add_child(rock)
 	pass # Replace with function body.
