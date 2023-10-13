@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+signal on_dead
+
 const RockProjectile: PackedScene = preload("res://Scenes/RockProjectile.tscn")
 
 enum State {
@@ -98,6 +100,7 @@ func add_damage(value: int) -> void:
 	if health <= 0:
 		# enemy is dead
 		_enemy_manager.remove_enemy(self)
+		emit_signal("on_dead")
 
 		
 func _random_direction() -> Vector2:
