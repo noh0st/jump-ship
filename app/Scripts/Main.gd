@@ -1,11 +1,5 @@
 extends Node
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# initialize health UI with player
@@ -13,9 +7,14 @@ func _ready():
 	
 	$WaveManager.init($YSort/Player, $Upgrades, $YSort/EnemyManager, $HUD)
 	
-	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _on_WaveManager_on_game_win():
+	# open win menu
+	$WinMenu.visible = true
+	
+	# play the credits music
+	print("GAME WIN")
+	
+	# destroy player
+	pass

@@ -1,9 +1,12 @@
 extends Node
 
+signal on_game_win
+
 var wave_count : int = 0
 
 # wave manager has max threshold
 # wave also has the current xp
+
 
 
 const Wave1: PackedScene = preload("res://Scenes/Wave1.tscn")
@@ -38,6 +41,7 @@ func init(player: Node, upgrades: Node, enemy_manager: Node, ui: Node):
 	spawn_wave(Wave1.instance())
 
 func spawn_wave(wave: Node) -> void:
+	
 	self.add_child(wave)
 	current_wave = wave
 	print("spawning wave one")
@@ -65,3 +69,10 @@ func _on_upgrade_selection() -> void:
 	var nextWave = current_wave.NextWave
 	current_wave.queue_free()
 	spawn_wave(nextWave.instance())
+	
+	
+func game_win() -> void:
+	current_wave.queue_free()
+	# clean up enemies
+	
+	emit_signal("on_game_win")
