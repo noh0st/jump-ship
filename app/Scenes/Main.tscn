@@ -34,9 +34,6 @@ volume_db = -19.687
 
 [node name="PauseMenu" parent="." instance=ExtResource( 6 )]
 
-[node name="Map" parent="." instance=ExtResource( 7 )]
-position = Vector2( 0, 0 )
-
 [node name="Death" parent="." instance=ExtResource( 4 )]
 
 [node name="BackgroundColor" parent="Death/Control/CenterContainer" index="0"]
@@ -79,6 +76,9 @@ __meta__ = {
 }
 
 [node name="EnemyManager" parent="YSort" instance=ExtResource( 8 )]
+
+[node name="Map" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( 0, 0 )
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 
