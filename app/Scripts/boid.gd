@@ -119,7 +119,7 @@ func process_attacking(delta) -> void:
 			move_and_slide(direction * speed)
 		AttackState.LUNGE_RETREAT:
 			# move away from target 
-			if attack_target.position.distance_to(position) >= 100.0: 
+			if attack_target.position.distance_to(position) >= 130.0: 
 				# print("change to circling")
 				_attack_state = AttackState.CIRCLING
 				#print(attack_target.position.distance_to(position))
@@ -131,7 +131,7 @@ func process_attacking(delta) -> void:
 		AttackState.CIRCLING:
 			process_boiding(delta)
 			
-			if attack_target.position.distance_to(position) <= 80.0: 
+			if attack_target.position.distance_to(position) <= 110.0: 
 				self._attack_state = AttackState.LUNGE_FORWARD
 				# print("lunging")
 
@@ -262,13 +262,11 @@ func _on_EnemyDetectionTrigger_area_entered(area):
 				self._attack_state = AttackState.CIRCLING
 				attack_target = area.get_parent()
 			_:
-				print("unhandled vision entered")
 				pass #print("unhandled vision entered")
 		
 
 func _on_Hitbox_area_entered(area) -> void:
 	if area.get_parent().has_meta("Enemy"):
-		#print("enemy enterred hitbox")
 		match _current_state:
 			State.ATTACKING:
 				_on_hitbox_attacking(area)
@@ -282,6 +280,7 @@ func _on_hitbox_attacking(area) -> void:
 		AttackState.CIRCLING:
 			# APPLY DAMAGAGE
 			self._attack_state = AttackState.LUNGE_RETREAT
+			print("was circling")
 		AttackState.LUNGE_FORWARD:
 			# APPLY DAMAGAGE
 			if area.get_parent() == flock.flock_owner:

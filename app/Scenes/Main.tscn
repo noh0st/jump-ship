@@ -8,7 +8,7 @@
 [ext_resource path="res://Scenes/PauseMenu.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Map.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/EnemyManager.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Scenes/RatEnemy.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/WinMenu.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/MusicPlayer.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scenes/GlobalStats.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=12]
@@ -92,10 +92,13 @@ healthMultiple = 3
 
 [node name="Upgrades" parent="." instance=ExtResource( 5 )]
 
+[node name="WinMenu" parent="." instance=ExtResource( 9 )]
+
 [connection signal="player_boid_count_update" from="YSort/Player" to="Death" method="_on_Player_player_boid_count_update"]
 [connection signal="player_boid_count_update" from="YSort/Player" to="HUD" method="_on_Player_player_boid_count_update"]
 [connection signal="xp_update" from="YSort/Player" to="HUD" method="_on_Player_xp_update"]
 [connection signal="xp_update" from="YSort/Player" to="WaveManager" method="_on_Player_xp_update"]
+[connection signal="on_game_win" from="WaveManager" to="." method="_on_WaveManager_on_game_win"]
 
 [editable path="Death"]
 [editable path="YSort/Player"]

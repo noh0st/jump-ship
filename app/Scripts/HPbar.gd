@@ -15,8 +15,3 @@ func update_ui(health: int, max_health: int) -> void:
 		self.visible = true
 		
 	self.value = health * 100 / max_health 
-
-		
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
