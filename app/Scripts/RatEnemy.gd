@@ -3,7 +3,9 @@ extends KinematicBody2D
 
 var Target : Node
 var Dir := Vector2.ZERO
-
+onready var _enemy_manager = get_node("/root/Main/YSort/EnemyManager")
+var health: int = 0
+export var healthMultiple : int = 3
 
 onready var _animationPlayer = $AnimationPlayer
 onready var _cooldownTimer = $re_AttackTimer
@@ -15,8 +17,7 @@ onready var _attack_state: int = AttackState.COOLING setget set_attack_state
 enum State {
 	PATROLLING,
 	APPROACHING,
-	ATTACKING,
-	RETREATING
+	ATTACKING
 }
 
 enum AttackState {
@@ -27,9 +28,9 @@ enum AttackState {
 
 func _ready():
 	set_meta("Enemy", false)
-	
+	health = GlobalUpgradeStats.globalEnemyHealth * healthMultiple
 	self._current_state = State.PATROLLING
-	
+	$HPbar.update_ui(health, health)
 	_animationPlayer.play("Idle")
 	
 const VISION_RANGE: int = 250
@@ -71,7 +72,7 @@ func process_approaching(delta) -> void:
 	Dir = direction
 	
 	var leap_direction = direction
-	var leap_speed = 200
+	var leap_speed = 300
 	PlayLeapAnimationDirection(direction)
 	move_and_slide(leap_speed * leap_direction)
 func process_attacking(delta) -> void:
@@ -308,3 +309,15 @@ func _on_Area2D_area_entered(area):
 		_: 
 			Attack()
 
+func add_damage(value: int) -> void:
+	health -= value
+	
+	$HPbar.update_ui(health, GlobalUpgradeStats.globalEnemyHealth * healthMultiple)
+	
+	print("rat hit for")
+	print(value)
+	
+	if health <= 0:
+		# enemy is dead
+		_enemy_manager.remove_enemy(self)
+	

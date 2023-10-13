@@ -1,8 +1,9 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Scripts/RatEnemy.gd" type="Script" id=1]
 [ext_resource path="res://Assets/RatEnemy/Rat_About_to_Jump2.png" type="Texture" id=2]
 [ext_resource path="res://Assets/RatEnemy/Rat_About_to_Jump1.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/HPbar.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/RatEnemy/Rat_Leaping.png" type="Texture" id=9]
 [ext_resource path="res://Assets/RatEnemy/Rat_Attacking1Frame1.png" type="Texture" id=10]
 [ext_resource path="res://Assets/RatEnemy/Rat_Attacking1Frame3.png" type="Texture" id=11]
@@ -329,6 +330,10 @@ tracks/1/keys = {
 radius = 12.0
 height = 66.0
 
+[sub_resource type="CapsuleShape2D" id=24]
+radius = 18.0
+height = 60.0
+
 [node name="RatEnemy" type="KinematicBody2D"]
 collision_layer = 0
 collision_mask = 64
@@ -398,6 +403,17 @@ anims/RatWalkRight = SubResource( 20 )
 position = Vector2( 0, 9 )
 rotation = 1.5708
 shape = SubResource( 22 )
+
+[node name="HPbar" parent="." instance=ExtResource( 4 )]
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 18
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2( 0, 5 )
+rotation = 1.5708
+shape = SubResource( 24 )
 
 [connection signal="area_entered" from="HitBoxPivot/Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_entered" from="Vision" to="." method="_on_Vision_area_entered"]
