@@ -306,4 +306,5 @@ func _check_vision_and_set_target() -> bool:
 
 func _on_HitBox_area_entered(area):
 	if area.get_parent().has_method("add_damage") and (not area.get_parent().has_meta("Enemy")):
-		area.get_parent().add_damage(GlobalUpgradeStats.globalEnemyDamage)
+		if is_instance_valid(self):
+			area.get_parent().add_damage(GlobalUpgradeStats.globalEnemyDamage, self)

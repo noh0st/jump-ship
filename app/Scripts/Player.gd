@@ -45,11 +45,13 @@ func _ready():
 	_enemy_manager.subscribe_to_deaths(funcref(self, "_on_enemy_death"))
 	
 	
-func add_damage(value: int) -> void:
+func add_damage(value: int, knockback_dealer: Node) -> void:
 	#PlayerStats.Health -= value
 	# release boid
 	boid_flock.release_boid();
 	
+	if _enemy_manager._enemies.has(knockback_dealer):
+		move_and_slide(Vector2(PlayerStats.globalSelfKnockBack * (self.position.x - knockback_dealer.position.x), PlayerStats.globalSelfKnockBack * (self.position.y - knockback_dealer.position.y)))
 	
 func _on_enemy_death(enemy: Node) -> void: # this can take the enemy as a param to get xp per enemy
 	emit_signal("xp_update", enemy.xp_worth)

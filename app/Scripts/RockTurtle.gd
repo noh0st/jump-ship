@@ -69,4 +69,5 @@ func _on_DamageZone_area_entered(area):
 		return
 	
 	if area.get_parent().has_method("add_damage") and (not area.get_parent().has_meta("Enemy")):
-		area.get_parent().add_damage(GlobalUpgradeStats.globalEnemyDamage)
+		if is_instance_valid(self):
+			area.get_parent().add_damage(GlobalUpgradeStats.globalEnemyDamage, self)

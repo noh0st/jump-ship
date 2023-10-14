@@ -232,7 +232,8 @@ func _on_AttackRange_area_entered(area): #if entered the attack range attacks
 	if not _area_is_hostile(area):
 		return
 	if area.get_parent().has_method("add_damage") and (not area.get_parent().has_meta("Enemy")):
-		area.get_parent().add_damage(GlobalUpgradeStats.globalEnemyDamage)
+		if is_instance_valid(self):
+			area.get_parent().add_damage(GlobalUpgradeStats.globalEnemyDamage, self)
 	Target = area.get_parent()
 	
 	match _current_state:
