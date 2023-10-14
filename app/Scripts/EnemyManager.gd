@@ -69,6 +69,7 @@ func size() -> int:
 # Function to remove an enemy
 func remove_enemy(enemy: Node) -> void:
 	if _enemies.has(enemy):
+		$EnemyDeathSFX.play()
 		fire_death_event(enemy)
 		_enemies.erase(enemy)
 	enemy.queue_free()

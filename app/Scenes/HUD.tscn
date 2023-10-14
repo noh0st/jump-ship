@@ -8,7 +8,7 @@
 [ext_resource path="res://Assets/XPbar/XPOutline.png" type="Texture" id=6]
 [ext_resource path="res://Assets/XPbar/XPFilling.png" type="Texture" id=7]
 [ext_resource path="res://Assets/XPbar/XPBackground.png" type="Texture" id=8]
-[ext_resource path="res://Assets/BebasNeue-Regular.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://Assets/Other/BebasNeue-Regular.ttf" type="DynamicFontData" id=9]
 [ext_resource path="res://Scripts/HPbar.gd" type="Script" id=10]
 [ext_resource path="res://Assets/HealthBarPNG/HPFilling.png" type="Texture" id=11]
 

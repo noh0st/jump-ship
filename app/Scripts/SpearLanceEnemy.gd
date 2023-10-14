@@ -131,6 +131,7 @@ func set_attack_state(value: int) -> void:
 			#$Vision/CollisionShape2D.set_deferred("disabled",  false)
 			
 			PlayAttackAnimation()
+			$AttackSFX.play()
 		AttackState.COOLING:
 
 			
@@ -304,3 +305,4 @@ func _check_vision_and_set_target() -> bool:
 func _on_HitBox_area_entered(area):
 	if area.get_parent().has_method("add_damage") and (not area.get_parent().has_meta("Enemy")):
 		area.get_parent().add_damage(GlobalUpgradeStats.globalEnemyDamage)
+		$AttackImpactSFX.play()
