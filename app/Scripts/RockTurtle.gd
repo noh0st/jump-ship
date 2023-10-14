@@ -56,7 +56,7 @@ func add_damage(value: int) -> void:
 func _on_AttackTimer_timeout() -> void:
 	print("attack timer timeout")
 	attackAnimationPlayer.play("RockTurtleAttack")
-
+	$TurtleAttackSFX.play()
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	pass

@@ -304,6 +304,8 @@ func add_damage(value: int, knockback_dealer: Node) -> void:
 	if _enemy_manager._enemies.has(knockback_dealer):
 		move_and_slide(Vector2(PlayerStats.globalSelfKnockBack * (self.position.x - knockback_dealer.position.x), PlayerStats.globalSelfKnockBack * (self.position.y - knockback_dealer.position.y)))
 
+	$TakeDamageSFX.play()
+	
 func _on_EnemyDetectionTrigger_area_entered(area):
 	#print("HELLO===============")
 	
@@ -345,6 +347,7 @@ func _on_hitbox_attacking(area) -> void:
 				return
 			
 			if area.get_parent().has_method("add_damage"):
+				$AttackSFX.play()
 				area.get_parent().add_damage(GlobalUpgradeStats.boidDamage)
 				
 				#print("retreating")

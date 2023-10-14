@@ -52,10 +52,11 @@ func add_damage(value: int, knockback_dealer: Node) -> void:
 	
 	if _enemy_manager._enemies.has(knockback_dealer):
 		move_and_slide(Vector2(PlayerStats.globalSelfKnockBack * (self.position.x - knockback_dealer.position.x), PlayerStats.globalSelfKnockBack * (self.position.y - knockback_dealer.position.y)))
+	$TakeDamageSFX.play()
 	
 func _on_enemy_death(enemy: Node) -> void: # this can take the enemy as a param to get xp per enemy
 	emit_signal("xp_update", enemy.xp_worth)
-	
+	$XPSFX.play()
 	
 func add_boid() -> void:
 	boid_flock.spawn_boid()
@@ -83,6 +84,11 @@ func _physics_process(delta):
 	if inputvector != Vector2.ZERO:
 		velocity = inputvector.normalized() * MaxSpeed * delta # acceleration 
 		Dir = inputvector # Direction vector for setting the look direction of player
+		if $WalkingCycle.time_left <= 0:
+			$FootStepSFX.stream = load("res://SFX/MX Footsteps_1.wav")
+			$FootStepSFX.pitch_scale = rand_range(0.8, 1.2)
+			$FootStepSFX.play()
+			$WalkingCycle.start(0.2)
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, Acceleration_Friction* delta) # deceleration
 	
@@ -99,7 +105,7 @@ func Dash():
 		if PlayerStats.Stamina >= PlayerStats.staminaForDash:
 			PlayerStats.Stamina -= PlayerStats.staminaForDash; 
 			timer.start()  # start timer for stamina recovering
-
+			$DashSFX.play()
 			move_and_slide(Dir * (DashPower * MaxSpeed)) # move in the direction you are facing
 			
 			
@@ -111,16 +117,20 @@ func StaminaRefill():
 	if PlayerStats.Stamina != PlayerStats.MaxStamina: # if stamina is not full, start recovering stamina again
 		timer.start() 
 
-
+var IsIdle = false
 func PlayRunAnimationDirection(direction: Vector2):
 	if direction.x > 0:
+		IsIdle = false
 		_animation_player.play("WalkRight")
 	elif direction.x < 0:
+		IsIdle = false
 		_animation_player.play("WalkLeft")
 	elif direction.length() > 0:
+		IsIdle = false
 		_animation_player.play("Walk")
 	else:
-		_animation_player.play("Idle")
+		IsIdle = true
+		
 	
 #_____________________#
 # Hurt player if enemy enters
@@ -147,3 +157,18 @@ func _on_BoidFlock_boid_count_update(new_value):
 
 func _on_HurtBox_area_entered(area):
 	pass # Replace with function body.
+
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if IsIdle == true:
+		_animation_player.play("Idle")
+
+export(Array , AudioStreamSample) var FootStepSoundsArray : Array
+var AvailableFootStepSounds = []
+func _on_WalkingCycle_timeout():
+	AvailableFootStepSounds.append_array(FootStepSoundsArray)
+	AvailableFootStepSounds.remove(AvailableFootStepSounds.find($FootStepSFX.stream))
+	$FootStepSFX.stream = AvailableFootStepSounds[randi() % AvailableFootStepSounds.size()]
+	AvailableFootStepSounds.append_array(FootStepSoundsArray)
+	print($FootStepSFX.stream)

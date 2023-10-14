@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/MX Upgrade select.wav-7f6cf1f6b871b527dc8a1273c03d854a.sample"
+
+[deps]
+
+source_file="res://SFX/MX Upgrade select.wav"
+dest_files=[ "res://.import/MX Upgrade select.wav-7f6cf1f6b871b527dc8a1273c03d854a.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

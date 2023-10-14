@@ -43,7 +43,7 @@ func release_boid() -> void:
 		return
 		
 	remove(_boids[0])
-
+	
 func remove(object: Node) -> void:
 	if _boids.has(object):
 		object.queue_free()
