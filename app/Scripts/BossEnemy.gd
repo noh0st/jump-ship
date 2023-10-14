@@ -124,7 +124,7 @@ func _on_Timer_timeout():
 			# change direction and speed
 			_direction = _random_direction();
 			_speed = rand_range(0, 100)
-			_timer.start(2)
+			
 	pass # Replace with function body.
 
 
@@ -137,14 +137,16 @@ func _on_AttackTimer_timeout():
 			
 			#_current_state = State.ROCK_THROW
 			
-			$AnimationPlayer.play("RockThrowAnticipation")
+			$AnimationPlayer.play("RockThrow")
+			
 
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	match anim_name:
-		"RockThrowAnticipation":
+		"RockThrow":
 			fire_rock_projectile()
+			$AttackTimer.start(rand_range(0.5, 3))
 
 
 func fire_rock_projectile() -> void:
@@ -152,3 +154,4 @@ func fire_rock_projectile() -> void:
 	rock.position = position
 	rock.init((_player.position - position).normalized(), rand_range(200, 450))	
 	_enemy_manager.add_child(rock)
+	

@@ -1,11 +1,19 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=23 format=2]
 
+[ext_resource path="res://Assets/BossEnemy/Front_Throw1.png" type="Texture" id=1]
+[ext_resource path="res://Assets/BossEnemy/Front_Throw3.png" type="Texture" id=2]
 [ext_resource path="res://Assets/SpearLanceEnemy/02.png" type="Texture" id=3]
+[ext_resource path="res://Assets/BossEnemy/Front_Throw2.png" type="Texture" id=4]
+[ext_resource path="res://Assets/BossEnemy/Front_Throw4.png" type="Texture" id=5]
+[ext_resource path="res://Assets/BossEnemy/Front_Throw5.png" type="Texture" id=6]
+[ext_resource path="res://Assets/BossEnemy/Front_Throw6.png" type="Texture" id=7]
 [ext_resource path="res://Scripts/BossEnemy.gd" type="Script" id=8]
 [ext_resource path="res://Assets/BossEnemy/Boss_movingfront1.png" type="Texture" id=9]
 [ext_resource path="res://Assets/BossEnemy/Boss_movingfront2.png" type="Texture" id=10]
 [ext_resource path="res://Assets/BossEnemy/Boss_movingfront4.png" type="Texture" id=11]
 [ext_resource path="res://Assets/BossEnemy/Boss_movingfront3.png" type="Texture" id=12]
+[ext_resource path="res://Assets/BossEnemy/Front_Throw8.png" type="Texture" id=13]
+[ext_resource path="res://Assets/BossEnemy/Front_Throw7.png" type="Texture" id=14]
 
 [sub_resource type="CapsuleShape2D" id=11]
 radius = 77.63
@@ -36,6 +44,21 @@ tracks/1/keys = {
 "transitions": PoolRealArray(  ),
 "update": 1,
 "values": [  ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "RockThrow"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.6, 0.7, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 1 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 14 ), ExtResource( 13 ) ]
 }
 
 [sub_resource type="Animation" id=13]
@@ -126,11 +149,13 @@ position = Vector2( -0.085, 7.346 )
 shape = SubResource( 11 )
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 15, 0 )
 scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 2 )
+anims/RockThrow = SubResource( 14 )
 anims/RockThrowAnticipation = SubResource( 13 )
 anims/RunRight = SubResource( 3 )
 
