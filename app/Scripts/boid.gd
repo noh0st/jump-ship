@@ -115,8 +115,6 @@ func process_attacking(delta) -> void:
 		self._current_state = State.BOIDING
 		return
 		
-
-	
 	if attack_target.position.distance_to(position) >= 200.0: 
 		self._current_state = State.BOIDING
 		# print("target too far")
@@ -141,11 +139,12 @@ func process_attacking(delta) -> void:
 			var speed = -200.0
 			move_and_slide(direction * speed)
 		AttackState.CIRCLING:
-			process_boiding(delta)
+			process_circling(delta)
 			
 			if attack_target.position.distance_to(position) <= 110.0: 
 				self._attack_state = AttackState.LUNGE_FORWARD
 				# print("lunging")
+
 
 func clamp_guidance_target(target: Vector2, dist: int) -> Vector2:
 	var diff = target - flock.owner_position() #).normalized()
@@ -157,6 +156,38 @@ func clamp_guidance_target(target: Vector2, dist: int) -> Vector2:
 	return (new_dist * dir) + flock.owner_position()
 	
 
+func process_circling(delta) -> void:
+	var boids: Array = flock.boids()
+	
+	if not (is_instance_valid(attack_target)):
+		# print("attack target not valid")
+		self._current_state = State.BOIDING
+		return
+	
+	if boids.size() == 0:
+		print("boids empty")
+		return 
+	
+	if boids.size() == 1:
+		print("boids single")
+		handle_single(delta, attack_target.position) # float around owner 
+		return
+	
+	var	movement_vector = (
+		cohesion(boids) * cohesion_force 
+		+ separation(boids) * separation_force 
+		+ alignment(boids) * alignment_force 
+		+ follow(attack_target.position) * follow_force
+	)
+	
+	#else:
+	#	movement_vector = follow(follow_target) * follow_force
+	
+	velocity += movement_vector 
+	velocity = clamp_vector(velocity, -max_speed , max_speed)
+	move_and_slide(velocity)
+
+
 func process_boiding(delta) -> void:
 		#this part is for the boids to maybe stay asleep till the player touches them
 	# if(not self.get_meta("Boid")) : return
@@ -164,7 +195,7 @@ func process_boiding(delta) -> void:
 	var follow_target: Vector2
 	
 	if(Input.is_action_pressed("LeftClick")):
-		follow_target = clamp_guidance_target(get_global_mouse_position(), 500)
+		follow_target = clamp_guidance_target(get_global_mouse_position(), 300)
 	else:
 		follow_target = flock.owner_position()
 
@@ -197,6 +228,7 @@ func process_boiding(delta) -> void:
 	velocity += movement_vector 
 	velocity = clamp_vector(velocity, -max_speed , max_speed)
 	move_and_slide(velocity)
+
 
 func handle_single(delta: float, follow_target: Vector2) -> void:
 	_angle += 2 * delta
