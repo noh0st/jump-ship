@@ -82,7 +82,7 @@ script = ExtResource( 1 )
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.996148, 1 )
 texture = ExtResource( 6 )
-offset = Vector2( 0, -70 )
+offset = Vector2( 0, -75 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 2 )
@@ -110,7 +110,6 @@ position = Vector2( 2.38419e-07, -56.3174 )
 scale = Vector2( 14.9652, 7.98167 )
 shape = SubResource( 4 )
 __meta__ = {
-"_edit_group_": true,
 "_edit_lock_": true
 }
 
@@ -136,7 +135,7 @@ collision_layer = 16
 collision_mask = 65
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( 0, -28.1587 )
+position = Vector2( 0, -11.2635 )
 shape = SubResource( 7 )
 
 [node name="TurtleAttackSFX" type="AudioStreamPlayer" parent="."]
