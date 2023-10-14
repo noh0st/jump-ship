@@ -130,7 +130,7 @@ func set_attack_state(value: int) -> void:
 			#$HitBoxPivot/Area2D/CollisionShape2D.set_deferred("disabled",  true)
 			#$Vision/CollisionShape2D.set_deferred("disabled",  false)
 			
-			PlayAttackAnimation()
+			$AnimationPlayer.play("AttackAnticipation")
 		AttackState.COOLING:
 
 			
@@ -282,6 +282,9 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 						self._attack_state = AttackState.COOLING
 			_:
 				print("attack timer finished while not in attack state")
+	elif anim_name == "AttackAnticipation":
+		PlayAttackAnimation()
+		
 
 
 func _on_AnimationPlayer_animation_started(anim_name):
