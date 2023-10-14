@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Assets/BebasNeue-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Scenes/GlobalStats.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=12]
 [ext_resource path="res://Scenes/WaveManager.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Scenes/RatEnemy.tscn" type="PackedScene" id=14]
 
 [sub_resource type="DynamicFont" id=3]
 size = 46
@@ -33,9 +34,6 @@ script = ExtResource( 12 )
 volume_db = -19.687
 
 [node name="PauseMenu" parent="." instance=ExtResource( 6 )]
-
-[node name="Map" parent="." instance=ExtResource( 7 )]
-position = Vector2( 0, 0 )
 
 [node name="Death" parent="." instance=ExtResource( 4 )]
 
@@ -80,9 +78,11 @@ __meta__ = {
 
 [node name="EnemyManager" parent="YSort" instance=ExtResource( 8 )]
 
-[node name="RatEnemy" parent="YSort" instance=ExtResource( 9 )]
-position = Vector2( -403, 163 )
-healthMultiple = 3
+[node name="Map" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( 0, 0 )
+
+[node name="RatEnemy" parent="YSort" instance=ExtResource( 14 )]
+position = Vector2( -292, 47 )
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 
