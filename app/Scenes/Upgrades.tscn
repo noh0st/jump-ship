@@ -1,11 +1,13 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/UpgradesHandler.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/UpgradeCards.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Recources/AddDamageBoid_200.tres" type="Resource" id=3]
 [ext_resource path="res://Recources/AddHealth_200.tres" type="Resource" id=4]
-[ext_resource path="res://Assets/Upgrade_Station.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Other/Upgrade_Station.png" type="Texture" id=5]
 [ext_resource path="res://Recources/AddStamina_200.tres" type="Resource" id=6]
+[ext_resource path="res://Assets/Other/Card.png" type="Texture" id=7]
+[ext_resource path="res://SFX/MX Power Up.wav" type="AudioStream" id=8]
 
 [node name="Upgrades" type="CanvasLayer"]
 pause_mode = 2
@@ -27,6 +29,7 @@ margin_bottom = 881.0
 rect_scale = Vector2( 0.439999, 0.490829 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
+texture_hover = ExtResource( 7 )
 
 [node name="Description" parent="Control/Upgrade_1" index="0"]
 margin_left = 75.7512
@@ -73,6 +76,9 @@ margin_left = 77.8552
 margin_top = 365.568
 margin_right = 407.855
 margin_bottom = 432.568
+
+[node name="UpgradeSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
 
 [connection signal="pressed" from="Control/Upgrade_1" to="." method="_on_Upgrade_1_pressed"]
 [connection signal="pressed" from="Control/Upgrade_2" to="." method="_on_Upgrade_2_pressed"]

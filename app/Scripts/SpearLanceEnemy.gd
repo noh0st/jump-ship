@@ -146,12 +146,13 @@ func PlayAttackAnimation():
 		return
 		
 	var direction = (Target.position - self.position).normalized()
-
+	
 	if direction.x > 0:
 		_animationPlayer.play("AttackRight")
+		$AttackSFX.play()
 	else:
 		_animationPlayer.play("AttackLeft")
-
+		$AttackSFX.play()
 		
 		
 func PlayRunAnimationDirection(direction: Vector2):
@@ -307,3 +308,4 @@ func _check_vision_and_set_target() -> bool:
 func _on_HitBox_area_entered(area):
 	if area.get_parent().has_method("add_damage") and (not area.get_parent().has_meta("Enemy")):
 		area.get_parent().add_damage(GlobalUpgradeStats.globalEnemyDamage)
+		$AttackImpactSFX.play()

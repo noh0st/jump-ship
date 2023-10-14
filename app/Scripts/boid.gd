@@ -301,8 +301,8 @@ func _on_AwakenBoidTrigger_area_entered(area):
 func add_damage(value: int) -> void:
 	health -= value
 	health_calculation()
-
-
+	$TakeDamageSFX.play()
+	
 func _on_EnemyDetectionTrigger_area_entered(area):
 	#print("HELLO===============")
 	
@@ -344,6 +344,7 @@ func _on_hitbox_attacking(area) -> void:
 				return
 			
 			if area.get_parent().has_method("add_damage"):
+				$AttackSFX.play()
 				area.get_parent().add_damage(GlobalUpgradeStats.boidDamage)
 			
 				#print("retreating")

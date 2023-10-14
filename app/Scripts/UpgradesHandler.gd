@@ -14,6 +14,7 @@ func AddAndApplyUpgrade(added_upgrade):
 		added_upgrade.Upgrade()
 		AvailableUpgrades.clear()
 		AvailableUpgrades.append_array(AllUpgrades)
+		$UpgradeSFX.play()
 		print("added_upgrade")
 		print(AvailableUpgrades, AllUpgrades)
 		
