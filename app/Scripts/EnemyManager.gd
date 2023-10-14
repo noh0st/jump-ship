@@ -4,6 +4,7 @@ var _enemies = []
 const Enemy: PackedScene = preload("res://Scenes/Enemy.tscn")
 const RockTurtle: PackedScene = preload("res://Scenes/RockTurtle.tscn")
 const SpearEnemy: PackedScene = preload("res://Scenes/SpearLanceEnemy.tscn")
+const RatEnemy : PackedScene = preload("res://Scenes/RatEnemy.tscn")
 onready var MainYsort = get_node("../YSort")
 
 const X_BOUNDS = Vector2(-1000, 1000)
@@ -14,7 +15,8 @@ var XPPlayer : int = 50 #xp added to player on death
 enum Type {
 	ENEMY,
 	ROCK_TURTLE,
-	SPEAR
+	SPEAR,
+	RAT
 }
 
 var _on_death_callbacks: Array = []
@@ -30,6 +32,8 @@ func spawn(type: int) -> Node:
 			return _spawn_rock_turtle()
 		Type.SPEAR:
 			return _spawn_spear()
+		Type.RAT:
+			return _spawn_rat()
 		_:
 			print("ERROR: type not valid %d" % type)
 			return _spawn_enemy()
@@ -61,7 +65,12 @@ func _spawn_spear() -> Node:
 	MainYsort.add_child(new_enemy)
 	return new_enemy
 
-
+func _spawn_rat() -> Node:
+	var new_enemy: Node = RatEnemy.instance()
+	_enemies.append(new_enemy)
+	
+	MainYsort.add_child(new_enemy)
+	return new_enemy
 func size() -> int:
 	return _enemies.size()
 

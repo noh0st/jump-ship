@@ -1,22 +1,29 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=27 format=2]
 
-[ext_resource path="res://Scripts/enemy.gd" type="Script" id=1]
-[ext_resource path="res://Assets/RatEnemy/Rat_Walking2.png" type="Texture" id=2]
-[ext_resource path="res://Assets/RatEnemy/Rat_Walking3.png" type="Texture" id=3]
-[ext_resource path="res://Assets/RatEnemy/Rat_Walking1.png" type="Texture" id=4]
-[ext_resource path="res://Assets/RatEnemy/Rat_Attacking1Frame2.png" type="Texture" id=5]
-[ext_resource path="res://Assets/RatEnemy/Rat_Attacking1Frame3.png" type="Texture" id=6]
-[ext_resource path="res://Assets/RatEnemy/Rat_Leaping.png" type="Texture" id=7]
-[ext_resource path="res://Assets/RatEnemy/Rat_Attacking1Frame1.png" type="Texture" id=8]
-[ext_resource path="res://Assets/RatEnemy/Rat_Attacking1Frame4.png" type="Texture" id=9]
+[ext_resource path="res://Scripts/RatEnemy.gd" type="Script" id=1]
+[ext_resource path="res://Assets/RatEnemy/Rat_About_to_Jump2.png" type="Texture" id=2]
+[ext_resource path="res://Assets/RatEnemy/Rat_About_to_Jump1.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/HPbar.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/RatEnemy/Rat_Leaping.png" type="Texture" id=9]
+[ext_resource path="res://Assets/RatEnemy/Rat_Attacking1Frame1.png" type="Texture" id=10]
+[ext_resource path="res://Assets/RatEnemy/Rat_Attacking1Frame3.png" type="Texture" id=11]
+[ext_resource path="res://Assets/RatEnemy/Rat_Walking3.png" type="Texture" id=12]
+[ext_resource path="res://Assets/RatEnemy/Rat_Walking2.png" type="Texture" id=13]
+[ext_resource path="res://Assets/RatEnemy/Rat_Attacking1Frame4.png" type="Texture" id=14]
+[ext_resource path="res://Assets/RatEnemy/Rat_Walking1.png" type="Texture" id=15]
+[ext_resource path="res://Assets/RatEnemy/Rat_Attacking1Frame2.png" type="Texture" id=16]
 
-[sub_resource type="CircleShape2D" id=2]
-radius = 10.198
+[sub_resource type="CapsuleShape2D" id=21]
+radius = 23.0
+height = 62.0
 
-[sub_resource type="CircleShape2D" id=3]
-radius = 140.057
+[sub_resource type="CircleShape2D" id=7]
+radius = 200.0
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="CircleShape2D" id=9]
+radius = 50.0
+
+[sub_resource type="Animation" id=12]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
@@ -28,10 +35,22 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ ExtResource( 2 ) ]
+"values": [ ExtResource( 13 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HitBoxPivot/Area2D/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=13]
 resource_name = "RatAttackLeft"
 length = 0.4
 tracks/0/type = "value"
@@ -44,7 +63,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ Vector2( 0.204, 0.204 ) ]
+"values": [ Vector2( -0.204, 0.204 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:texture")
@@ -56,10 +75,34 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 8 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 9 ), ExtResource( 4 ) ]
+"values": [ ExtResource( 10 ), ExtResource( 16 ), ExtResource( 11 ), ExtResource( 14 ), ExtResource( 15 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("HitBoxPivot/Area2D/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("HitBoxPivot:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 180.0 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=14]
 resource_name = "RatAttackRight"
 length = 0.4
 tracks/0/type = "value"
@@ -72,7 +115,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ Vector2( -0.204, 0.204 ) ]
+"values": [ Vector2( 0.204, 0.204 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:texture")
@@ -84,10 +127,34 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 8 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 9 ), ExtResource( 4 ) ]
+"values": [ ExtResource( 10 ), ExtResource( 16 ), ExtResource( 11 ), ExtResource( 14 ), ExtResource( 15 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("HitBoxPivot:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("HitBoxPivot/Area2D/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=15]
 resource_name = "RatIdleLeft"
 length = 0.1
 tracks/0/type = "value"
@@ -100,7 +167,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 4 ) ]
+"values": [ ExtResource( 15 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:scale")
@@ -115,7 +182,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.204, 0.204 ) ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=16]
 resource_name = "RatIdleRight"
 length = 0.1
 tracks/0/type = "value"
@@ -128,7 +195,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 4 ) ]
+"values": [ ExtResource( 15 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:scale")
@@ -143,9 +210,10 @@ tracks/1/keys = {
 "values": [ Vector2( -0.204, 0.204 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=17]
 resource_name = "RatLeapLeft"
-length = 0.1
+length = 0.8
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
 tracks/0/interp = 1
@@ -153,10 +221,39 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 4 ), ExtResource( 7 ) ]
+"values": [ ExtResource( 3 ), ExtResource( 2 ), ExtResource( 9 ), ExtResource( 2 ), ExtResource( 3 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ Vector2( -0.204, 0.204 ) ]
+}
+
+[sub_resource type="Animation" id=23]
+resource_name = "RatLeapRight"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 3 ), ExtResource( 2 ), ExtResource( 9 ), ExtResource( 2 ), ExtResource( 3 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:scale")
@@ -171,35 +268,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.204, 0.204 ) ]
 }
 
-[sub_resource type="Animation" id=9]
-resource_name = "RatLeapRight"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ ExtResource( 4 ), ExtResource( 7 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ Vector2( -0.204, 0.204 ) ]
-}
-
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=19]
 resource_name = "RatWalkLeft"
 length = 0.3
 loop = true
@@ -213,7 +282,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ Vector2( 0.204, 0.204 ) ]
+"values": [ Vector2( -0.204, 0.204 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:texture")
@@ -225,10 +294,10 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ) ]
+"values": [ ExtResource( 15 ), ExtResource( 13 ), ExtResource( 12 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=20]
 resource_name = "RatWalkRight"
 length = 0.3
 loop = true
@@ -242,7 +311,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ) ]
+"values": [ ExtResource( 15 ), ExtResource( 13 ), ExtResource( 12 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:scale")
@@ -254,161 +323,104 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ Vector2( -0.204, 0.204 ) ]
+"values": [ Vector2( 0.204, 0.204 ) ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=30]
-animation = "RatAttackLeft"
+[sub_resource type="CapsuleShape2D" id=22]
+radius = 12.0
+height = 66.0
 
-[sub_resource type="AnimationNodeAnimation" id=31]
-animation = "RatAttackRight"
-
-[sub_resource type="AnimationNodeBlendSpace2D" id=32]
-blend_point_0/node = SubResource( 30 )
-blend_point_0/pos = Vector2( -1, 0 )
-blend_point_1/node = SubResource( 31 )
-blend_point_1/pos = Vector2( 1, 0 )
-blend_mode = 1
-
-[sub_resource type="AnimationNodeAnimation" id=33]
-animation = "RatIdleLeft"
-
-[sub_resource type="AnimationNodeAnimation" id=34]
-animation = "RatIdleRight"
-
-[sub_resource type="AnimationNodeBlendSpace2D" id=35]
-blend_point_0/node = SubResource( 33 )
-blend_point_0/pos = Vector2( -1, 0 )
-blend_point_1/node = SubResource( 34 )
-blend_point_1/pos = Vector2( 1, 0 )
-
-[sub_resource type="AnimationNodeAnimation" id=36]
-animation = "RatLeapLeft"
-
-[sub_resource type="AnimationNodeAnimation" id=37]
-animation = "RatLeapRight"
-
-[sub_resource type="AnimationNodeBlendSpace2D" id=38]
-blend_point_0/node = SubResource( 36 )
-blend_point_0/pos = Vector2( -1, 0 )
-blend_point_1/node = SubResource( 37 )
-blend_point_1/pos = Vector2( 1, 0 )
-blend_mode = 1
-
-[sub_resource type="AnimationNodeAnimation" id=39]
-animation = "RatWalkLeft"
-
-[sub_resource type="AnimationNodeAnimation" id=40]
-animation = "RatWalkRight"
-
-[sub_resource type="AnimationNodeBlendSpace2D" id=41]
-blend_point_0/node = SubResource( 39 )
-blend_point_0/pos = Vector2( -1, 0 )
-blend_point_1/node = SubResource( 40 )
-blend_point_1/pos = Vector2( 1, 0.1 )
-blend_mode = 1
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=42]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=43]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=44]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=45]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=46]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=47]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=48]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=49]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=50]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=51]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=52]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=53]
-
-[sub_resource type="AnimationNodeStateMachine" id=28]
-states/Attack/node = SubResource( 32 )
-states/Attack/position = Vector2( 763, 146 )
-states/Idle/node = SubResource( 35 )
-states/Idle/position = Vector2( 947, 224 )
-states/Leap/node = SubResource( 38 )
-states/Leap/position = Vector2( 763, 277 )
-states/Walk/node = SubResource( 41 )
-states/Walk/position = Vector2( 569, 224 )
-transitions = [ "Walk", "Attack", SubResource( 42 ), "Attack", "Walk", SubResource( 43 ), "Walk", "Leap", SubResource( 44 ), "Walk", "Idle", SubResource( 45 ), "Leap", "Attack", SubResource( 46 ), "Leap", "Idle", SubResource( 47 ), "Leap", "Walk", SubResource( 48 ), "Idle", "Attack", SubResource( 49 ), "Idle", "Walk", SubResource( 50 ), "Idle", "Leap", SubResource( 51 ), "Attack", "Idle", SubResource( 52 ), "Attack", "Leap", SubResource( 53 ) ]
-start_node = "Idle"
-graph_offset = Vector2( -43, 70 )
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id=29]
+[sub_resource type="CapsuleShape2D" id=24]
+radius = 18.0
+height = 60.0
 
 [node name="RatEnemy" type="KinematicBody2D"]
-collision_layer = 40
-collision_mask = 66
+collision_layer = 0
+collision_mask = 64
 script = ExtResource( 1 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 2 )
-
-[node name="MouseDetectionTrigger" type="Area2D" parent="."]
-collision_layer = 24
-collision_mask = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseDetectionTrigger"]
-shape = SubResource( 2 )
-
-[node name="Timer" type="Timer" parent="."]
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.204, 0.204 )
-texture = ExtResource( 2 )
+texture = ExtResource( 13 )
+flip_h = true
 
-[node name="VisionTrigger" type="Area2D" parent="."]
-collision_layer = 4128
-collision_mask = 129
+[node name="HitBoxPivot" type="Position2D" parent="."]
 
-[node name="VisionCollision" type="CollisionShape2D" parent="VisionTrigger"]
-shape = SubResource( 3 )
+[node name="Area2D" type="Area2D" parent="HitBoxPivot"]
+position = Vector2( -36.593, -8.07 )
+collision_layer = 8
+collision_mask = 642
 
-[node name="LeapTimer" type="Timer" parent="."]
-wait_time = 0.5
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxPivot/Area2D"]
+position = Vector2( 76.593, 4.07 )
+shape = SubResource( 21 )
+disabled = true
 
-[node name="TargetLockTimer" type="Timer" parent="."]
-wait_time = 1.5
-one_shot = true
+[node name="Vision" type="Area2D" parent="."]
+visible = false
+collision_layer = 8
 
-[node name="refreshTimer" type="Timer" parent="."]
-wait_time = 0.5
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Vision"]
+shape = SubResource( 7 )
+
+[node name="AttackRange" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+shape = SubResource( 9 )
+
+[node name="re_AttackTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="patrolTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="DebugUI" type="Control" parent="."]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Text" type="RichTextLabel" parent="DebugUI"]
+margin_left = -47.0
+margin_top = -46.0
+margin_right = 44.0
+margin_bottom = 46.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/RESET = SubResource( 4 )
-anims/RatAttackLeft = SubResource( 6 )
-anims/RatAttackRight = SubResource( 7 )
-anims/RatIdleLeft = SubResource( 11 )
-anims/RatIdleRight = SubResource( 12 )
-anims/RatLeapLeft = SubResource( 8 )
-anims/RatLeapRight = SubResource( 9 )
-anims/RatWalkLeft = SubResource( 10 )
-anims/RatWalkRight = SubResource( 5 )
+anims/RESET = SubResource( 12 )
+anims/RatAttackLeft = SubResource( 13 )
+anims/RatAttackRight = SubResource( 14 )
+anims/RatIdleLeft = SubResource( 15 )
+anims/RatIdleRight = SubResource( 16 )
+anims/RatLeapLeft = SubResource( 17 )
+anims/RatLeapRight = SubResource( 23 )
+anims/RatWalkLeft = SubResource( 19 )
+anims/RatWalkRight = SubResource( 20 )
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 28 )
-anim_player = NodePath("../AnimationPlayer")
-active = true
-parameters/playback = SubResource( 29 )
-parameters/Attack/blend_position = 0
-parameters/Idle/blend_position = -0.653659
-parameters/Leap/blend_position = Vector2( 0, 0 )
-parameters/Walk/blend_position = -0.866341
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 9 )
+rotation = 1.5708
+shape = SubResource( 22 )
 
-[connection signal="input_event" from="MouseDetectionTrigger" to="." method="_on_MouseDetectionTrigger_input_event"]
-[connection signal="area_entered" from="VisionTrigger" to="." method="_on_VisionTrigger_area_entered"]
-[connection signal="area_exited" from="VisionTrigger" to="." method="_on_VisionTrigger_area_exited"]
-[connection signal="timeout" from="LeapTimer" to="." method="_on_LeapTimer_timeout"]
-[connection signal="timeout" from="TargetLockTimer" to="." method="_on_TargetLockTimer_timeout"]
-[connection signal="timeout" from="refreshTimer" to="." method="_on_refreshTimer_timeout"]
+[node name="HPbar" parent="." instance=ExtResource( 4 )]
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 18
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2( 0, 5 )
+rotation = 1.5708
+shape = SubResource( 24 )
+
+[connection signal="area_entered" from="HitBoxPivot/Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="area_entered" from="Vision" to="." method="_on_Vision_area_entered"]
+[connection signal="area_exited" from="Vision" to="." method="_on_Vision_area_exited"]
+[connection signal="area_entered" from="AttackRange" to="." method="_on_AttackRange_area_entered"]
+[connection signal="area_exited" from="AttackRange" to="." method="_on_AttackRange_area_exited"]
+[connection signal="timeout" from="re_AttackTimer" to="." method="_on_re_AttackTimer_timeout"]
+[connection signal="timeout" from="patrolTimer" to="." method="_on_patrolTimer_timeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]
