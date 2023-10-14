@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scenes/SpearLanceEnemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/Wave3.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/RatEnemy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/RockTurtle.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Map.tscn" type="PackedScene" id=5]
+
+[node name="Wave3" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="CenterContainer" type="CenterContainer" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="SpearLanceEnemy" parent="Enemies" instance=ExtResource( 1 )]
+position = Vector2( 812, -388 )
+
+[node name="SpearLanceEnemy2" parent="Enemies" instance=ExtResource( 1 )]
+position = Vector2( -525, 332 )
+
+[node name="RatEnemy" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( -228, -203 )
+
+[node name="RatEnemy2" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 528, 273 )
+
+[node name="RockTurtle" parent="Enemies" instance=ExtResource( 4 )]
+position = Vector2( 227, 58 )
+
+[node name="Map" parent="." instance=ExtResource( 5 )]
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}

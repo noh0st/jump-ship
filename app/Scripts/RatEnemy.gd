@@ -14,6 +14,8 @@ onready var _patrolTimer = $patrolTimer
 onready var _current_state: int = State.PATROLLING setget set_current_state
 onready var _attack_state: int = AttackState.COOLING setget set_attack_state
 
+var xp_worth = 120
+
 enum State {
 	PATROLLING,
 	APPROACHING,
@@ -75,6 +77,8 @@ func process_approaching(delta) -> void:
 	var leap_speed = 300
 	PlayLeapAnimationDirection(direction)
 	move_and_slide(leap_speed * leap_direction)
+	
+	
 func process_attacking(delta) -> void:
 	match _attack_state:
 		AttackState.ATTACKING:
@@ -158,6 +162,7 @@ func PlayRunAnimationDirection(direction: Vector2):
 	else:
 		_animationPlayer.play("RatIdleRight")
 
+
 func PlayLeapAnimationDirection(direction: Vector2):
 	if direction.x > 0:
 		_animationPlayer.play("RatLeapRight")
@@ -165,6 +170,8 @@ func PlayLeapAnimationDirection(direction: Vector2):
 		_animationPlayer.play("RatLeapLeft")
 	else:
 		_animationPlayer.play("RatIdleRight")
+		
+		
 func Attack():		
 	print("attacking")
 	self._current_state = State.ATTACKING
@@ -234,8 +241,10 @@ func _on_AttackRange_area_entered(area): #if entered the attack range attacks
 		_: 
 			Attack()
 
+
 func _area_is_hostile(area: Node) -> bool:
 	return (area.get_parent().has_meta("Player") or area.get_parent().has_meta("Boid"))
+
 
 func _on_AttackRange_area_exited(area):# if you exit, stops attacking and follows you
 	if area.get_parent() != Target:
@@ -252,8 +261,6 @@ func _on_AttackRange_area_exited(area):# if you exit, stops attacking and follow
 		_: 
 			print("target left attack range but was not in attack state")
 			self._current_state = State.APPROACHING
-
-	
 
 	
 func _on_patrolTimer_timeout() -> void:
@@ -299,8 +306,10 @@ func _check_vision_and_set_target() -> bool:
 func _on_Area2D_area_entered(area):
 	if not _area_is_hostile(area):
 		return
+		
 	if area.get_parent().has_method("add_damage") and (not area.get_parent().has_meta("Enemy")):
 		area.get_parent().add_damage(GlobalUpgradeStats.globalEnemyDamage)
+		
 	Target = area.get_parent()
 	
 	match _current_state:
@@ -308,6 +317,7 @@ func _on_Area2D_area_entered(area):
 			pass
 		_: 
 			Attack()
+
 
 func add_damage(value: int) -> void:
 	health -= value
