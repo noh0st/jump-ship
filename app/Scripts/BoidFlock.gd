@@ -2,6 +2,9 @@ extends Node
 
 signal boid_count_update(new_value)
 
+onready var ysort = get_node("/root/Main/YSort")
+
+
 var _boids: Array = []
 const Boid: PackedScene = preload("res://Scenes/Boid.tscn")
 
@@ -17,7 +20,7 @@ func spawn_boid() -> Node:
 		
 	boid.flock = self
 	
-	add_child(boid)
+	ysort.call_deferred("add_child", boid)
 	
 	emit_signal("boid_count_update", _boids.size())
 	

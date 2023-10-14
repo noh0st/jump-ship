@@ -5,6 +5,7 @@ export var max_speed = 10.0
 
 enum State {
 	BOIDING,
+	GUIDING,
 	ATTACKING
 }
 
@@ -23,6 +24,8 @@ export var alignment_force = 1.0
 export var follow_force = 30.0
 
 var _angle = 0
+
+var _boid_speed: int = 1
 
 var attack_target: Node
 var player : Node2D
@@ -74,6 +77,9 @@ func _ready():
 	#get_parent().get_node("Enemy").connect("_enemy_moused_over_true", self, "_enemy_moused_over_true") 
 	#get_parent().get_node("Enemy").connect("_enemy_moused_over_false", self, "_enemy_moused_over_false") 
 	health_calculation()
+	
+	_boid_speed = rand_range(1.0, 6.0)
+	print(_boid_speed)
 
 func _physics_process(delta) -> void:
 	$DebugUI/Label.text = "state: %d \nattack_state %d" % [_current_state, _attack_state]
@@ -89,7 +95,11 @@ func _physics_process(delta) -> void:
 	_last_position = position
 			
 
-
+func _input(event):
+	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT  and event.pressed:
+		print("mouse boid")
+		self._current_state = State.BOIDING
+	
 
 func PlayRunAnimationDirection(direction: Vector2):
 	if direction.x > 0:
@@ -104,6 +114,8 @@ func process_attacking(delta) -> void:
 		# print("attack target not valid")
 		self._current_state = State.BOIDING
 		return
+		
+
 	
 	if attack_target.position.distance_to(position) >= 200.0: 
 		self._current_state = State.BOIDING
@@ -135,6 +147,15 @@ func process_attacking(delta) -> void:
 				self._attack_state = AttackState.LUNGE_FORWARD
 				# print("lunging")
 
+func clamp_guidance_target(target: Vector2, dist: int) -> Vector2:
+	var diff = target - flock.owner_position() #).normalized()
+	var target_dist = diff.length()
+	var dir = diff.normalized()
+	
+	var new_dist = min(target_dist, dist)
+	
+	return (new_dist * dir) + flock.owner_position()
+	
 
 func process_boiding(delta) -> void:
 		#this part is for the boids to maybe stay asleep till the player touches them
@@ -143,7 +164,7 @@ func process_boiding(delta) -> void:
 	var follow_target: Vector2
 	
 	if(Input.is_action_pressed("LeftClick")):
-		follow_target = get_global_mouse_position()
+		follow_target = clamp_guidance_target(get_global_mouse_position(), 500)
 	else:
 		follow_target = flock.owner_position()
 
@@ -173,7 +194,7 @@ func process_boiding(delta) -> void:
 	#else:
 	#	movement_vector = follow(follow_target) * follow_force
 	
-	velocity += movement_vector
+	velocity += movement_vector 
 	velocity = clamp_vector(velocity, -max_speed , max_speed)
 	move_and_slide(velocity)
 
@@ -211,7 +232,7 @@ func separation(boids: Array) -> Vector2:
 		if(b!=self && boids.has(self) ):
 			var d = global_position.distance_to(b.global_position)
 			if(d>0 and d < separation_threshold):
-				steer_away -= (b.global_position - global_position).normalized() * (d/separation_threshold*10)
+				steer_away -= (b.global_position - global_position).normalized() * (d/separation_threshold*15)
 	return steer_away
 
 
@@ -252,17 +273,21 @@ func add_damage(value: int) -> void:
 
 func _on_EnemyDetectionTrigger_area_entered(area):
 	#print("HELLO===============")
+	
 	if area.get_parent().has_meta("Enemy"):
 		#print("enemy detection")
 		#print(area.get_parent())
 		match _current_state:
 			State.BOIDING:
-				#print("setting vision entered")
+				print("setting vision entered attacking")
+				
 				self._current_state = State.ATTACKING
 				self._attack_state = AttackState.CIRCLING
 				attack_target = area.get_parent()
 			_:
-				pass #print("unhandled vision entered")
+				pass # print("unhandled vision entered")
+	else: 
+		pass #"vision not enemy"
 		
 
 func _on_Hitbox_area_entered(area) -> void:
