@@ -25,7 +25,7 @@ export var follow_force = 30.0
 
 var _angle = 0
 
-var _boid_speed: int = 1
+var _boid_speed: float = 1.0
 
 var attack_target: Node
 var player : Node2D
@@ -78,11 +78,11 @@ func _ready():
 	#get_parent().get_node("Enemy").connect("_enemy_moused_over_false", self, "_enemy_moused_over_false") 
 	health_calculation()
 	
-	_boid_speed = rand_range(1.0, 6.0)
+	_boid_speed = rand_range(0.4, 1.5)
 	print(_boid_speed)
 
 func _physics_process(delta) -> void:
-	$DebugUI/Label.text = "state: %d \nattack_state %d" % [_current_state, _attack_state]
+	#$DebugUI/Label.text = "state: %d \nattack_state %d" % [_current_state, _attack_state]
 	
 	match _current_state:
 		State.BOIDING:
@@ -185,7 +185,7 @@ func process_circling(delta) -> void:
 	
 	velocity += movement_vector 
 	velocity = clamp_vector(velocity, -max_speed , max_speed)
-	move_and_slide(velocity)
+	move_and_slide(velocity * _boid_speed)
 
 
 func process_boiding(delta) -> void:
@@ -227,7 +227,7 @@ func process_boiding(delta) -> void:
 	
 	velocity += movement_vector 
 	velocity = clamp_vector(velocity, -max_speed , max_speed)
-	move_and_slide(velocity)
+	move_and_slide(velocity * _boid_speed)
 
 
 func handle_single(delta: float, follow_target: Vector2) -> void:
