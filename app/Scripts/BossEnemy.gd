@@ -137,8 +137,18 @@ func _on_AttackTimer_timeout():
 			
 			#_current_state = State.ROCK_THROW
 			
-			var rock = RockProjectile.instance()
-			rock.position = position
-			rock.init((_player.position - position).normalized(), rand_range(200, 450))	
-			_enemy_manager.add_child(rock)
-	pass # Replace with function body.
+			$AnimationPlayer.play("RockThrowAnticipation")
+
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	match anim_name:
+		"RockThrowAnticipation":
+			fire_rock_projectile()
+
+
+func fire_rock_projectile() -> void:
+	var rock = RockProjectile.instance()
+	rock.position = position
+	rock.init((_player.position - position).normalized(), rand_range(200, 450))	
+	_enemy_manager.add_child(rock)

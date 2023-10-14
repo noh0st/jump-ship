@@ -9,7 +9,7 @@ var wave_count : int = 0
 
 
 
-const Wave1: PackedScene = preload("res://Scenes/Wave1.tscn")
+const Wave1: PackedScene = preload("res://Scenes/WaveBoss.tscn")
 
 var _enemy_manager: Node
 
