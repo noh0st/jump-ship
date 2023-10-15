@@ -37,7 +37,7 @@ func _ready():
 	for i in range(0, initialBoidNum):
 		boid_flock.spawn_boid()
 		i += 1
-	$HurtEffect.modulate = 0
+	$Camera2D/HurtEffect.modulate = 0
 	$Sprite.modulate = Color( 1, 1, 1, 1 )
 	self.set_meta("Player", true)
 	_animation_player.play("Idle")

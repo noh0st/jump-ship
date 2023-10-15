@@ -24,7 +24,7 @@ height = 0.0
 [sub_resource type="Animation" id=33]
 resource_name = "Hurt"
 tracks/0/type = "value"
-tracks/0/path = NodePath("HurtEffect:modulate")
+tracks/0/path = NodePath("Camera2D/HurtEffect:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -90,7 +90,7 @@ tracks/0/keys = {
 "values": [ 0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("HurtEffect:modulate")
+tracks/1/path = NodePath("Camera2D/HurtEffect:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -240,6 +240,15 @@ smoothing_enabled = true
 smoothing_speed = 7.0
 script = ExtResource( 5 )
 
+[node name="HurtEffect" type="TextureRect" parent="Camera2D"]
+modulate = Color( 1, 1, 1, 0.160784 )
+margin_left = -640.0
+margin_top = -360.0
+margin_right = 640.0
+margin_bottom = 360.0
+texture = ExtResource( 14 )
+expand = true
+
 [node name="BoidFlock" parent="." instance=ExtResource( 6 )]
 
 [node name="BoidAbsorptionComponent" type="Node" parent="."]
@@ -273,15 +282,6 @@ volume_db = -8.0
 [node name="XPSFX" type="AudioStreamPlayer" parent="."]
 pause_mode = 2
 stream = ExtResource( 13 )
-
-[node name="HurtEffect" type="TextureRect" parent="."]
-modulate = Color( 1, 1, 1, 0.160784 )
-margin_left = -640.0
-margin_top = -360.0
-margin_right = 640.0
-margin_bottom = 360.0
-texture = ExtResource( 14 )
-expand = true
 
 [connection signal="timeout" from="StaminaTimer" to="." method="_on_Timer_timeout"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
