@@ -18,7 +18,7 @@ radius = 23.0
 height = 62.0
 
 [sub_resource type="CircleShape2D" id=7]
-radius = 200.0
+radius = 300.0
 
 [sub_resource type="CircleShape2D" id=9]
 radius = 50.0
@@ -212,7 +212,6 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=17]
 resource_name = "RatLeapLeft"
-length = 0.8
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
@@ -241,7 +240,6 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=23]
 resource_name = "RatLeapRight"
-length = 0.8
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
@@ -340,11 +338,12 @@ collision_mask = 64
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.204, 0.204 )
+scale = Vector2( -0.204, 0.204 )
 texture = ExtResource( 13 )
 flip_h = true
 
 [node name="HitBoxPivot" type="Position2D" parent="."]
+rotation = 3.14159
 
 [node name="Area2D" type="Area2D" parent="HitBoxPivot"]
 position = Vector2( -36.593, -8.07 )
@@ -357,7 +356,6 @@ shape = SubResource( 21 )
 disabled = true
 
 [node name="Vision" type="Area2D" parent="."]
-visible = false
 collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Vision"]
@@ -378,7 +376,6 @@ wait_time = 3.0
 autostart = true
 
 [node name="DebugUI" type="Control" parent="."]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
