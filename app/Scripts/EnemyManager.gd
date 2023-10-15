@@ -5,7 +5,7 @@ const Enemy: PackedScene = preload("res://Scenes/Enemy.tscn")
 const RockTurtle: PackedScene = preload("res://Scenes/RockTurtle.tscn")
 const SpearEnemy: PackedScene = preload("res://Scenes/SpearLanceEnemy.tscn")
 const RatEnemy : PackedScene = preload("res://Scenes/RatEnemy.tscn")
-onready var MainYsort = get_node("../YSort")
+onready var MainYsort = get_node("root/Main/YSort")
 
 const X_BOUNDS = Vector2(-1000, 1000)
 const Y_BOUNDS = Vector2(-1000, 350)
