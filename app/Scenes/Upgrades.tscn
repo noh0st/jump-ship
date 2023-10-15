@@ -44,8 +44,10 @@ margin_right = 405.751
 margin_bottom = 446.944
 
 [node name="Upgrade_2" parent="Control" instance=ExtResource( 2 )]
-margin_left = 532.0
-margin_right = 1032.0
+margin_left = 536.0
+margin_top = 192.0
+margin_right = 1036.0
+margin_bottom = 892.0
 rect_scale = Vector2( 0.458426, 0.497502 )
 
 [node name="Description" parent="Control/Upgrade_2" index="0"]
@@ -62,27 +64,21 @@ margin_bottom = 436.675
 
 [node name="Upgrade_3" parent="Control" instance=ExtResource( 2 )]
 margin_left = 768.0
+margin_top = 192.0
 margin_right = 1268.0
-rect_scale = Vector2( 0.430923, 0.46009 )
-
-[node name="Description" parent="Control/Upgrade_3" index="0"]
-margin_left = 77.8553
-margin_top = 449.771
-margin_right = 423.855
-margin_bottom = 595.771
+margin_bottom = 892.0
 
 [node name="Name" parent="Control/Upgrade_3" index="1"]
-margin_left = 77.8552
-margin_top = 365.568
-margin_right = 407.855
-margin_bottom = 432.568
+margin_left = 84.1678
+margin_top = 377.89
+margin_right = 414.168
+margin_bottom = 444.89
 
 [node name="UpgradeSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
 
 [connection signal="pressed" from="Control/Upgrade_1" to="." method="_on_Upgrade_1_pressed"]
 [connection signal="pressed" from="Control/Upgrade_2" to="." method="_on_Upgrade_2_pressed"]
-[connection signal="pressed" from="Control/Upgrade_3" to="." method="_on_Upgrade_3_pressed"]
 
 [editable path="Control/Upgrade_1"]
 [editable path="Control/Upgrade_2"]

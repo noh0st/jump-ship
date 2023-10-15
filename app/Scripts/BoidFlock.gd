@@ -43,10 +43,15 @@ func release_boid() -> void:
 		return
 		
 	remove(_boids[0])
-	
+
 func remove(object: Node) -> void:
 	if _boids.has(object):
 		object.queue_free()
 		_boids.erase(object)
 		
 		emit_signal("boid_count_update", _boids.size())
+		
+func HealBoids(value):
+	for i in _boids:
+		i.add_health(value)
+		
