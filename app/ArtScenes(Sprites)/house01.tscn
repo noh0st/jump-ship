@@ -6,14 +6,13 @@
 extents = Vector2( 313.607, 138.797 )
 
 [node name="Tree" type="Sprite"]
-position = Vector2( -0.999994, 255.897 )
+position = Vector2( -5.96046e-08, -2 )
 scale = Vector2( 0.3125, 0.338626 )
 texture = ExtResource( 1 )
-offset = Vector2( 0, -1000 )
+offset = Vector2( -3.19998, -238.402 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( 3.30322, -888.581 )
-scale = Vector2( 1, 1 )
+position = Vector2( 1.90735e-07, -138.796 )
 shape = SubResource( 1 )

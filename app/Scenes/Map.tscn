@@ -2906,7 +2906,7 @@ position = Vector2( 528, 317 )
 position = Vector2( 2398, 2153 )
 
 [node name="Tree116" parent="." instance=ExtResource( 10 )]
-position = Vector2( -275, 2284 )
+position = Vector2( -269, 2267 )
 
 [node name="Tree105" parent="." instance=ExtResource( 11 )]
 position = Vector2( 2184, 1851 )
