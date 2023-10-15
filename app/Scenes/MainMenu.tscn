@@ -69,20 +69,19 @@ text = "backstreet boids²
 align = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
-anchor_right = 0.083
-margin_left = 530.0
-margin_top = 368.0
+margin_left = 601.0
+margin_top = 300.0
 margin_right = 678.0
-margin_bottom = 488.0
+margin_bottom = 420.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
-margin_right = 254.0
+margin_right = 77.0
 margin_bottom = 120.0
 size_flags_vertical = 3
 custom_constants/separation = 24
 
 [node name="Start Game" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer"]
-margin_right = 254.0
+margin_right = 77.0
 margin_bottom = 48.0
 focus_neighbour_bottom = NodePath("../Quit Game")
 size_flags_vertical = 0
@@ -95,7 +94,7 @@ icon_align = 1
 
 [node name="Quit Game" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer"]
 margin_top = 72.0
-margin_right = 254.0
+margin_right = 77.0
 margin_bottom = 120.0
 focus_neighbour_top = NodePath("../Start Game")
 size_flags_vertical = 0

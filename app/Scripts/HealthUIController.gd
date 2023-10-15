@@ -23,7 +23,7 @@ func init(player: Node) -> void:
 	PlayerStats.connect("staminaChange",self, "_on_Player_ChangedStamina")
 	PlayerStats.connect("xpChange",self, "_on_PlayerStats_xpChange")
 	
-	$BoidsNum.text = _player.flock_size()
+	$BoidsNum.text = "%s" % _player.flock_size()
 	
 	staminabar.value = PlayerStats.Stamina / (PlayerStats.MaxStamina/100)
 	
@@ -55,7 +55,7 @@ func _on_Player_player_boid_count_update(new_value):
 	print(BoidsLabel)
 	print($BoidsNum)
 	# PlayerStats.BoidsCollectedNum = new_value
-	BoidsLabel.text = "Number Of Followers : %s" % new_value
+	BoidsLabel.text = "%s" % new_value
 	
 
 func update_xp(xp: int, max_xp: int) -> void:
