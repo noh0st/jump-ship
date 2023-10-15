@@ -13,6 +13,7 @@ onready var _current_state: int = State.PATROLLING setget set_current_state
 onready var _attack_state: int = AttackState.COOLING setget set_attack_state
 
 var xp_worth = 100
+var boid_worth = 3
 
 var health: int = 0
 export var healthMultiple : int = 10

@@ -12,6 +12,7 @@ var health: int
 export var healthMultiple : int = 5
 
 var xp_worth: int = 20
+var boid_worth = 1
 
 func _ready():
 	$Sprite.modulate = Color(0.6, 0.7, 0.9) # blue shade
