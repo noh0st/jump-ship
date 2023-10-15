@@ -1,10 +1,14 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scripts/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Other/MainMenuBackround.PNG" type="Texture" id=2]
 [ext_resource path="res://SFX/MX Button Click.mp3" type="AudioStream" id=3]
 [ext_resource path="res://Assets/Other/BebasNeue-Regular.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://SFX/MX Button Hover.wav" type="AudioStream" id=5]
+[ext_resource path="res://Assets/UI/Main Menu/Controls.png" type="Texture" id=6]
+[ext_resource path="res://Assets/UI/Main Menu/Button Hover.png" type="Texture" id=7]
+[ext_resource path="res://Assets/UI/Main Menu/Button Pressed.png" type="Texture" id=8]
+[ext_resource path="res://Assets/UI/Main Menu/Button Regular.png" type="Texture" id=9]
 
 [sub_resource type="DynamicFont" id=4]
 size = 103
@@ -16,20 +20,17 @@ font_data = ExtResource( 4 )
 size = 40
 font_data = ExtResource( 4 )
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.784314, 0.105882, 0.105882, 1 )
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-expand_margin_left = 5.0
-expand_margin_right = 5.0
-expand_margin_top = 5.0
-expand_margin_bottom = 5.0
+[sub_resource type="StyleBoxTexture" id=5]
+texture = ExtResource( 7 )
+region_rect = Rect2( 0, 0, 423, 104 )
 
-[sub_resource type="DynamicFont" id=2]
-size = 40
-font_data = ExtResource( 4 )
+[sub_resource type="StyleBoxTexture" id=6]
+texture = ExtResource( 8 )
+region_rect = Rect2( 0, 0, 423, 104 )
+
+[sub_resource type="StyleBoxTexture" id=7]
+texture = ExtResource( 9 )
+region_rect = Rect2( 0, 0, 423, 104 )
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -68,44 +69,42 @@ text = "backstreet boids²
 align = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
-margin_left = 572.0
-margin_top = 336.0
-margin_right = 708.0
-margin_bottom = 384.0
+anchor_right = 0.083
+margin_left = 530.0
+margin_top = 368.0
+margin_right = 678.0
+margin_bottom = 488.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
-margin_right = 136.0
-margin_bottom = 48.0
+margin_right = 254.0
+margin_bottom = 120.0
 size_flags_vertical = 3
+custom_constants/separation = 24
 
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer"]
-margin_right = 136.0
+[node name="Start Game" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer"]
+margin_right = 254.0
 margin_bottom = 48.0
-size_flags_horizontal = 0
-size_flags_vertical = 3
-
-[node name="Button" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/CenterContainer"]
-margin_right = 136.0
-margin_bottom = 48.0
-size_flags_horizontal = 0
+focus_neighbour_bottom = NodePath("../Quit Game")
 size_flags_vertical = 0
 custom_fonts/font = SubResource( 3 )
-custom_styles/normal = SubResource( 1 )
-text = "Play Game"
+custom_styles/hover = SubResource( 5 )
+custom_styles/pressed = SubResource( 6 )
+custom_styles/normal = SubResource( 7 )
+text = "Start"
+icon_align = 1
 
-[node name="DashTutorial" type="Label" parent="."]
-anchor_left = 0.868
-anchor_top = 0.94
-anchor_right = 0.868
-anchor_bottom = 0.94
-margin_left = -145.04
-margin_top = -23.8
-margin_right = 145.96
-margin_bottom = 24.2
-custom_fonts/font = SubResource( 2 )
-text = "Press \"Space\" to dash"
-align = 1
-valign = 1
+[node name="Quit Game" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer"]
+margin_top = 72.0
+margin_right = 254.0
+margin_bottom = 120.0
+focus_neighbour_top = NodePath("../Start Game")
+size_flags_vertical = 0
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 5 )
+custom_styles/pressed = SubResource( 6 )
+custom_styles/normal = SubResource( 7 )
+text = "Quit"
+icon_align = 1
 
 [node name="PressedSFX" type="AudioStreamPlayer2D" parent="."]
 pause_mode = 2
@@ -118,6 +117,12 @@ stream = ExtResource( 5 )
 volume_db = 2.139
 pitch_scale = 1.3
 
-[connection signal="mouse_entered" from="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/CenterContainer/Button" to="." method="_on_Button_mouse_entered"]
-[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/CenterContainer/Button" to="." method="_on_Button_pressed"]
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 1010, 605 )
+texture = ExtResource( 6 )
+
+[connection signal="mouse_entered" from="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/Start Game" to="." method="_on_Button_mouse_entered"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/Start Game" to="." method="_on_Button_pressed"]
+[connection signal="mouse_entered" from="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/Quit Game" to="." method="_on_Button_mouse_entered"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/Quit Game" to="." method="_on_Button_pressed"]
 [connection signal="finished" from="PressedSFX" to="." method="_on_PressedSFX_finished"]
