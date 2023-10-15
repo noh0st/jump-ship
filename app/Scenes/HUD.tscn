@@ -1,9 +1,8 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/HealthUIController.gd" type="Script" id=1]
-[ext_resource path="res://Assets/HealthBarPNG/8.png" type="Texture" id=2]
-[ext_resource path="res://Assets/HealthBarPNG/5.png" type="Texture" id=3]
-[ext_resource path="res://Assets/HealthBarPNG/6.png" type="Texture" id=4]
+[ext_resource path="res://Assets/UI/Gameplay HUD/Stamina Fill.png" type="Texture" id=2]
+[ext_resource path="res://Assets/UI/Gameplay HUD/Stamina Background.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/Upgrades.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/XPbar/XPOutline.png" type="Texture" id=6]
 [ext_resource path="res://Assets/XPbar/XPFilling.png" type="Texture" id=7]
@@ -28,15 +27,16 @@ custom_fonts/font = SubResource( 1 )
 text = "Number Of Followers"
 
 [node name="StaminaBar" type="TextureProgress" parent="."]
-margin_left = 894.0
-margin_top = 84.0
-margin_right = 4694.0
-margin_bottom = 684.0
+margin_left = 1235.0
+margin_top = 575.0
+margin_right = 1433.0
+margin_bottom = 1508.0
 rect_scale = Vector2( 0.096187, 0.0857834 )
 value = 100.0
-texture_under = ExtResource( 4 )
-texture_over = ExtResource( 2 )
-texture_progress = ExtResource( 3 )
+texture_under = ExtResource( 3 )
+texture_progress = ExtResource( 2 )
+fill_mode = 3
+nine_patch_stretch = true
 
 [node name="Upgrades" parent="." instance=ExtResource( 5 )]
 
