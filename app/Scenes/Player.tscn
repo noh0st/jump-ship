@@ -89,42 +89,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 0 ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath("Camera2D/HurtEffect:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0.160784 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("TakeDamageSFX:playing")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ false ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Sprite:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 0, 0, 0.0941176 ) ]
-}
 
 [sub_resource type="Animation" id=32]
 resource_name = "Walk"
@@ -146,6 +110,7 @@ tracks/0/keys = {
 [sub_resource type="Animation" id=27]
 resource_name = "WalkLeft"
 length = 0.6
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -174,6 +139,7 @@ tracks/1/keys = {
 [sub_resource type="Animation" id=26]
 resource_name = "WalkRight"
 length = 0.6
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -203,7 +169,6 @@ tracks/1/keys = {
 collision_layer = 17
 collision_mask = 64
 script = ExtResource( 3 )
-initialBoidNum = 12
 FootStepSoundsArray = [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

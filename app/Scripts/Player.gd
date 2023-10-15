@@ -32,11 +32,12 @@ func _onready():
 
 #_____________________#
 func _ready():
+	print("player ready")
 	IsIdle = true
 	boid_flock.owner = self
 	for i in range(0, initialBoidNum):
 		boid_flock.spawn_boid()
-		i += 1
+
 	$Camera2D/HurtEffect.modulate = 0
 	$Sprite.modulate = Color( 1, 1, 1, 1 )
 	self.set_meta("Player", true)
