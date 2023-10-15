@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Assets/BebasNeue-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -13,6 +13,8 @@
 [ext_resource path="res://Scenes/GlobalStats.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=12]
 [ext_resource path="res://Scenes/WaveManager.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Scenes/Apple.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Scenes/AppleSpawner.tscn" type="PackedScene" id=15]
 
 [sub_resource type="DynamicFont" id=3]
 size = 46
@@ -90,6 +92,11 @@ position = Vector2( 246, -1801 )
 [node name="Upgrades" parent="." instance=ExtResource( 5 )]
 
 [node name="WinMenu" parent="." instance=ExtResource( 9 )]
+
+[node name="Apple" parent="." instance=ExtResource( 14 )]
+position = Vector2( -186, -81 )
+
+[node name="AppleSpawner" parent="." instance=ExtResource( 15 )]
 
 [connection signal="player_boid_count_update" from="YSort/Player" to="Death" method="_on_Player_player_boid_count_update"]
 [connection signal="player_boid_count_update" from="YSort/Player" to="HUD" method="_on_Player_player_boid_count_update"]

@@ -18,3 +18,4 @@ func Upgrade():
 	GlobalUpgradeStats.globalEnemyHealth += AddedHealthToEnemies
 	GlobalUpgradeStats.globalEnemyDamage += AddedDamageToEnemies
 	PlayerStats.UpgradedValues()
+	GlobalUpgradeStats.ChangedMaxHealth(GlobalUpgradeStats.globalSelfHealth)

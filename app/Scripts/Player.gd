@@ -18,7 +18,7 @@ const DashPower = 5
 
 var velocity = Vector2.ZERO
 var Dir: Vector2
-var IsIdle = true
+
 
 #_____________________#
 onready var timer = $StaminaTimer
@@ -33,7 +33,7 @@ func _onready():
 #_____________________#
 func _ready():
 	print("player ready")
-	IsIdle = true
+
 	boid_flock.owner = self
 	for i in range(0, initialBoidNum):
 		boid_flock.spawn_boid()
@@ -120,20 +120,19 @@ func StaminaRefill():
 	if PlayerStats.Stamina != PlayerStats.MaxStamina: # if stamina is not full, start recovering stamina again
 		timer.start() 
 
-
 func PlayRunAnimationDirection(direction: Vector2):
 	if CanMove:
 		if direction.x > 0:
-			IsIdle = false
+
 			_animation_player.play("WalkRight")
 		elif direction.x < 0:
-			IsIdle = false
+
 			_animation_player.play("WalkLeft")
 		elif direction.length() > 0:
-			IsIdle = false
+
 			_animation_player.play("Walk")
 		else:
-			IsIdle = true
+			_animation_player.play("Idle")
 		
 	
 #_____________________#
@@ -165,8 +164,8 @@ func _on_HurtBox_area_entered(area):
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
-	if IsIdle == true:
-		_animation_player.play("Idle")
+
+		
 	if anim_name == "Hurt":
 		CanMove = true
 		
@@ -185,3 +184,5 @@ func _on_AnimationPlayer_animation_started(anim_name):
 
 		CanMove = false
 
+func AppleHeal(health):
+	boid_flock.HealBoids(health)

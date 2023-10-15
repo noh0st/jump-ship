@@ -35,15 +35,20 @@ func UpgradesPOPUP(callback: FuncRef):
 	
 	
 func AssignRandomUpgrades():
-	upgrade_1.CardAssign(AvailableUpgrades[randi() % AvailableUpgrades.size()], funcref(self, "_on_selection")) 
-	AvailableUpgrades.remove(AvailableUpgrades.find(upgrade_1.AssignedUpgrade))
-	
-	upgrade_2.CardAssign(AvailableUpgrades[randi() % AvailableUpgrades.size()], funcref(self, "_on_selection")) 
-	AvailableUpgrades.remove(AvailableUpgrades.find(upgrade_2.AssignedUpgrade))
+	if AvailableUpgrades.size() == AllUpgrades.size():
+		upgrade_1.CardAssign(AvailableUpgrades[randi() % AvailableUpgrades.size()], funcref(self, "_on_selection")) 
+		AvailableUpgrades.remove(AvailableUpgrades.find(upgrade_1.AssignedUpgrade))
+		
+		upgrade_2.CardAssign(AvailableUpgrades[randi() % AvailableUpgrades.size()], funcref(self, "_on_selection")) 
+		AvailableUpgrades.remove(AvailableUpgrades.find(upgrade_2.AssignedUpgrade))
 
-	upgrade_3.AssignedUpgrade = AvailableUpgrades[randi() % AvailableUpgrades.size()]
-	AvailableUpgrades.remove(AvailableUpgrades.find(upgrade_3.AssignedUpgrade))
-	
+		upgrade_3.CardAssign(AvailableUpgrades[randi() % AvailableUpgrades.size()], funcref(self, "_on_selection"))
+		AvailableUpgrades.remove(AvailableUpgrades.find(upgrade_3.AssignedUpgrade))
+		print("AssignedUpgrades", upgrade_1.AssignedUpgrade,upgrade_2.AssignedUpgrade,upgrade_3.AssignedUpgrade)
+	elif AvailableUpgrades.size() != AllUpgrades.size():
+		AvailableUpgrades.clear()
+		AvailableUpgrades.append_array(AllUpgrades)
+		AssignRandomUpgrades()
 func _on_selection(card: Node) -> void:
 	get_tree().paused = false
 	print("pressed", card.AssignedUpgrade.UpgradeName)

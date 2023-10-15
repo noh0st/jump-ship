@@ -4,9 +4,9 @@
 
 [resource]
 script = ExtResource( 1 )
-UpgradeName = "hp"
-UpgradeDescription = ""
-UpgradeSpritePath = ""
+UpgradeName = "HEALTH"
+UpgradeDescription = "+200"
+UpgradeSpritePath = "res://Assets/UpgradeSprite/HP_BOOST.png"
 AddedHealthToBoidsAndPlayer = 200.0
 AddedStaminaToPlayer = 0.0
 AddedDamageToBoids = 0.0
