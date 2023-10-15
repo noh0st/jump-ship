@@ -1,13 +1,60 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scenes/BossEnemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/WaveBoss.gd" type="Script" id=2]
-
+[ext_resource path="res://Scenes/RatEnemy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/RockTurtle.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/SpearLanceEnemy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Map.tscn" type="PackedScene" id=6]
 
 [node name="WaveBoss" type="Node2D"]
 script = ExtResource( 2 )
 
+[node name="Map" parent="." instance=ExtResource( 6 )]
+__meta__ = {
+"_edit_group_": true
+}
+
 [node name="Enemies" type="Node" parent="."]
 
 [node name="BossEnemy" parent="Enemies" instance=ExtResource( 1 )]
-position = Vector2( 200, 0 )
+position = Vector2( 3004, -810 )
+
+[node name="RockTurtle" parent="Enemies" instance=ExtResource( 4 )]
+position = Vector2( 2304, -733 )
+
+[node name="RockTurtle2" parent="Enemies" instance=ExtResource( 4 )]
+position = Vector2( 3202, 47 )
+
+[node name="SpearLanceEnemy" parent="Enemies" instance=ExtResource( 5 )]
+position = Vector2( 2325, -514 )
+
+[node name="SpearLanceEnemy2" parent="Enemies" instance=ExtResource( 5 )]
+position = Vector2( 3091, 333 )
+
+[node name="RatEnemy" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 1447, -800 )
+
+[node name="RatEnemy2" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 1561, -255 )
+
+[node name="RatEnemy3" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 1484, 824 )
+
+[node name="RatEnemy4" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 2978, 1157 )
+
+[node name="RockTurtle" parent="." instance=ExtResource( 4 )]
+position = Vector2( 2682, 148 )
+
+[node name="RockTurtle2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 2627, 411 )
+
+[node name="RockTurtle3" parent="." instance=ExtResource( 4 )]
+position = Vector2( 2665, 674 )
+
+[node name="RockTurtle4" parent="." instance=ExtResource( 4 )]
+position = Vector2( 3000, 635 )
+
+[node name="RockTurtle5" parent="." instance=ExtResource( 4 )]
+position = Vector2( 3381, 737 )

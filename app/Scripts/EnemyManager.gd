@@ -5,10 +5,11 @@ const Enemy: PackedScene = preload("res://Scenes/Enemy.tscn")
 const RockTurtle: PackedScene = preload("res://Scenes/RockTurtle.tscn")
 const SpearEnemy: PackedScene = preload("res://Scenes/SpearLanceEnemy.tscn")
 const RatEnemy : PackedScene = preload("res://Scenes/RatEnemy.tscn")
-onready var MainYsort = get_node("root/Main/YSort")
 
 const X_BOUNDS = Vector2(-1000, 1000)
 const Y_BOUNDS = Vector2(-1000, 350)
+
+var _main_ysort: Node
 
 
 var XPPlayer : int = 50 #xp added to player on death
@@ -22,6 +23,9 @@ enum Type {
 var _on_death_callbacks: Array = []
 
 # manages pools for each enemy type
+
+func init(ysort: Node):
+	_main_ysort = ysort
 
 # Function to spawn a new enemy
 func spawn(type: int) -> Node:
@@ -42,20 +46,27 @@ func spawn(type: int) -> Node:
 func _spawn_enemy() -> Node:
 	var new_enemy: Node = Enemy.instance()
 	_enemies.append(new_enemy)
-	MainYsort.add_child(new_enemy)
+	_main_ysort.call_deferred("add_child", new_enemy)
 	
+	#return new_enemy
 	return new_enemy
 
 
 func add_enemy(enemy: Node) -> void:
+	if not is_instance_valid(enemy):
+		print("ERROR: TRYING TO ADD INVALID ENEMY")
+		return
+	
 	_enemies.append(enemy)
-	print(_enemies)
+	_main_ysort.call_deferred("add_child", enemy)
+	enemy.set_owner(_main_ysort)
+	#print(_enemies)
 
 
 func _spawn_rock_turtle() -> Node:
 	var new_enemy: Node = RockTurtle.instance()
 	_enemies.append(new_enemy)
-	MainYsort.add_child(new_enemy)
+	_main_ysort.add_child(new_enemy)
 	
 	return new_enemy
 
@@ -63,14 +74,14 @@ func _spawn_spear() -> Node:
 	var new_enemy: Node = SpearEnemy.instance()
 	_enemies.append(new_enemy)
 	
-	MainYsort.add_child(new_enemy)
+	_main_ysort.add_child(new_enemy)
 	return new_enemy
 
 func _spawn_rat() -> Node:
 	var new_enemy: Node = RatEnemy.instance()
 	_enemies.append(new_enemy)
 	
-	MainYsort.add_child(new_enemy)
+	_main_ysort.add_child(new_enemy)
 	return new_enemy
 	
 	

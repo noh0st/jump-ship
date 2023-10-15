@@ -15,5 +15,4 @@ offset = Vector2( 0, -1000 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( 3.62396e-05, -398.782 )
-scale = Vector2( 1, 1 )
 shape = SubResource( 1 )

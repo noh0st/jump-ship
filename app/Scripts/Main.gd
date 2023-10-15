@@ -5,7 +5,10 @@ func _ready():
 	# initialize health UI with player
 	$HUD.init($YSort/Player)
 	
+	$YSort/EnemyManager.init($YSort)
+	
 	$WaveManager.init($YSort/Player, $Upgrades, $YSort/EnemyManager, $HUD)
+	
 	
 
 
