@@ -60,6 +60,19 @@ func add_damage(value: int) -> void:
 func _on_AttackTimer_timeout() -> void:
 	print("attack timer timeout")
 	attackAnimationPlayer.play("RockTurtleAttack")
+	if not _check_vision():
+		HasTarget = false
+		Target = null
+		attackTimer.stop()
+	
+
+
+func _check_vision() -> bool:
+	for area in $TurtleVision.get_overlapping_areas():	
+		if 	area.get_parent().has_meta("Player") or area.get_parent().has_meta("Boid"):
+			return true
+	
+	return false
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):

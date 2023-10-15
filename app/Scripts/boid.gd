@@ -8,7 +8,8 @@ enum State {
 	GUIDING,
 	CIRCLING,
 	LUNGING,
-	RETREATING
+	RETREATING,
+	DISPERSING
 }
 
 
@@ -35,6 +36,8 @@ var flock: Node # set by BoidFlock
 var velocity = Vector2()
 
 onready var _animation_player = $AnimationPlayer
+
+const DISPERSE_SPEED: int = 600
 
 #var enemy_target : bool = false
 #var enemy_to_target : Node2D
@@ -95,6 +98,8 @@ func set_current_state(value) -> void:
 			$CooldownTimer.start(2)
 		State.CIRCLING:
 			$CooldownTimer.start(0.4)
+		State.DISPERSING:
+			$CooldownTimer.start(0.2)
 		_:
 			pass
 			
@@ -112,6 +117,8 @@ func _physics_process(delta) -> void:
 			process_circling(delta)
 		State.LUNGING:
 			process_lunging(delta)
+		State.DISPERSING:
+			process_dispersing(delta)
 			
 	PlayRunAnimationDirection(position - _last_position)
 	_last_position = position
@@ -119,9 +126,8 @@ func _physics_process(delta) -> void:
 
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT  and event.pressed: # interrupt whatever boid is doing
-		print("mouse boid")
 		self._current_state = State.GUIDING
-	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT  and not event.pressed: # interrupt whatever boid is doing
+	elif event is InputEventMouseButton and event.button_index == BUTTON_LEFT  and not event.pressed: # interrupt whatever boid is doing
 		if _current_state == State.GUIDING:
 			if _check_vision_and_set_target():
 				print("GUIDING TO LUNGING")
@@ -129,6 +135,8 @@ func _input(event):
 			else:
 				print("GUIDING TO HOIDING")
 				self._current_state = State.BOIDING
+	elif event is InputEventMouseButton and event.button_index == BUTTON_RIGHT and event.pressed: # interrupt whatever boid is doing
+		self._current_state = State.DISPERSING
 	
 
 func PlayRunAnimationDirection(direction: Vector2):
@@ -156,6 +164,12 @@ func process_lunging(delta) -> void:
 	var direction = (attack_target.position - position).normalized()
 	var speed = 250.0
 	move_and_slide(direction * speed)
+		
+		
+func process_dispersing(delta) -> void: # move away from mouse
+	var direction = (position - get_global_mouse_position()).normalized()
+	
+	move_and_slide(direction * DISPERSE_SPEED)
 		
 		
 func process_retreating(delta) -> void: # move away from target 
@@ -226,9 +240,6 @@ func process_circling_boid(delta) -> void:
 		+ follow(attack_target.position) * follow_force
 	)
 	
-	#else:
-	#	movement_vector = follow(follow_target) * follow_force
-	
 	velocity += movement_vector 
 	velocity = clamp_vector(velocity, -max_speed, max_speed)
 	move_and_slide(velocity * _boid_speed / 2)
@@ -243,7 +254,7 @@ func process_boiding(delta) -> void:
 	if(Input.is_action_pressed("LeftClick")):
 		follow_target = clamp_guidance_target(get_global_mouse_position(), 300)
 	else:
-		follow_target = flock.owner_position()
+		follow_target = attack_target.position if is_instance_valid(attack_target) else flock.owner_position()
 
 		
 	#finds the final direction vector by summing all the rules and their weights, then moves the boid using godots physics system
@@ -408,6 +419,8 @@ func _on_CooldownTimer_timeout():
 	match _current_state:
 		State.CIRCLING:
 			self._current_state = State.LUNGING
+		State.DISPERSING:
+			self._current_state = State.LUNGING
 		State.GUIDING:
 			if _check_vision_and_set_target():
 				print("GUIDING TO LUNGING")
@@ -427,5 +440,4 @@ func _check_vision_and_set_target() -> bool:
 		attack_target = area.get_parent()
 		return true
 	
-	attack_target = null
 	return false

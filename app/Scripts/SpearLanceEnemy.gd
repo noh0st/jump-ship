@@ -47,6 +47,7 @@ func _physics_process(delta): #Target death
 		State.APPROACHING:
 			process_approaching(delta)
 		_:
+			move_and_slide(Vector2.ZERO)
 			pass
 			
 	

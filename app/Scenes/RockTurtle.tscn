@@ -167,7 +167,7 @@ shape = SubResource( 5 )
 [node name="Hurtbox" type="Area2D" parent="."]
 light_mask = 2
 collision_layer = 18
-collision_mask = 12
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2( 0, -11 )
@@ -182,7 +182,7 @@ collision_layer = 4
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2( -60, -19 )
+position = Vector2( -48, -15 )
 scale = Vector2( -1.61864, -1.69729 )
 shape = SubResource( 6 )
 disabled = true
