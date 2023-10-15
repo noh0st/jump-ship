@@ -1,6 +1,5 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://Assets/BebasNeue-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Death.tscn" type="PackedScene" id=4]
@@ -16,18 +15,6 @@
 [ext_resource path="res://Scenes/Apple.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Scenes/AppleSpawner.tscn" type="PackedScene" id=15]
 
-[sub_resource type="DynamicFont" id=3]
-size = 46
-font_data = ExtResource( 1 )
-
-[sub_resource type="DynamicFont" id=4]
-size = 20
-font_data = ExtResource( 1 )
-
-[sub_resource type="DynamicFont" id=5]
-size = 20
-font_data = ExtResource( 1 )
-
 [node name="Main" type="Node"]
 script = ExtResource( 12 )
 
@@ -39,49 +26,19 @@ autoplay = false
 
 [node name="Death" parent="." instance=ExtResource( 4 )]
 
-[node name="BackgroundColor" parent="Death/Control/CenterContainer" index="0"]
-color = Color( 0.113725, 0.113725, 0.113725, 1 )
-
-[node name="VBoxContainer" parent="Death/Control/CenterContainer" index="1"]
-margin_left = 630.0
-margin_top = 334.0
-margin_right = 649.0
-margin_bottom = 386.0
-
-[node name="Label" parent="Death/Control/CenterContainer/VBoxContainer" index="0"]
-margin_right = 19.0
-margin_bottom = 2.0
-custom_fonts/font = SubResource( 3 )
-
-[node name="Control" parent="Death/Control/CenterContainer/VBoxContainer" index="1"]
-margin_top = 10.0
-margin_right = 19.0
-margin_bottom = 20.0
-
-[node name="RestartButton" parent="Death/Control/CenterContainer/VBoxContainer" index="2"]
-margin_top = 28.0
-margin_right = 19.0
-margin_bottom = 36.0
-custom_fonts/font = SubResource( 4 )
-
-[node name="QuitButton" parent="Death/Control/CenterContainer/VBoxContainer" index="3"]
-margin_top = 44.0
-margin_right = 19.0
-margin_bottom = 52.0
-custom_fonts/font = SubResource( 5 )
-
 [node name="YSort" type="YSort" parent="."]
 
 [node name="Player" parent="YSort" instance=ExtResource( 2 )]
-position = Vector2( -123, -127 )
+position = Vector2( -123, 2000 )
 __meta__ = {
 "_edit_group_": true
 }
+initialBoidNum = 3
 
 [node name="EnemyManager" parent="YSort" instance=ExtResource( 8 )]
 
 [node name="Map" parent="YSort" instance=ExtResource( 7 )]
-position = Vector2( 246, -1801 )
+position = Vector2( 0, 0 )
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 

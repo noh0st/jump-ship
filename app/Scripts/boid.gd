@@ -6,14 +6,11 @@ export var max_speed = 10.0
 enum State {
 	BOIDING,
 	GUIDING,
-	ATTACKING
+	CIRCLING,
+	LUNGING,
+	RETREATING
 }
 
-enum AttackState {
-	LUNGE_FORWARD,
-	LUNGE_RETREAT,
-	CIRCLING
-}
 
 onready var _enemy_manager = get_node("/root/Main/YSort/EnemyManager")
 #the "weight" of each rule, how much force is applied in
@@ -31,8 +28,7 @@ var attack_target: Node
 var player : Node2D
 export var separation_threshold = 1.0
 
-onready var _current_state: int = State.BOIDING
-onready var _attack_state: int = State.ATTACKING
+onready var _current_state: int = State.BOIDING setget set_current_state
 
 var flock: Node # set by BoidFlock
 
@@ -65,12 +61,14 @@ func health_calculation():
 	elif health >= MaxHealth:
 		health = MaxHealth
 		HpBar.visible = false
+		
+		
 func HealAndChangeMaxHealth():
 	MaxHealth = GlobalUpgradeStats.globalSelfHealth
 	health = GlobalUpgradeStats.globalSelfHealth
 	HpBar.update_ui(GlobalUpgradeStats.globalSelfHealth, GlobalUpgradeStats.globalSelfHealth)
 	
-######		
+	
 func _ready():
 	$Heal.visible = false
 	GlobalUpgradeStats.connect("MaxHealthChanged", self, "HealAndChangeMaxHealth")
@@ -85,27 +83,52 @@ func _ready():
 	#get_parent().get_node("Enemy").connect("_enemy_moused_over_false", self, "_enemy_moused_over_false") 
 	health_calculation()
 	
-	_boid_speed = rand_range(0.4, 1.5)
+	_boid_speed = rand_range(0.5, 1.7)
 	print(_boid_speed)
 
-func _physics_process(delta) -> void:
-	#$DebugUI/Label.text = "state: %d \nattack_state %d" % [_current_state, _attack_state]
+
+func set_current_state(value) -> void:
+	_current_state = value
 	
+	match value:
+		State.GUIDING:					
+			$CooldownTimer.start(2)
+		State.CIRCLING:
+			$CooldownTimer.start(0.4)
+		_:
+			pass
+			
+	$DebugUI/Label.text = "state: %d" % [_current_state]
+
+func _physics_process(delta) -> void:
 	match _current_state:
 		State.BOIDING:
 			process_boiding(delta)
-		State.ATTACKING:
-			process_attacking(delta)
+		State.RETREATING:
+			process_retreating(delta)
+		State.GUIDING:
+			process_boiding(delta)
+		State.CIRCLING:
+			process_circling(delta)
+		State.LUNGING:
+			process_lunging(delta)
 			
-	
 	PlayRunAnimationDirection(position - _last_position)
 	_last_position = position
 			
 
 func _input(event):
-	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT  and event.pressed:
+	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT  and event.pressed: # interrupt whatever boid is doing
 		print("mouse boid")
-		self._current_state = State.BOIDING
+		self._current_state = State.GUIDING
+	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT  and not event.pressed: # interrupt whatever boid is doing
+		if _current_state == State.GUIDING:
+			if _check_vision_and_set_target():
+				print("GUIDING TO LUNGING")
+				self._current_state = State.LUNGING
+			else:
+				print("GUIDING TO HOIDING")
+				self._current_state = State.BOIDING
 	
 
 func PlayRunAnimationDirection(direction: Vector2):
@@ -115,8 +138,7 @@ func PlayRunAnimationDirection(direction: Vector2):
 		_animation_player.play("WalkLeft")
 	
 	
-	
-func process_attacking(delta) -> void:
+func process_lunging(delta) -> void:
 	if not (is_instance_valid(attack_target)):
 		# print("attack target not valid")
 		self._current_state = State.BOIDING
@@ -124,33 +146,50 @@ func process_attacking(delta) -> void:
 		
 	if attack_target.position.distance_to(position) >= 200.0: 
 		self._current_state = State.BOIDING
-		# print("target too far")
-		#print(attack_target.position.distance_to(position))
 		return
 		
-	match _attack_state:
-		AttackState.LUNGE_FORWARD:
-			# lung forward until hit lands
-			var direction = (attack_target.position - position).normalized()
-			var speed = 200.0
-			move_and_slide(direction * speed)
-		AttackState.LUNGE_RETREAT:
-			# move away from target 
-			if attack_target.position.distance_to(position) >= 130.0: 
-				# print("change to circling")
-				_attack_state = AttackState.CIRCLING
-				#print(attack_target.position.distance_to(position))
-				return
-				
-			var direction = (attack_target.position - position).normalized()
-			var speed = -200.0
-			move_and_slide(direction * speed)
-		AttackState.CIRCLING:
-			process_circling(delta)
-			
-			if attack_target.position.distance_to(position) <= 110.0: 
-				self._attack_state = AttackState.LUNGE_FORWARD
-				# print("lunging")
+	if attack_target.position.distance_to(position) <= 15: 
+		self._current_state = State.RETREATING
+		return
+		
+	# lung forward until hit lands
+	var direction = (attack_target.position - position).normalized()
+	var speed = 250.0
+	move_and_slide(direction * speed)
+		
+		
+func process_retreating(delta) -> void: # move away from target 
+	if not (is_instance_valid(attack_target)):
+		# print("attack target not valid")
+		self._current_state = State.BOIDING
+		return
+		
+	if attack_target.position.distance_to(position) >= 200.0: 
+		self._current_state = State.BOIDING
+		return
+		
+	
+	if attack_target.position.distance_to(position) >= 130.0: 
+		self._current_state = State.CIRCLING
+		return
+		
+	var direction = (attack_target.position - position).normalized()
+	var speed = -250.0 # move away
+	
+	move_and_slide(direction * speed)
+	
+	
+func process_circling(delta) -> void: # lunge cooldown
+	if not (is_instance_valid(attack_target)):
+	# print("attack target not valid")
+		self._current_state = State.BOIDING
+		return
+		
+	if attack_target.position.distance_to(position) >= 300.0: 
+		self._current_state = State.BOIDING
+		return
+		
+	process_circling_boid(delta)
 
 
 func clamp_guidance_target(target: Vector2, dist: int) -> Vector2:
@@ -163,7 +202,7 @@ func clamp_guidance_target(target: Vector2, dist: int) -> Vector2:
 	return (new_dist * dir) + flock.owner_position()
 	
 
-func process_circling(delta) -> void:
+func process_circling_boid(delta) -> void:
 	var boids: Array = flock.boids()
 	
 	if not (is_instance_valid(attack_target)):
@@ -182,7 +221,7 @@ func process_circling(delta) -> void:
 	
 	var	movement_vector = (
 		cohesion(boids) * cohesion_force 
-		+ separation(boids) * separation_force 
+		+ separation(boids) * separation_force * 3
 		+ alignment(boids) * alignment_force 
 		+ follow(attack_target.position) * follow_force
 	)
@@ -191,8 +230,8 @@ func process_circling(delta) -> void:
 	#	movement_vector = follow(follow_target) * follow_force
 	
 	velocity += movement_vector 
-	velocity = clamp_vector(velocity, -max_speed , max_speed)
-	move_and_slide(velocity * _boid_speed)
+	velocity = clamp_vector(velocity, -max_speed, max_speed)
+	move_and_slide(velocity * _boid_speed / 2)
 
 
 func process_boiding(delta) -> void:
@@ -316,18 +355,14 @@ func add_damage(value: int, knockback_dealer: Node) -> void:
 	
 	
 func _on_EnemyDetectionTrigger_area_entered(area):
-	#print("HELLO===============")
-	
 	if area.get_parent().has_meta("Enemy"):
 		#print("enemy detection")
 		#print(area.get_parent())
 		match _current_state:
 			State.BOIDING:
 				print("setting vision entered attacking")
-				
-				self._current_state = State.ATTACKING
-				self._attack_state = AttackState.CIRCLING
 				attack_target = area.get_parent()
+				self._current_state = State.LUNGING
 			_:
 				pass # print("unhandled vision entered")
 	else: 
@@ -337,34 +372,24 @@ func _on_EnemyDetectionTrigger_area_entered(area):
 func _on_Hitbox_area_entered(area) -> void:
 	if area.get_parent().has_meta("Enemy"):
 		match _current_state:
-			State.ATTACKING:
+			State.LUNGING:
 				_on_hitbox_attacking(area)
 			_:
-				print("current hitbox area entered state unhandled")
 				pass #
 		
 		
 func _on_hitbox_attacking(area) -> void:
-	match _attack_state:
-		AttackState.CIRCLING:
-			# APPLY DAMAGAGE
-			self._attack_state = AttackState.LUNGE_RETREAT
-			print("was circling")
-		AttackState.LUNGE_FORWARD:
-			# APPLY DAMAGAGE
-			if area.get_parent() == flock.flock_owner:
-				return
-			
-			if area.get_parent().has_method("add_damage"):
-				$AttackSFX.play()
-				area.get_parent().add_damage(GlobalUpgradeStats.boidDamage)
-				
-				#print("retreating")
-				self._attack_state = AttackState.LUNGE_RETREAT
-			else:
-				print("method not found")
-		AttackState.LUNGE_RETREAT:
-			pass
+	# APPLY DAMAGAGE
+	if area.get_parent() == flock.flock_owner:
+		return
+	
+	if area.get_parent().has_method("add_damage"):
+		$AttackSFX.play()
+		area.get_parent().add_damage(GlobalUpgradeStats.boidDamage)
+		
+		self._current_state = State.RETREATING
+
+
 func add_health(value):
 	health += value
 	health_calculation()
@@ -377,3 +402,30 @@ func add_health(value):
 
 func _on_UITimer_timeout():
 	$Heal.visible = false # Replace with function body.
+
+
+func _on_CooldownTimer_timeout():
+	match _current_state:
+		State.CIRCLING:
+			self._current_state = State.LUNGING
+		State.GUIDING:
+			if _check_vision_and_set_target():
+				print("GUIDING TO LUNGING")
+				self._current_state = State.LUNGING
+			else:
+				print("GUIDING TO HOIDING")
+				self._current_state = State.BOIDING
+		_:
+			pass
+
+
+func _check_vision_and_set_target() -> bool:
+	for area in $EnemyDetectionTrigger.get_overlapping_areas():	
+		if not area.get_parent().has_meta("Enemy"):
+			continue
+			
+		attack_target = area.get_parent()
+		return true
+	
+	attack_target = null
+	return false

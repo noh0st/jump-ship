@@ -15,8 +15,16 @@ func _ready() -> void:
 
 
 func spawn_boid() -> Node:
+
+	
 	var boid: Node = Boid.instance()
 	_boids.append(boid)
+	
+	if not is_instance_valid(flock_owner):
+		print("ERROR FLOCK OWNER NOT VALID")
+		return boid
+	
+	boid.position = flock_owner.position + _random_direction() * 200
 		
 	boid.flock = self
 	
@@ -43,7 +51,12 @@ func release_boid() -> void:
 		return
 		
 	remove(_boids[0])
-
+	
+func _random_direction() -> Vector2:
+	var angle = rand_range(0, 2 * PI)
+	return Vector2(cos(angle), sin(angle)).normalized()
+	
+	
 func remove(object: Node) -> void:
 	if _boids.has(object):
 		object.queue_free()
