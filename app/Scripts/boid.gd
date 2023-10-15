@@ -254,7 +254,7 @@ func process_boiding(delta) -> void:
 	if(Input.is_action_pressed("LeftClick")):
 		follow_target = clamp_guidance_target(get_global_mouse_position(), 300)
 	else:
-		follow_target = flock.owner_position()
+		follow_target = attack_target.position if is_instance_valid(attack_target) else flock.owner_position()
 
 		
 	#finds the final direction vector by summing all the rules and their weights, then moves the boid using godots physics system
@@ -420,7 +420,7 @@ func _on_CooldownTimer_timeout():
 		State.CIRCLING:
 			self._current_state = State.LUNGING
 		State.DISPERSING:
-			self._current_state = State.BOIDING
+			self._current_state = State.LUNGING
 		State.GUIDING:
 			if _check_vision_and_set_target():
 				print("GUIDING TO LUNGING")
@@ -440,5 +440,4 @@ func _check_vision_and_set_target() -> bool:
 		attack_target = area.get_parent()
 		return true
 	
-	attack_target = null
 	return false
