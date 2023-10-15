@@ -4,7 +4,7 @@ onready var _hud = get_node("/root/Main/HUD")
 onready var _player = get_node("/root/Main/YSort/Player")
 onready var wave_manager = get_node("/root/Main/WaveManager")
 
-export var xp_threshold: int = 100
+export var xp_threshold: int = 100000
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
