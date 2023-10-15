@@ -56,7 +56,7 @@ func add_damage(value: int) -> void:
 func _on_AttackTimer_timeout() -> void:
 	print("attack timer timeout")
 	attackAnimationPlayer.play("RockTurtleAttack")
-	$TurtleAttackSFX.play()
+
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	pass
@@ -69,4 +69,5 @@ func _on_DamageZone_area_entered(area):
 		return
 	
 	if area.get_parent().has_method("add_damage") and (not area.get_parent().has_meta("Enemy")):
-		area.get_parent().add_damage(GlobalUpgradeStats.globalEnemyDamage)
+		if is_instance_valid(self):
+			area.get_parent().add_damage(GlobalUpgradeStats.globalEnemyDamage, self)

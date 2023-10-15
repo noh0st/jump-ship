@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Scenes/PlayerStats.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/HurtBox.tscn" type="PackedScene" id=2]
@@ -13,12 +13,52 @@
 [ext_resource path="res://SFX/MX Dash.wav" type="AudioStream" id=11]
 [ext_resource path="res://SFX/MX Taking Damage.wav" type="AudioStream" id=12]
 [ext_resource path="res://SFX/MX XP sound 1.wav" type="AudioStream" id=13]
+[ext_resource path="res://Assets/Other/Pain.png" type="Texture" id=14]
 
 [sub_resource type="CapsuleShape2D" id=13]
 radius = 9.0
 height = 0.0
 
 [sub_resource type="CapsuleShape2D" id=24]
+
+[sub_resource type="Animation" id=33]
+resource_name = "Hurt"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera2D/HurtEffect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.160784 ), Color( 1, 1, 1, 0.45098 ), Color( 1, 1, 1, 0.737255 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TakeDamageSFX:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 0.0941176 ), Color( 1, 0, 0, 0.392157 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=31]
 resource_name = "Idle"
@@ -48,6 +88,42 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Camera2D/HurtEffect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.160784 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("TakeDamageSFX:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 0.0941176 ) ]
 }
 
 [sub_resource type="Animation" id=32]
@@ -136,6 +212,7 @@ scale = Vector2( 1, 0.5 )
 shape = SubResource( 13 )
 
 [node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 1, 0, 0, 0.0941176 )
 scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 4 )
 offset = Vector2( 0, -75 )
@@ -163,12 +240,22 @@ smoothing_enabled = true
 smoothing_speed = 7.0
 script = ExtResource( 5 )
 
+[node name="HurtEffect" type="TextureRect" parent="Camera2D"]
+modulate = Color( 1, 1, 1, 0.160784 )
+margin_left = -640.0
+margin_top = -360.0
+margin_right = 640.0
+margin_bottom = 360.0
+texture = ExtResource( 14 )
+expand = true
+
 [node name="BoidFlock" parent="." instance=ExtResource( 6 )]
 
 [node name="BoidAbsorptionComponent" type="Node" parent="."]
 script = ExtResource( 7 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Hurt = SubResource( 33 )
 anims/Idle = SubResource( 31 )
 anims/RESET = SubResource( 29 )
 anims/Walk = SubResource( 32 )
@@ -203,6 +290,7 @@ stream = ExtResource( 13 )
 [connection signal="staminaChange" from="PlayerStats" to="." method="_on_PlayerStats_staminaChange"]
 [connection signal="boid_count_update" from="BoidFlock" to="." method="_on_BoidFlock_boid_count_update"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]
 [connection signal="timeout" from="WalkingCycle" to="." method="_on_WalkingCycle_timeout"]
 
 [editable path="HurtBox"]

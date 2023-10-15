@@ -49,7 +49,7 @@ func _spawn_enemy() -> Node:
 
 func add_enemy(enemy: Node) -> void:
 	_enemies.append(enemy)
-	
+	print(_enemies)
 
 func _spawn_rock_turtle() -> Node:
 	var new_enemy: Node = RockTurtle.instance()
