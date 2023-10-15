@@ -3,7 +3,6 @@ extends CanvasLayer
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-onready var hpbar = $HPBar
 onready var staminabar = $StaminaBar
 onready var BoidsLabel = $BoidsNum
 onready var xpbar = $XPBar

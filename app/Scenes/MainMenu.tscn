@@ -5,7 +5,7 @@
 [ext_resource path="res://SFX/MX Button Click.mp3" type="AudioStream" id=3]
 [ext_resource path="res://Assets/Other/BebasNeue-Regular.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://SFX/MX Button Hover.wav" type="AudioStream" id=5]
-[ext_resource path="res://Assets/UI/Main Menu/Controls.png" type="Texture" id=6]
+[ext_resource path="res://Music/Main_Menu_Theme_-_LOOPED.wav" type="AudioStream" id=6]
 [ext_resource path="res://Assets/UI/Main Menu/Button Hover.png" type="Texture" id=7]
 [ext_resource path="res://Assets/UI/Main Menu/Button Pressed.png" type="Texture" id=8]
 [ext_resource path="res://Assets/UI/Main Menu/Button Regular.png" type="Texture" id=9]
@@ -123,7 +123,10 @@ pitch_scale = 1.3
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 1010, 605 )
-texture = ExtResource( 6 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+autoplay = true
 
 [connection signal="mouse_entered" from="MarginContainer/CenterContainer/VBoxContainer/CenterContainer/VBoxContainer2/StartGameButton" to="." method="_on_Button_mouse_entered"]
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/CenterContainer/VBoxContainer2/StartGameButton" to="." method="_on_Button_pressed"]

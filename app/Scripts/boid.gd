@@ -60,7 +60,6 @@ func health_calculation():
 	if health <= 0:
 		health = 0
 		
-		emit_signal("BoidDied", self)
 		BoidsGlobal.AllBoidsArray.remove(BoidsGlobal.AllBoidsArray.find(self))
 		flock.remove(self)
 	elif health >= MaxHealth:
