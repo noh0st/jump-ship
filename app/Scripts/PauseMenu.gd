@@ -23,14 +23,29 @@ func _ready():
 func _on_ResumeButton_pressed():
 	print("RESUME")
 	self.is_paused = false
-	
+	$PressedSFX.play()
 
 func _on_QuitButton_pressed():
-	print("EXIT")
-	PlayerStats.ResetValues()
-	GlobalUpgradeStats.GlobalReset()
-	
-	get_tree().change_scene("res://Scenes/MainMenu.tscn")
-	
-	
-	self.is_paused = false
+	$PressedSFX.play()
+	IsQuit = true
+
+
+func _on_QuitButton_mouse_entered():
+	$HoveredSFX.play()
+
+
+func _on_ResumeButton_mouse_entered():
+	$HoveredSFX.play()
+
+var IsQuit = false
+func _on_PressedSFX_finished():
+	if IsQuit == true:
+		print("EXIT")
+		PlayerStats.ResetValues()
+		GlobalUpgradeStats.GlobalReset()
+		
+		get_tree().change_scene("res://Scenes/MainMenu.tscn")
+		
+		
+		self.is_paused = false
+		IsQuit = false

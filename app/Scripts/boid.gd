@@ -15,7 +15,7 @@ enum AttackState {
 	CIRCLING
 }
 
-
+onready var _enemy_manager = get_node("/root/Main/YSort/EnemyManager")
 #the "weight" of each rule, how much force is applied in
 #the direction of the rule
 export var cohesion_force = 1.0
@@ -69,6 +69,7 @@ func health_calculation():
 		
 ######		
 func _ready():
+	$Sprite.modulate = Color( 1, 1, 1, 1 )
 	BoidsGlobal.AllBoidsArray.append(self)
 	HpBar.value = 100
 	health = MaxHealth
@@ -298,11 +299,16 @@ func _on_AwakenBoidTrigger_area_entered(area):
 	#if area.is_in_group("Hitbox") and area.get_parent().has_meta("Enemy"):
 	#	damage_boid(50)
 
-func add_damage(value: int) -> void:
+func add_damage(value: int, knockback_dealer: Node) -> void:
 	health -= value
 	health_calculation()
 
 
+	if is_instance_valid(knockback_dealer):
+		move_and_slide(Vector2(PlayerStats.globalSelfKnockBack * (self.position.x - knockback_dealer.position.x), PlayerStats.globalSelfKnockBack * (self.position.y - knockback_dealer.position.y)))
+	$TakeDamageSFX.play()
+	
+	
 func _on_EnemyDetectionTrigger_area_entered(area):
 	#print("HELLO===============")
 	
@@ -344,8 +350,9 @@ func _on_hitbox_attacking(area) -> void:
 				return
 			
 			if area.get_parent().has_method("add_damage"):
+				$AttackSFX.play()
 				area.get_parent().add_damage(GlobalUpgradeStats.boidDamage)
-			
+				
 				#print("retreating")
 				self._attack_state = AttackState.LUNGE_RETREAT
 			else:

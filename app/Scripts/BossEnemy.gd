@@ -101,7 +101,7 @@ func add_damage(value: int) -> void:
 		# enemy is dead
 		_enemy_manager.remove_enemy(self)
 		emit_signal("on_dead")
-
+		$WinSFX.play()
 		
 func _random_direction() -> Vector2:
 	var angle = rand_range(0, 2 * PI)

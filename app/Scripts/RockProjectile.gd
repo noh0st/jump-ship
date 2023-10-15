@@ -36,8 +36,9 @@ func _area_is_hostile(area: Node) -> bool:
 
 func _on_Hitbox_area_entered(area):
 	if _area_is_hostile(area) and area.get_parent().has_method("add_damage"):
-		area.get_parent().add_damage(DAMAGE)
-		self.queue_free()
+		if is_instance_valid(self):
+			area.get_parent().add_damage(DAMAGE, self)
+			self.queue_free()
 
 
 func _on_LifetimeTimer_timeout():

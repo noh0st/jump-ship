@@ -235,7 +235,7 @@ func _on_Area2D_area_entered(area): # hitbox
 		return
 		
 	if area.get_parent().has_method("add_damage") and (not area.get_parent().has_meta("Enemy")):
-		area.get_parent().add_damage(GlobalUpgradeStats.globalEnemyDamage)
+		area.get_parent().add_damage(GlobalUpgradeStats.globalEnemyDamage, self)
 		
 
 func add_damage(value: int) -> void:

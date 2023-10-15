@@ -20,7 +20,7 @@ export var MaxXpMultiplyer: float = 2
 var MaxStamina = 100
 var staminaRegen = 5
 export var HealthPerBoid = 10
-
+export var globalSelfKnockBack: float = 20
 #_____________________#
 
 func BoidsChanged(value): # change the value of the number of boids you get

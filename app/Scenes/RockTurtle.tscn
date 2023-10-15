@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scripts/RockTurtle.gd" type="Script" id=1]
 [ext_resource path="res://Assets/TurtleRockEnemy/05.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Assets/TurtleRockEnemy/03.png" type="Texture" id=5]
 [ext_resource path="res://Assets/TurtleRockEnemy/01.png" type="Texture" id=6]
 [ext_resource path="res://Scenes/HPbar.tscn" type="PackedScene" id=7]
+[ext_resource path="res://SFX/MX Turtle attack.wav" type="AudioStream" id=8]
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -34,6 +35,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [ true ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("TurtleAttackSFX:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=3]
 resource_name = "RockTurtleAttack"
@@ -56,10 +69,22 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.4, 1 ),
+"times": PoolRealArray( 0, 0.7, 1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ true, false, true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("TurtleAttackSFX:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
 }
 
 [sub_resource type="RectangleShape2D" id=5]
@@ -136,6 +161,9 @@ collision_mask = 65
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( 0, -11.2635 )
 shape = SubResource( 7 )
+
+[node name="TurtleAttackSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="area_entered" from="TurtleVision" to="." method="_on_TurtleVision_area_entered"]

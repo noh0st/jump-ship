@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Exploration_Theme_-_Extended_Version.mp3-ea623064b9cee7035f12ecb3b47f4bef.mp3str"
+
+[deps]
+
+source_file="res://Music/Exploration_Theme_-_Extended_Version.mp3"
+dest_files=[ "res://.import/Exploration_Theme_-_Extended_Version.mp3-ea623064b9cee7035f12ecb3b47f4bef.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
