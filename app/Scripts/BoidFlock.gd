@@ -63,3 +63,8 @@ func remove(object: Node) -> void:
 		_boids.erase(object)
 		
 		emit_signal("boid_count_update", _boids.size())
+		
+func HealBoids(value):
+	for i in _boids:
+		i.add_health(value)
+		

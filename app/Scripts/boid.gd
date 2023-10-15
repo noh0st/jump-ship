@@ -56,7 +56,7 @@ var _last_position : Vector2
 
 func health_calculation():
 	HpBar.update_ui(health, MaxHealth)
-	
+	HpBar.visible = true
 	if health <= 0:
 		health = 0
 		
@@ -64,14 +64,21 @@ func health_calculation():
 		flock.remove(self)
 	elif health >= MaxHealth:
 		health = MaxHealth
-		
-		
+		HpBar.visible = false
+func HealAndChangeMaxHealth():
+	MaxHealth = GlobalUpgradeStats.globalSelfHealth
+	health = GlobalUpgradeStats.globalSelfHealth
+	HpBar.update_ui(GlobalUpgradeStats.globalSelfHealth, GlobalUpgradeStats.globalSelfHealth)
+	
 ######		
 func _ready():
+	$Heal.visible = false
+	GlobalUpgradeStats.connect("MaxHealthChanged", self, "HealAndChangeMaxHealth")
 	$Sprite.modulate = Color( 1, 1, 1, 1 )
 	BoidsGlobal.AllBoidsArray.append(self)
 	HpBar.value = 100
 	health = MaxHealth
+	
 	self.set_meta("Boid", true)
 	# these were breaking the game, because there are no enemies at the start of the game
 	#get_parent().get_node("Enemy").connect("_enemy_moused_over_true", self, "_enemy_moused_over_true") 
@@ -358,3 +365,15 @@ func _on_hitbox_attacking(area) -> void:
 				print("method not found")
 		AttackState.LUNGE_RETREAT:
 			pass
+func add_health(value):
+	health += value
+	health_calculation()
+	if health != MaxHealth:
+		
+		$Heal.visible = true
+		$Heal.text = "+" + str(value)
+		$UITimer.start()
+
+
+func _on_UITimer_timeout():
+	$Heal.visible = false # Replace with function body.
