@@ -29,6 +29,8 @@ func death():
 	get_tree().paused = true
 	visible = true# Replace with function body.
 	$PlayerDeathSFX.play()
+	
+	
 func _on_Player_player_boid_count_update(new_value):
 	if new_value == 0:
 		death()
