@@ -94,7 +94,7 @@ extents = Vector2( 269.554, 172.747 )
 extents = Vector2( 7.71462, 9.52539 )
 
 [sub_resource type="CircleShape2D" id=6]
-radius = 116.101
+radius = 128.9
 
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 115.451, 33.7904 )
@@ -118,7 +118,7 @@ collision_mask = 16
 input_pickable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TurtleVision"]
-position = Vector2( -326.641, -8.05627e-06 )
+position = Vector2( -259.06, -56.3174 )
 scale = Vector2( 1.10732, 1.40185 )
 shape = SubResource( 5 )
 
@@ -142,7 +142,7 @@ collision_layer = 4
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2( -146.425, 0 )
+position = Vector2( -202.743, -61.9491 )
 scale = Vector2( -1.61864, -1.69729 )
 shape = SubResource( 6 )
 disabled = true

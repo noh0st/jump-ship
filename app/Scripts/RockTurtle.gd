@@ -15,6 +15,8 @@ var xp_worth: int = 20
 
 func _ready():
 	$Sprite.modulate = Color(0.6, 0.7, 0.9) # blue shade
+	$Sprite.flip_h = randi() % 2 == 0
+	
 	set_meta("Enemy", true)
 	_sprite = "res://Assets/01.png"
 	health = GlobalUpgradeStats.globalEnemyHealth * healthMultiple
