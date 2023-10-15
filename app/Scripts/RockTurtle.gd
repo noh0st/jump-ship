@@ -16,7 +16,7 @@ var boid_worth = 1
 
 func _ready():
 	$Sprite.modulate = Color(0.6, 0.7, 0.9) # blue shade
-	$Sprite.flip_h = randi() % 2 == 0
+	scale.x = 1 if randi() % 2 == 0 else -1
 	
 	set_meta("Enemy", true)
 	_sprite = "res://Assets/01.png"
@@ -32,8 +32,8 @@ func _on_TurtleVision_area_entered(area):
 	HasTarget = true
 
 	if not attackAnimationPlayer.is_playing():
-		attackAnimationPlayer.play("RockTurtleAttack")
-		attackTimer.start(1)
+		attackAnimationPlayer.play(("AttackAnticipation"))
+
 		
 
 func _on_TurtleVision_area_exited(area):
@@ -63,9 +63,9 @@ func _on_AttackTimer_timeout() -> void:
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
-	pass
-	Target = null
-	HasTarget = false
+	if anim_name == "AttackAnticipation":
+		attackAnimationPlayer.play("RockTurtleAttack")
+		attackTimer.start(1)
 
 
 func _on_DamageZone_area_entered(area):

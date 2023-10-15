@@ -94,7 +94,7 @@ func set_current_state(value) -> void:
 		State.GUIDING:					
 			$CooldownTimer.start(2)
 		State.CIRCLING:
-			$CooldownTimer.start(1)
+			$CooldownTimer.start(0.4)
 		_:
 			pass
 			
