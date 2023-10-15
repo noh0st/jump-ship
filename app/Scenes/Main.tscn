@@ -31,6 +31,7 @@ script = ExtResource( 12 )
 
 [node name="MusicPlayer" parent="." instance=ExtResource( 10 )]
 volume_db = -19.687
+autoplay = false
 
 [node name="PauseMenu" parent="." instance=ExtResource( 6 )]
 
@@ -40,31 +41,31 @@ volume_db = -19.687
 color = Color( 0.113725, 0.113725, 0.113725, 1 )
 
 [node name="VBoxContainer" parent="Death/Control/CenterContainer" index="1"]
-margin_left = 577.0
-margin_top = 285.0
-margin_right = 702.0
-margin_bottom = 435.0
+margin_left = 630.0
+margin_top = 334.0
+margin_right = 649.0
+margin_bottom = 386.0
 
 [node name="Label" parent="Death/Control/CenterContainer/VBoxContainer" index="0"]
-margin_right = 125.0
-margin_bottom = 56.0
+margin_right = 19.0
+margin_bottom = 2.0
 custom_fonts/font = SubResource( 3 )
 
 [node name="Control" parent="Death/Control/CenterContainer/VBoxContainer" index="1"]
-margin_top = 64.0
-margin_right = 125.0
-margin_bottom = 74.0
+margin_top = 10.0
+margin_right = 19.0
+margin_bottom = 20.0
 
 [node name="RestartButton" parent="Death/Control/CenterContainer/VBoxContainer" index="2"]
-margin_top = 82.0
-margin_right = 125.0
-margin_bottom = 112.0
+margin_top = 28.0
+margin_right = 19.0
+margin_bottom = 36.0
 custom_fonts/font = SubResource( 4 )
 
 [node name="QuitButton" parent="Death/Control/CenterContainer/VBoxContainer" index="3"]
-margin_top = 120.0
-margin_right = 125.0
-margin_bottom = 150.0
+margin_top = 44.0
+margin_right = 19.0
+margin_bottom = 52.0
 custom_fonts/font = SubResource( 5 )
 
 [node name="YSort" type="YSort" parent="."]
