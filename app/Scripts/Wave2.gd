@@ -6,8 +6,7 @@ extends Node2D
 # var b = "text"
 export var xp_threshold: int = 180
 
-onready var NextWave: PackedScene = load("res://Scenes/Wave3.tscn")
-
+var wave_id = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():	

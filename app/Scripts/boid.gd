@@ -351,7 +351,7 @@ func _on_hitbox_attacking(area) -> void:
 			
 			if area.get_parent().has_method("add_damage"):
 				$AttackSFX.play()
-				area.get_parent().add_damage(GlobalUpgradeStats.boidDamage)
+				area.get_parent().add_damage(GlobalUpgradeStats.boidDamage*10)
 				
 				#print("retreating")
 				self._attack_state = AttackState.LUNGE_RETREAT
