@@ -129,9 +129,9 @@ stream = ExtResource( 6 )
 autoplay = true
 
 [connection signal="mouse_entered" from="MarginContainer/CenterContainer/VBoxContainer/CenterContainer/VBoxContainer2/StartGameButton" to="." method="_on_Button_mouse_entered"]
-[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/CenterContainer/VBoxContainer2/StartGameButton" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/CenterContainer/VBoxContainer2/StartGameButton" to="." method="_on_StartGameButton_pressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/CenterContainer/VBoxContainer2/StartGameButton" to="." method="_on_Button_pressed"]
 [connection signal="mouse_entered" from="MarginContainer/CenterContainer/VBoxContainer/CenterContainer/VBoxContainer2/QuitGameButton" to="." method="_on_Button_mouse_entered"]
-[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/CenterContainer/VBoxContainer2/QuitGameButton" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/CenterContainer/VBoxContainer2/QuitGameButton" to="." method="_on_QuitGameButton_pressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/CenterContainer/VBoxContainer2/QuitGameButton" to="." method="_on_Button_pressed"]
 [connection signal="finished" from="PressedSFX" to="." method="_on_PressedSFX_finished"]

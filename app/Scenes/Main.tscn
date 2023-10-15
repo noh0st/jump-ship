@@ -79,7 +79,7 @@ __meta__ = {
 [node name="EnemyManager" parent="YSort" instance=ExtResource( 8 )]
 
 [node name="Map" parent="YSort" instance=ExtResource( 7 )]
-position = Vector2( 0, 0 )
+position = Vector2( 246, -1801 )
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 
