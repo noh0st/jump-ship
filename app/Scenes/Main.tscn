@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Assets/Other/BebasNeue-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Scenes/GlobalStats.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=12]
 [ext_resource path="res://Scenes/WaveManager.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Scenes/RatEnemy.tscn" type="PackedScene" id=14]
 
 [sub_resource type="DynamicFont" id=3]
 size = 46
@@ -75,13 +76,13 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Sprite" parent="YSort/Player" index="1"]
-modulate = Color( 1, 0, 0, 0.0941176 )
-
 [node name="EnemyManager" parent="YSort" instance=ExtResource( 8 )]
 
 [node name="Map" parent="YSort" instance=ExtResource( 7 )]
 position = Vector2( 0, 0 )
+
+[node name="RatEnemy" parent="YSort" instance=ExtResource( 14 )]
+position = Vector2( -250, -161 )
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 

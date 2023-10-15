@@ -52,7 +52,7 @@ func add_damage(value: int, knockback_dealer: Node) -> void:
 	# release boid
 	boid_flock.release_boid();
 	_animation_player.play("Hurt")
-	if _enemy_manager._enemies.has(knockback_dealer):
+	if is_instance_valid(knockback_dealer):
 		move_and_slide(Vector2(PlayerStats.globalSelfKnockBack * (self.position.x - knockback_dealer.position.x), PlayerStats.globalSelfKnockBack * (self.position.y - knockback_dealer.position.y)))
 	
 	
