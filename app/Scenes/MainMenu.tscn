@@ -1,10 +1,14 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scripts/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Other/MainMenuBackround.PNG" type="Texture" id=2]
 [ext_resource path="res://SFX/MX Button Click.mp3" type="AudioStream" id=3]
 [ext_resource path="res://Assets/Other/BebasNeue-Regular.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://SFX/MX Button Hover.wav" type="AudioStream" id=5]
+[ext_resource path="res://Music/Main_Menu_Theme_-_LOOPED.wav" type="AudioStream" id=6]
+[ext_resource path="res://Assets/UI/Main Menu/Button Hover.png" type="Texture" id=7]
+[ext_resource path="res://Assets/UI/Main Menu/Button Pressed.png" type="Texture" id=8]
+[ext_resource path="res://Assets/UI/Main Menu/Button Regular.png" type="Texture" id=9]
 
 [sub_resource type="DynamicFont" id=4]
 size = 103
@@ -16,20 +20,17 @@ font_data = ExtResource( 4 )
 size = 40
 font_data = ExtResource( 4 )
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.784314, 0.105882, 0.105882, 1 )
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-expand_margin_left = 5.0
-expand_margin_right = 5.0
-expand_margin_top = 5.0
-expand_margin_bottom = 5.0
+[sub_resource type="StyleBoxTexture" id=5]
+texture = ExtResource( 7 )
+region_rect = Rect2( 0, 0, 423, 104 )
 
-[sub_resource type="DynamicFont" id=2]
-size = 40
-font_data = ExtResource( 4 )
+[sub_resource type="StyleBoxTexture" id=6]
+texture = ExtResource( 8 )
+region_rect = Rect2( 0, 0, 423, 104 )
+
+[sub_resource type="StyleBoxTexture" id=7]
+texture = ExtResource( 9 )
+region_rect = Rect2( 0, 0, 423, 104 )
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -45,67 +46,69 @@ color = Color( 0.407843, 0.737255, 0.705882, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
-margin_right = 1280.0
-margin_bottom = 720.0
-
-[node name="MainMenuBackround" type="Sprite" parent="MarginContainer/CenterContainer"]
+[node name="MainMenuBackround" type="Sprite" parent="MarginContainer"]
 position = Vector2( 647.11, 354.433 )
 scale = Vector2( 1.38249, 1.21427 )
 texture = ExtResource( 2 )
 
-[node name="Label" type="Label" parent="MarginContainer/CenterContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+margin_right = 1280.0
+margin_bottom = 720.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
 margin_left = 329.0
-margin_top = 234.0
+margin_top = 236.0
 margin_right = 950.0
-margin_bottom = 485.0
+margin_bottom = 484.0
+
+[node name="Label" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer"]
+margin_right = 621.0
+margin_bottom = 124.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 4 )
-text = "backstreet boids²
-"
+text = "backstreet boids²"
 align = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
-margin_left = 572.0
-margin_top = 336.0
-margin_right = 708.0
-margin_bottom = 384.0
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
+margin_top = 128.0
+margin_right = 621.0
+margin_bottom = 248.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
-margin_right = 136.0
-margin_bottom = 48.0
-size_flags_vertical = 3
-
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer"]
-margin_right = 136.0
-margin_bottom = 48.0
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer/CenterContainer"]
+margin_left = 210.0
+margin_right = 410.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 200, 0 )
 size_flags_horizontal = 0
-size_flags_vertical = 3
+size_flags_vertical = 2
+custom_constants/separation = 24
 
-[node name="Button" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/CenterContainer"]
-margin_right = 136.0
+[node name="StartGameButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/CenterContainer/VBoxContainer2"]
+margin_right = 200.0
 margin_bottom = 48.0
-size_flags_horizontal = 0
+focus_neighbour_bottom = NodePath("../QuitGameButton")
 size_flags_vertical = 0
 custom_fonts/font = SubResource( 3 )
-custom_styles/normal = SubResource( 1 )
-text = "Play Game"
+custom_styles/hover = SubResource( 5 )
+custom_styles/pressed = SubResource( 6 )
+custom_styles/normal = SubResource( 7 )
+text = "Start"
+icon_align = 1
 
-[node name="DashTutorial" type="Label" parent="."]
-anchor_left = 0.868
-anchor_top = 0.94
-anchor_right = 0.868
-anchor_bottom = 0.94
-margin_left = -145.04
-margin_top = -23.8
-margin_right = 145.96
-margin_bottom = 24.2
-custom_fonts/font = SubResource( 2 )
-text = "Press \"Space\" to dash"
-align = 1
-valign = 1
+[node name="QuitGameButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/CenterContainer/VBoxContainer2"]
+margin_top = 72.0
+margin_right = 200.0
+margin_bottom = 120.0
+focus_neighbour_top = NodePath("../StartGameButton")
+size_flags_vertical = 0
+custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 5 )
+custom_styles/pressed = SubResource( 6 )
+custom_styles/normal = SubResource( 7 )
+text = "Quit"
+icon_align = 1
 
 [node name="PressedSFX" type="AudioStreamPlayer2D" parent="."]
 pause_mode = 2
@@ -118,6 +121,17 @@ stream = ExtResource( 5 )
 volume_db = 2.139
 pitch_scale = 1.3
 
-[connection signal="mouse_entered" from="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/CenterContainer/Button" to="." method="_on_Button_mouse_entered"]
-[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/VBoxContainer/CenterContainer/Button" to="." method="_on_Button_pressed"]
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 1010, 605 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+autoplay = true
+
+[connection signal="mouse_entered" from="MarginContainer/CenterContainer/VBoxContainer/CenterContainer/VBoxContainer2/StartGameButton" to="." method="_on_Button_mouse_entered"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/CenterContainer/VBoxContainer2/StartGameButton" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/CenterContainer/VBoxContainer2/StartGameButton" to="." method="_on_StartGameButton_pressed"]
+[connection signal="mouse_entered" from="MarginContainer/CenterContainer/VBoxContainer/CenterContainer/VBoxContainer2/QuitGameButton" to="." method="_on_Button_mouse_entered"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/CenterContainer/VBoxContainer2/QuitGameButton" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/CenterContainer/VBoxContainer2/QuitGameButton" to="." method="_on_QuitGameButton_pressed"]
 [connection signal="finished" from="PressedSFX" to="." method="_on_PressedSFX_finished"]

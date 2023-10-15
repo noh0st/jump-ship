@@ -4,8 +4,6 @@ onready var _hud = get_node("/root/Main/HUD")
 onready var _player = get_node("/root/Main/YSort/Player")
 onready var wave_manager = get_node("/root/Main/WaveManager")
 
-onready var NextWave: PackedScene = load("res://Scenes/Wave1.tscn")
-
 export var xp_threshold: int = 100
 # Declare member variables here. Examples:
 # var a = 2
