@@ -9,17 +9,25 @@
 
 [sub_resource type="DynamicFont" id=1]
 size = 31
+outline_size = 4
+outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 56
+outline_size = 3
+outline_color = Color( 0.639216, 0.156863, 0.301961, 1 )
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=3]
 size = 22
+outline_size = 6
+outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=4]
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 2 )
 
 [node name="POPUP_Tutorial" type="Control"]
