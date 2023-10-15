@@ -9,8 +9,6 @@ export var xp_threshold: int = 100
 # var a = 2
 # var b = "text"
 
-var wave_id = 3
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Enemies/BossEnemy.init(_hud.get_node("BossHealthBar"), _player)

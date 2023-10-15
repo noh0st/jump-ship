@@ -7,8 +7,6 @@ extends Node2D
 export var xp_threshold: int = 100
 onready var _hud = get_node("/root/Main/HUD")
 
-var wave_id = 0
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_hud.reset()
