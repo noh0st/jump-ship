@@ -3,7 +3,7 @@
 [ext_resource path="res://Assets/house.png" type="Texture" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 1008.78, 727.489 )
+extents = Vector2( 1008.78, 482.386 )
 
 [node name="Tree" type="Sprite"]
 position = Vector2( -0.499995, -1.56642 )
@@ -14,5 +14,6 @@ offset = Vector2( 0, -1000 )
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( 3.7002e-05, -708.089 )
+position = Vector2( 3.62396e-05, -462.986 )
+scale = Vector2( 1, 1 )
 shape = SubResource( 1 )

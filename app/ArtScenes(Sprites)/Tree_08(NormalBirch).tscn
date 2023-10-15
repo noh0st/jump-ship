@@ -2,7 +2,6 @@
 
 [ext_resource path="res://Assets/Trees(Don't_Place_These)/tree10.png" type="Texture" id=1]
 
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 38.3138, 38.7994 )
 
