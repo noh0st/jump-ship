@@ -75,6 +75,9 @@ __meta__ = {
 "_edit_group_": true
 }
 
+[node name="Sprite" parent="YSort/Player" index="1"]
+modulate = Color( 1, 0, 0, 0.0941176 )
+
 [node name="EnemyManager" parent="YSort" instance=ExtResource( 8 )]
 
 [node name="Map" parent="YSort" instance=ExtResource( 7 )]

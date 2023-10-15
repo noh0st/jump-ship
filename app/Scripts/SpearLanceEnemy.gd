@@ -149,10 +149,10 @@ func PlayAttackAnimation():
 	
 	if direction.x > 0:
 		_animationPlayer.play("AttackRight")
-		$AttackSFX.play()
+
 	else:
 		_animationPlayer.play("AttackLeft")
-		$AttackSFX.play()
+
 		
 		
 func PlayRunAnimationDirection(direction: Vector2):

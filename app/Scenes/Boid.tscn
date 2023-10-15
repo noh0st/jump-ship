@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Assets/Villagers/Walk2.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/boid.gd" type="Script" id=2]
@@ -20,6 +20,9 @@ radius = 53.71
 
 [sub_resource type="CircleShape2D" id=4]
 radius = 20.0
+
+[sub_resource type="Animation" id=8]
+length = 0.001
 
 [sub_resource type="Animation" id=6]
 length = 0.6
@@ -88,6 +91,7 @@ separation_threshold = 10.0
 [node name="HPbar" parent="." instance=ExtResource( 3 )]
 
 [node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 1, 0, 0, 0.321569 )
 position = Vector2( 1, 0 )
 scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 10 )
@@ -126,6 +130,7 @@ margin_right = 65.0
 margin_bottom = 45.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 8 )
 anims/WalkLeft = SubResource( 6 )
 anims/WalkRight = SubResource( 5 )
 

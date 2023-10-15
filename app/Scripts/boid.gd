@@ -69,6 +69,7 @@ func health_calculation():
 		
 ######		
 func _ready():
+	$Sprite.modulate = Color( 1, 1, 1, 1 )
 	BoidsGlobal.AllBoidsArray.append(self)
 	HpBar.value = 100
 	health = MaxHealth
@@ -301,10 +302,12 @@ func _on_AwakenBoidTrigger_area_entered(area):
 func add_damage(value: int, knockback_dealer: Node) -> void:
 	health -= value
 	health_calculation()
+
+
 	if _enemy_manager._enemies.has(knockback_dealer):
 		move_and_slide(Vector2(PlayerStats.globalSelfKnockBack * (self.position.x - knockback_dealer.position.x), PlayerStats.globalSelfKnockBack * (self.position.y - knockback_dealer.position.y)))
-
 	$TakeDamageSFX.play()
+	
 	
 func _on_EnemyDetectionTrigger_area_entered(area):
 	#print("HELLO===============")
