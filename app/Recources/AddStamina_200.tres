@@ -4,9 +4,9 @@
 
 [resource]
 script = ExtResource( 1 )
-UpgradeName = "stamina"
-UpgradeDescription = ""
-UpgradeSpritePath = ""
+UpgradeName = "STAMINA"
+UpgradeDescription = "+200"
+UpgradeSpritePath = "res://Assets/UpgradeSprite/SPEED_BOOST.png"
 AddedHealthToBoidsAndPlayer = 0.0
 AddedStaminaToPlayer = 200.0
 AddedDamageToBoids = 0.0

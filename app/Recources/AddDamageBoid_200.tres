@@ -4,9 +4,9 @@
 
 [resource]
 script = ExtResource( 1 )
-UpgradeName = "dmg"
-UpgradeDescription = ""
-UpgradeSpritePath = "res://Assets/sprite.png"
+UpgradeName = "DAMAGE"
+UpgradeDescription = "+200"
+UpgradeSpritePath = "res://Assets/UpgradeSprite/DAMAGE_BOOST.png"
 AddedHealthToBoidsAndPlayer = 0.0
 AddedStaminaToPlayer = 0.0
 AddedDamageToBoids = 200.0
