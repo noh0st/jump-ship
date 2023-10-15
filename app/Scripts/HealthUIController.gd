@@ -23,7 +23,7 @@ func init(player: Node) -> void:
 	PlayerStats.connect("staminaChange",self, "_on_Player_ChangedStamina")
 	PlayerStats.connect("xpChange",self, "_on_PlayerStats_xpChange")
 	
-	$BoidsNum.text = "Number Of Followers : %s" % _player.flock_size()
+	$BoidsNum.text = _player.flock_size()
 	
 	staminabar.value = PlayerStats.Stamina / (PlayerStats.MaxStamina/100)
 	
