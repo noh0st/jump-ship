@@ -57,13 +57,13 @@ func process_approaching(delta) -> void:
 			self._current_state = State.PATROLLING
 		return
 	
-	if Target.position.distance_to(position) > VISION_RANGE:
+	if Target.position.distance_to(position) > VISION_RANGE: # out of vision range
 		#print("target out of range")
 		if not _check_vision_and_set_target():
 			self._current_state = State.PATROLLING
 		return
 
-	if Target.position.distance_to(position) < ATTACK_RANGE:
+	if Target.position.distance_to(position) < ATTACK_RANGE: # within attack range
 		#print("APPROACH IN RANGE")
 		self._current_state = State.ATTACKING
 		return

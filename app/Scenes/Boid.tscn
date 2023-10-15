@@ -16,7 +16,7 @@ radius = 12.0
 height = 10.0
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 53.71
+radius = 133.222
 
 [sub_resource type="CircleShape2D" id=4]
 radius = 20.0
@@ -152,8 +152,12 @@ margin_bottom = -3.0
 [node name="UITimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="CooldownTimer" type="Timer" parent="."]
+autostart = true
+
 [connection signal="area_entered" from="AwakenBoidTrigger" to="." method="_on_AwakenBoidTrigger_area_entered"]
 [connection signal="body_entered" from="AwakenBoidTrigger" to="." method="_on_area_body_entered"]
 [connection signal="area_entered" from="EnemyDetectionTrigger" to="." method="_on_EnemyDetectionTrigger_area_entered"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="timeout" from="UITimer" to="." method="_on_UITimer_timeout"]
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
