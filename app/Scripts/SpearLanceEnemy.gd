@@ -10,7 +10,6 @@ onready var _cooldownTimer = $re_AttackTimer
 onready var _patrolTimer = $patrolTimer
 
 onready var _current_state: int = State.PATROLLING setget set_current_state
-onready var _attack_state: int = AttackState.COOLING setget set_attack_state
 
 var xp_worth = 100
 var boid_worth = 3
@@ -21,10 +20,6 @@ export var healthMultiple : int = 10
 enum State {
 	PATROLLING,
 	APPROACHING,
-	ATTACKING
-}
-
-enum AttackState {
 	ATTACKING,
 	COOLING
 }
@@ -51,8 +46,8 @@ func _physics_process(delta): #Target death
 			move_and_slide(Dir * speed)
 		State.APPROACHING:
 			process_approaching(delta)
-		State.ATTACKING:
-			process_attacking(delta)
+		_:
+			pass
 			
 	
 func process_approaching(delta) -> void:
@@ -80,14 +75,6 @@ func process_approaching(delta) -> void:
 	move_and_collide(direction * speed * delta)
 	
 	
-func process_attacking(delta) -> void:
-	match _attack_state:
-		AttackState.ATTACKING:
-			pass
-		AttackState.COOLING:
-			pass
-			
-
 func set_current_state(value: int) -> void:
 	match value:
 		State.PATROLLING:
@@ -99,7 +86,7 @@ func set_current_state(value: int) -> void:
 			Dir = _random_direction()
 			Target = null
 
-			_patrolTimer.start()
+			_patrolTimer.start() # timer to change directions
 			_cooldownTimer.stop()
 		State.APPROACHING:
 			if _current_state == value:
@@ -107,39 +94,22 @@ func set_current_state(value: int) -> void:
 			
 			_current_state = value
 			
-			_cooldownTimer.stop()
 			_patrolTimer.stop()
+			_cooldownTimer.stop()
 		State.ATTACKING:					
 			_current_state = value
-			self._attack_state = AttackState.ATTACKING
 			Dir = Vector2(0,0)
-			
-	$DebugUI/Text.text = "state: %d \nattack_state %d" % [_current_state, _attack_state]
-	
-			
-func set_attack_state(value: int) -> void:
-	if _attack_state == value:
-		return
-	
-	_attack_state = value
-	
-	$DebugUI/Text.text = "state: %d \nattack_state %d" % [_current_state, _attack_state]
-	
-	match value:
-		AttackState.ATTACKING:
-
-			#$HitBoxPivot/Area2D/CollisionShape2D.set_deferred("disabled",  true)
-			#$Vision/CollisionShape2D.set_deferred("disabled",  false)
-			
+			_patrolTimer.stop()
+			_cooldownTimer.stop()
 			$AnimationPlayer.play("AttackAnticipation")
-		AttackState.COOLING:
-
+		State.COOLING:
+			_patrolTimer.stop()
+			_cooldownTimer.start(2)
+			_current_state = value
 			
-			#$Vision/CollisionShape2D.set_deferred("disabled",  true)
-			$HitBoxPivot/HitBox/CollisionShape2D.set_deferred("disabled",  true)
-			_cooldownTimer.start(2.0)
-			pass
-
+	$DebugUI/Text.text = "state: %d" % [_current_state]
+	
+			
 ##########
 func PlayAttackAnimation():
 	#find direction of attack
@@ -166,10 +136,7 @@ func PlayRunAnimationDirection(direction: Vector2):
 
 
 func Attack():		
-	#print("attacking")
 	self._current_state = State.ATTACKING
-	
-	#attacking - stops the attacks, the hitboxes are controlled through the animation player
 
 func add_damage(value: int) -> void:
 	health -= value
@@ -193,16 +160,13 @@ func _random_direction() -> Vector2:
 	
 	
 onready var AttackNum := 0	
-func _on_re_AttackTimer_timeout():
-	if _current_state != State.ATTACKING:
-		print("attack timer went off while not attacking")
-		return
-		
+func _on_re_AttackTimer_timeout(): # cooldown timer
 	#attacking , won't stop unless you exit the attacking range
-	match _attack_state:
-		AttackState.ATTACKING:
-			pass
-		AttackState.COOLING:
+	match _current_state:
+		State.ATTACKING:
+			pass	
+			
+		State.COOLING:
 			if not (is_instance_valid(Target)):
 				#print("target not valid - cooling")
 				self._current_state = State.APPROACHING
@@ -217,7 +181,8 @@ func _on_re_AttackTimer_timeout():
 			if AttackNum > 3:
 				AttackNum = 0
 				_cooldownTimer.wait_time = _cooldownTimer.wait_time - 0.2
-	
+		_:
+			pass
 
 func _on_Vision_area_entered(area: Node) -> void: #if you dont have target, set a target
 	match _current_state:
@@ -244,25 +209,7 @@ func _on_AttackRange_area_entered(area): #if entered the attack range attacks
 func _area_is_hostile(area: Node) -> bool:
 	return (area.get_parent().has_meta("Player") or area.get_parent().has_meta("Boid"))
 
-func _on_AttackRange_area_exited(area):# if you exit, stops attacking and follows you
-	if area.get_parent() != Target:
-		return
-	
-	match _current_state:
-		State.ATTACKING:
-			match _attack_state:
-				AttackState.ATTACKING:
-					pass
-				AttackState.COOLING:
-					self._current_state = State.APPROACHING
-			pass
-		_: 
-			print("target left attack range but was not in attack state")
-			self._current_state = State.APPROACHING
 
-	
-
-	
 func _on_patrolTimer_timeout() -> void:
 	#change patrol direction every few seconds
 	match _current_state:
@@ -278,16 +225,14 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		match _current_state:
 			State.ATTACKING:
 				# self._current_state = State.APPROACHING
-				match _attack_state:
-					AttackState.ATTACKING:
-						print("COOL DOWN")
-						self._attack_state = AttackState.COOLING
+				print("COOL DOWN")
+				self._current_state = State.COOLING
 			_:
 				print("attack timer finished while not in attack state")
 	elif anim_name == "AttackAnticipation":
+		# still attacking
 		PlayAttackAnimation()
 		
-
 
 func _on_AnimationPlayer_animation_started(anim_name):
 	# self._current_state = State.ATTACKING ?
