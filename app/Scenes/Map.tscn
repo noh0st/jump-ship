@@ -2707,6 +2707,21 @@ position = Vector2( 1274, 904 )
 rotation = 0.0199062
 scale = Vector2( 0.0874847, 0.0844808 )
 
+[node name="Tree117" parent="." instance=ExtResource( 3 )]
+position = Vector2( 3320, -1143 )
+rotation = 0.0199062
+scale = Vector2( 0.0874847, 0.0844808 )
+
+[node name="Tree119" parent="." instance=ExtResource( 3 )]
+position = Vector2( 3203, -384 )
+rotation = 0.0199062
+scale = Vector2( 0.0874847, 0.0844808 )
+
+[node name="Tree118" parent="." instance=ExtResource( 3 )]
+position = Vector2( 3302, -693 )
+rotation = 0.0199062
+scale = Vector2( 0.0874847, 0.0844808 )
+
 [node name="Tree27" parent="." instance=ExtResource( 3 )]
 position = Vector2( 1716, 280 )
 rotation = 0.0199062
