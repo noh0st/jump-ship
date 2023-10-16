@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Scripts/RockTurtle.gd" type="Script" id=1]
 [ext_resource path="res://Assets/TurtleRockEnemy/05.png" type="Texture" id=2]
@@ -8,6 +8,10 @@
 [ext_resource path="res://Assets/TurtleRockEnemy/01.png" type="Texture" id=6]
 [ext_resource path="res://Scenes/HPbar.tscn" type="PackedScene" id=7]
 [ext_resource path="res://SFX/MX Turtle attack.wav" type="AudioStream" id=8]
+[ext_resource path="res://Assets/Timeline_1_0002.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Timeline_1_0000.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Timeline_1_0003.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Timeline_1_0001.png" type="Texture" id=12]
 
 [sub_resource type="Animation" id=8]
 resource_name = "AttackAnticipation"
@@ -87,9 +91,46 @@ tracks/2/keys = {
 "update": 0,
 "values": [ false ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("AttackWaveSprite:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -48, -10.125 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("AttackWaveSprite:texture")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 12 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("AttackWaveSprite:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.0354545, 0.0413636 ) ]
+}
 
 [sub_resource type="Animation" id=3]
 resource_name = "RockTurtleAttack"
+length = 1.3
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
 tracks/0/interp = 1
@@ -97,7 +138,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1.3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ ExtResource( 6 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 6 ) ]
@@ -109,7 +150,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.7, 1 ),
+"times": PoolRealArray( 0, 0.7, 1.3 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ true, false, true ]
@@ -125,6 +166,42 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ false, true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("AttackWaveSprite:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.9, 1, 1.1, 1.2, 1.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ null, ExtResource( 10 ), ExtResource( 12 ), ExtResource( 9 ), ExtResource( 11 ), null ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("AttackWaveSprite:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.9, 1, 1.1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -48, -15 ), Vector2( -48, -10.125 ), Vector2( -48, -10.125 ), Vector2( -48, -10.125 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("AttackWaveSprite:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 1, 1.1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.0354545, 0.0413636 ), Vector2( 0.0354545, 0.0413636 ), Vector2( 0.0354545, 0.0413636 ) ]
 }
 
 [sub_resource type="RectangleShape2D" id=5]
@@ -204,6 +281,11 @@ shape = SubResource( 7 )
 
 [node name="TurtleAttackSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
+
+[node name="AttackWaveSprite" type="Sprite" parent="."]
+position = Vector2( -48, -10.125 )
+scale = Vector2( 0.0354545, 0.0413636 )
+texture = ExtResource( 12 )
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="area_entered" from="TurtleVision" to="." method="_on_TurtleVision_area_entered"]
