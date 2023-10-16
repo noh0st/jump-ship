@@ -13,7 +13,7 @@ onready var _enemy_manager = get_node("/root/Main/YSort/EnemyManager")
 
 const MaxSpeed = 250.0
 const Acceleration_Friction = 20.0
-const DashPower = 5
+const DashPower = 8
 #_____________________#
 
 var velocity = Vector2.ZERO

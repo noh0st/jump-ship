@@ -236,7 +236,6 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		match _current_state:
 			State.ATTACKING:
 				# self._current_state = State.APPROACHING
-				print("COOL DOWN")
 				self._current_state = State.COOLING
 			_:
 				print("attack timer finished while not in attack state")

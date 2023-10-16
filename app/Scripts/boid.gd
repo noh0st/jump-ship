@@ -301,7 +301,7 @@ func handle_single(delta: float, follow_target: Vector2) -> void:
 		target_position.x + radius * cos(_angle),
 		target_position.y + radius * sin(_angle)
 	)
-	position = lerp(position, new_position, 0.1)
+	position = lerp(position, new_position, 0.05)
 	
 	
 	

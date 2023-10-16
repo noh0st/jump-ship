@@ -8,14 +8,8 @@ func _ready():
 	
 	
 func _on_Area2D_area_entered(area):
-	print("APPLE ENTERRED")
-	print(area.get_parent())
 	if area.get_parent().has_method("AppleHeal"):
-		print("APPLE ENTERRED")
-		print(area.get_parent())
-		
 		area.get_parent().AppleHeal(HpRegen)
-		print("Heal")
 		$AnimationPlayer.play("ApplePickup")
 		
 		

@@ -16,12 +16,6 @@ __meta__ = {
 [node name="SpearLanceEnemy2" parent="Enemies" instance=ExtResource( 1 )]
 position = Vector2( 1631, 0 )
 
-[node name="SpearLanceEnemy" parent="Enemies/SpearLanceEnemy2" instance=ExtResource( 1 )]
-position = Vector2( 668, 1338 )
-
-[node name="SpearLanceEnemy2" parent="Enemies/SpearLanceEnemy2" instance=ExtResource( 1 )]
-position = Vector2( -821, -109 )
-
 [node name="SpearLanceEnemy" parent="Enemies" instance=ExtResource( 1 )]
 position = Vector2( 1181, 800 )
 
@@ -42,3 +36,9 @@ position = Vector2( 1472, 1595 )
 
 [node name="RockTurtle8" parent="Enemies" instance=ExtResource( 3 )]
 position = Vector2( 760, 468 )
+
+[node name="SpearLanceEnemy3" parent="Enemies" instance=ExtResource( 1 )]
+position = Vector2( 2539, 1146 )
+
+[node name="SpearLanceEnemy4" parent="Enemies" instance=ExtResource( 1 )]
+position = Vector2( 345, -589 )

@@ -128,13 +128,13 @@ tracks/2/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 46.5087, 35.6672 )
+extents = Vector2( 36.5748, 22.4703 )
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 1.43667, 1.75402 )
 
 [sub_resource type="CircleShape2D" id=6]
-radius = 16.6807
+radius = 16.68
 
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 21, 14.5 )
@@ -158,7 +158,7 @@ collision_mask = 16
 input_pickable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TurtleVision"]
-position = Vector2( -70.5, -17 )
+position = Vector2( -56.5, -24.5 )
 scale = Vector2( 1.10732, 1.40185 )
 shape = SubResource( 5 )
 
@@ -182,7 +182,7 @@ collision_layer = 4
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2( -48, -15 )
+position = Vector2( -42, -13 )
 scale = Vector2( -1.61864, -1.69729 )
 shape = SubResource( 6 )
 disabled = true
