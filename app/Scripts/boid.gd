@@ -103,7 +103,7 @@ func set_current_state(value) -> void:
 		_:
 			pass
 			
-	$DebugUI/Label.text = "state: %d" % [_current_state]
+	#$DebugUI/Label.text = "state: %d" % [_current_state]
 
 func _physics_process(delta) -> void:
 	match _current_state:
