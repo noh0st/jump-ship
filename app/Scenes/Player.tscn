@@ -24,31 +24,31 @@ height = 0.0
 [sub_resource type="Animation" id=33]
 resource_name = "Hurt"
 tracks/0/type = "value"
-tracks/0/path = NodePath("Camera2D/HurtEffect:modulate")
+tracks/0/path = NodePath("TakeDamageSFX:playing")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.160784 ), Color( 1, 1, 1, 0.45098 ), Color( 1, 1, 1, 0.737255 ), Color( 1, 1, 1, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("TakeDamageSFX:playing")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1, 1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ false, true, false ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 0.0941176 ), Color( 1, 0, 0, 0.392157 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
 tracks/2/type = "value"
-tracks/2/path = NodePath("Sprite:modulate")
+tracks/2/path = NodePath("Control/HurtEffect:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -57,7 +57,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 0.0941176 ), Color( 1, 0, 0, 0.392157 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.2 ), Color( 1, 1, 1, 0.568627 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
 [sub_resource type="Animation" id=31]
@@ -88,6 +88,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Control/HurtEffect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.2 ) ]
 }
 
 [sub_resource type="Animation" id=32]
@@ -178,7 +190,6 @@ scale = Vector2( 1, 0.5 )
 shape = SubResource( 13 )
 
 [node name="Sprite" type="Sprite" parent="."]
-modulate = Color( 1, 0, 0, 0.0941176 )
 scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 4 )
 offset = Vector2( 0, -75 )
@@ -205,15 +216,6 @@ current = true
 smoothing_enabled = true
 smoothing_speed = 7.0
 script = ExtResource( 5 )
-
-[node name="HurtEffect" type="TextureRect" parent="Camera2D"]
-modulate = Color( 1, 1, 1, 0.160784 )
-margin_left = -640.0
-margin_top = -360.0
-margin_right = 640.0
-margin_bottom = 360.0
-texture = ExtResource( 14 )
-expand = true
 
 [node name="BoidFlock" parent="." instance=ExtResource( 6 )]
 
@@ -248,6 +250,21 @@ volume_db = -8.0
 [node name="XPSFX" type="AudioStreamPlayer" parent="."]
 pause_mode = 2
 stream = ExtResource( 13 )
+
+[node name="Control" type="Control" parent="."]
+margin_left = -640.0
+margin_top = -360.0
+margin_right = -600.0
+margin_bottom = -320.0
+rect_scale = Vector2( 1.05942, 1.03091 )
+
+[node name="HurtEffect" type="TextureRect" parent="Control"]
+modulate = Color( 1, 1, 1, 0.2 )
+margin_right = 1280.0
+margin_bottom = 720.0
+rect_scale = Vector2( 0.944713, 0.972589 )
+texture = ExtResource( 14 )
+expand = true
 
 [connection signal="timeout" from="StaminaTimer" to="." method="_on_Timer_timeout"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
