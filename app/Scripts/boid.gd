@@ -13,6 +13,8 @@ enum State {
 }
 
 
+var can_damage: bool = true
+
 onready var _enemy_manager = get_node("/root/Main/YSort/EnemyManager")
 #the "weight" of each rule, how much force is applied in
 #the direction of the rule
@@ -362,6 +364,9 @@ func _on_AwakenBoidTrigger_area_entered(area):
 	#	damage_boid(50)
 
 func add_damage(value: int, knockback_dealer: Node) -> void:
+	if not can_damage:
+		return
+	
 	health -= value
 	health_calculation()
 
@@ -369,6 +374,9 @@ func add_damage(value: int, knockback_dealer: Node) -> void:
 	if is_instance_valid(knockback_dealer):
 		move_and_slide(Vector2(PlayerStats.globalSelfKnockBack * (self.position.x - knockback_dealer.position.x), PlayerStats.globalSelfKnockBack * (self.position.y - knockback_dealer.position.y)))
 	$TakeDamageSFX.play()
+	
+	can_damage = false
+	$HurtTimer.start(0.5)
 	
 	
 func _on_EnemyDetectionTrigger_area_entered(area):
@@ -465,3 +473,8 @@ func _check_hitbox() -> bool:
 func _on_AwakenBoidTrigger_area_exited(area):
 	if area.get_parent().has_meta("Player"):
 		attack_target = null
+
+
+func _on_HurtTimer_timeout():
+	can_damage = true
+	$HurtTimer.stop()

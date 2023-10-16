@@ -165,9 +165,12 @@ one_shot = true
 [node name="CooldownTimer" type="Timer" parent="."]
 autostart = true
 
+[node name="HurtTimer" type="Timer" parent="."]
+
 [connection signal="area_entered" from="AwakenBoidTrigger" to="." method="_on_AwakenBoidTrigger_area_entered"]
 [connection signal="area_exited" from="AwakenBoidTrigger" to="." method="_on_AwakenBoidTrigger_area_exited"]
 [connection signal="area_entered" from="EnemyDetectionTrigger" to="." method="_on_EnemyDetectionTrigger_area_entered"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="timeout" from="UITimer" to="." method="_on_UITimer_timeout"]
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
+[connection signal="timeout" from="HurtTimer" to="." method="_on_HurtTimer_timeout"]
