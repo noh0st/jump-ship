@@ -13,6 +13,7 @@ onready var audio_stream_player = get_node("/root/Main/YSort/EnemyManager")
 const Wave1: PackedScene = preload("res://Scenes/Wave1.tscn")
 const Wave2: PackedScene = preload("res://Scenes/Wave2.tscn")
 const Wave3: PackedScene = preload("res://Scenes/Wave3.tscn")
+const Wave4: PackedScene = preload("res://Scenes/Wave4.tscn")
 const WaveBoss: PackedScene = preload("res://Scenes/WaveBoss.tscn")
 
 var _enemy_manager: Node
@@ -25,7 +26,7 @@ var _ui: Node
 
 var _xp: int
 
-var _waves = [Wave1, Wave2, Wave3, WaveBoss]
+var _waves = [Wave1, Wave2, Wave3, Wave4, WaveBoss]
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -68,11 +69,11 @@ func _play_music(index: int) -> void:
 			$Wave1Music.play()
 			$Wave2Music.stop()
 			$BossMusic.stop()
-		1:
+		2:
 			$Wave1Music.stop()
 			$Wave2Music.play()
 			$BossMusic.stop()
-		3:
+		4:
 			$CanvasLayer/POPUP_Tutorial.StartBossFight()
 			$Wave1Music.stop()
 			$Wave2Music.stop()

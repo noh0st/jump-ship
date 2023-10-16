@@ -263,6 +263,10 @@ func process_boiding(delta) -> void:
 	else:
 		follow_target = attack_target.position if is_instance_valid(attack_target) else flock.owner_position()
 
+	if is_instance_valid(attack_target):
+		if attack_target.position.distance_to(position) <= 25: 
+			self._current_state = State.RETREATING
+			return
 		
 	#finds the final direction vector by summing all the rules and their weights, then moves the boid using godots physics system
 	#var movement_vector
