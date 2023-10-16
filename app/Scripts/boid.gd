@@ -136,6 +136,10 @@ func _input(event):
 				print("GUIDING TO HOIDING")
 				self._current_state = State.BOIDING
 	elif event is InputEventMouseButton and event.button_index == BUTTON_RIGHT and event.pressed: # interrupt whatever boid is doing
+				# if out of range ignore
+		if position.distance_to(get_global_mouse_position()) > 300:
+			return
+		
 		self._current_state = State.DISPERSING
 	
 

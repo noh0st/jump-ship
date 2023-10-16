@@ -51,8 +51,11 @@ func _ready():
 func add_damage(value: int, knockback_dealer: Node) -> void:
 	#PlayerStats.Health -= value
 	# release boid
+	if _animation_player.current_animation == "Hurt":
+		return
+	
 	boid_flock.release_boid();
-	_animation_player.play("Hurt")
+	$HurtAnimationPlayer.play("Hurt")
 	if is_instance_valid(knockback_dealer):
 		move_and_slide(Vector2(PlayerStats.globalSelfKnockBack * (self.position.x - knockback_dealer.position.x), PlayerStats.globalSelfKnockBack * (self.position.y - knockback_dealer.position.y)))
 	
@@ -84,7 +87,7 @@ func _physics_process(delta):
 			
 	#_____________________#
 	#Check if player is inputing values, move the player based on those values
-	if inputvector != Vector2.ZERO && CanMove:
+	if inputvector != Vector2.ZERO:
 		velocity = inputvector.normalized() * MaxSpeed * delta # acceleration 
 		Dir = inputvector # Direction vector for setting the look direction of player
 		if $WalkingCycle.time_left <= 0:
@@ -121,19 +124,15 @@ func StaminaRefill():
 		timer.start() 
 
 func PlayRunAnimationDirection(direction: Vector2):
-	if CanMove:
-		if direction.x > 0:
-
-			_animation_player.play("WalkRight")
-		elif direction.x < 0:
-
-			_animation_player.play("WalkLeft")
-		elif direction.length() > 0:
-
-			_animation_player.play("Walk")
-		else:
-			_animation_player.play("Idle")
-		
+	if direction.x > 0:
+		_animation_player.play("WalkRight")
+	elif direction.x < 0:
+		_animation_player.play("WalkLeft")
+	elif direction.length() > 0:
+		_animation_player.play("Walk")
+	else:
+		_animation_player.play("Idle")
+	
 	
 #_____________________#
 # Hurt player if enemy enters
@@ -164,10 +163,8 @@ func _on_HurtBox_area_entered(area):
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
+	pass
 
-		
-	if anim_name == "Hurt":
-		CanMove = true
 		
 export(Array , AudioStreamSample) var FootStepSoundsArray : Array
 var AvailableFootStepSounds = []
@@ -177,11 +174,9 @@ func _on_WalkingCycle_timeout():
 	$FootStepSFX.stream = AvailableFootStepSounds[randi() % AvailableFootStepSounds.size()]
 	AvailableFootStepSounds.append_array(FootStepSoundsArray)
 
-var CanMove = true
 func _on_AnimationPlayer_animation_started(anim_name):
-	if anim_name == "Hurt":
+	pass
 
-		CanMove = false
 
 func AppleHeal(health):
 	boid_flock.HealBoids(health)
