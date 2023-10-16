@@ -56,29 +56,29 @@ margin_right = 1280.0
 margin_bottom = 720.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
-margin_left = 329.0
+margin_left = 263.0
 margin_top = 236.0
-margin_right = 950.0
+margin_right = 1017.0
 margin_bottom = 484.0
 
 [node name="Label" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer"]
-margin_right = 621.0
+margin_right = 754.0
 margin_bottom = 124.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 4 )
-text = "backstreet boids²"
+text = "BOIDS 2 : THE BOIDENING"
 align = 3
 
 [node name="CenterContainer" type="CenterContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
 margin_top = 128.0
-margin_right = 621.0
+margin_right = 754.0
 margin_bottom = 248.0
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer/CenterContainer"]
-margin_left = 210.0
-margin_right = 410.0
+margin_left = 277.0
+margin_right = 477.0
 margin_bottom = 120.0
 rect_min_size = Vector2( 200, 0 )
 size_flags_horizontal = 0

@@ -26,6 +26,7 @@ outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=4]
+size = 23
 outline_size = 5
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 2 )
@@ -37,7 +38,6 @@ margin_bottom = 720.0
 script = ExtResource( 1 )
 
 [node name="Panel" type="Panel" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 240.0
@@ -51,17 +51,15 @@ margin_top = 128.0
 margin_right = 784.0
 margin_bottom = 560.0
 custom_fonts/font = SubResource( 1 )
-text = "Chapter 1: The Call to Arms:
-Objective: Recruit and train your rebel army.
+text = "Chapter 1: The Call to Arms
 
-In the village, gather farmers eager to
- join the rebellion by killing monsters and freeing 
-the villagers.
-Train them in the basics of combat and strategy
-to prepare for the impending threat.
-To do this lead your followers and defeat monsters, 
-Gain XP and level up your troops.
-If a troop gets damage, collect appples to heal them.
+Embark on a quest to defeat the stone golem hidden 
+in the NORTHEAST mountains. 
+
+Kill monsters to rally the villagers to your 
+valiant cause.
+
+...Unity and solidarity shall be your greatest asset.
 
 
 "
@@ -69,10 +67,10 @@ If a troop gets damage, collect appples to heal them.
 [node name="TextEdit2" type="TextEdit" parent="Panel"]
 margin_left = 16.0
 margin_top = 40.0
-margin_right = 784.0
+margin_right = 776.0
 margin_bottom = 112.0
 custom_fonts/font = SubResource( 2 )
-text = "                              GAME NAME"
+text = "BOIDS 2 : THE BOIDENING"
 
 [node name="Button" type="Button" parent="Panel"]
 pause_mode = 2
@@ -95,49 +93,43 @@ volume_db = 2.139
 pitch_scale = 1.3
 
 [node name="Panel2" type="Panel" parent="."]
-margin_left = 384.0
-margin_top = 144.0
-margin_right = 896.0
-margin_bottom = 648.0
+margin_left = 299.0
+margin_top = 74.0
+margin_right = 993.0
+margin_bottom = 670.0
 
 [node name="TextEdit" type="TextEdit" parent="Panel2"]
-margin_left = 24.0
-margin_top = 120.0
-margin_right = 488.0
-margin_bottom = 448.0
+margin_left = 14.0
+margin_top = 157.0
+margin_right = 679.0
+margin_bottom = 515.0
 custom_fonts/font = SubResource( 4 )
-text = "
-		Engage in an epic battle with Unifee, using all your
-		 strategic skills to overcome the monstrous threat.
-		Epic Battle: Lead your rebel army into the heart of
-		 the Forbidden Forest for the final showdown with
-		 Unifee. Face waves of minions before confronting 
-		the monstrous foe.
-		Adapt and Overcome: Adjust your strategy on the 
-		fly as Unifee reveals new abilities and tactics. Use
-		 your knowledge and adaptability to outsmart the 
-		monster.
-		Triumphant Return: Celebrate your victory with
-		 the villagers and allies. Witness the rebirth of 
-		Greenhaven as a united and resilient community."
+text = "	   Lead your rebel army into the heart of
+		 the Forbidden Mountain for the final showdown with
+		 Unifee.
+		
+		You will need all the help you can get to defeat this
+		colossal foe - strength in numbers will pave the way
+		to victory!
+
+"
 
 [node name="TextEdit2" type="TextEdit" parent="Panel2"]
-margin_left = 24.0
-margin_top = 20.0
-margin_right = 488.0
-margin_bottom = 104.0
+margin_left = 9.0
+margin_top = 32.0
+margin_right = 660.0
+margin_bottom = 127.0
 custom_fonts/font = SubResource( 4 )
-text = "Chapter 2: The Battle Plan And The Final Showdown
-Objective: Lead your rebel army to victory against 
+text = "Chapter 2: Lead your rebel army to victory against 
 Unifee.
 "
 
 [node name="BossButton" type="Button" parent="Panel2"]
 pause_mode = 2
-margin_left = 96.0
-margin_top = 456.0
-margin_right = 421.0
-margin_bottom = 490.0
+margin_left = 200.0
+margin_top = 532.0
+margin_right = 525.0
+margin_bottom = 566.0
 custom_fonts/font = SubResource( 3 )
 text = "FINISH THE QUEST"
 

@@ -22,5 +22,6 @@ pause_mode = 2
 stream = ExtResource( 4 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 10
 
 [node name="POPUP_Tutorial" parent="CanvasLayer" instance=ExtResource( 5 )]
