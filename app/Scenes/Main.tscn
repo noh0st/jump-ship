@@ -19,6 +19,7 @@
 script = ExtResource( 12 )
 
 [node name="MusicPlayer" parent="." instance=ExtResource( 10 )]
+pause_mode = 2
 volume_db = -19.687
 autoplay = false
 
