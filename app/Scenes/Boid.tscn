@@ -85,7 +85,7 @@ radius = 4.0
 height = 12.0
 
 [node name="Boid" type="KinematicBody2D"]
-collision_layer = 17
+collision_layer = 16
 collision_mask = 64
 script = ExtResource( 2 )
 max_speed = 200.0
@@ -108,7 +108,7 @@ offset = Vector2( 0, -50 )
 flip_h = true
 
 [node name="AwakenBoidTrigger" type="Area2D" parent="."]
-collision_layer = 18
+collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AwakenBoidTrigger"]
@@ -124,7 +124,7 @@ position = Vector2( 2, -12 )
 shape = SubResource( 3 )
 
 [node name="Hitbox" type="Area2D" parent="." groups=["Hitbox"]]
-collision_layer = 20
+collision_layer = 4
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
