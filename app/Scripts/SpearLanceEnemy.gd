@@ -16,7 +16,7 @@ onready var _patrolTimer = $patrolTimer
 onready var _current_state: int = State.PATROLLING setget set_current_state
 
 var xp_worth = 100
-var boid_worth = 3
+var boid_worth = 5
 const SPEAR_DAMAGE = 50
 
 var health: int = 0
