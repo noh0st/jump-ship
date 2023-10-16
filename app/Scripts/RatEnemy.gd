@@ -5,7 +5,7 @@ var Target : Node
 var Dir := Vector2.ZERO
 onready var _enemy_manager = get_node("/root/Main/YSort/EnemyManager")
 var health: int = 0
-export var healthMultiple : int = 3
+export var healthMultiple : int = 25
 
 onready var _animationPlayer = $AnimationPlayer
 onready var _cooldownTimer = $re_AttackTimer
@@ -15,6 +15,7 @@ onready var _current_state: int = State.PATROLLING setget set_current_state
 
 var xp_worth = 120
 var boid_worth = 2
+const DAMAGE = 50
 
 enum State {
 	PATROLLING,
@@ -236,7 +237,7 @@ func _on_Area2D_area_entered(area): # hitbox
 		return
 		
 	if area.get_parent().has_method("add_damage") and (not area.get_parent().has_meta("Enemy")):
-		area.get_parent().add_damage(GlobalUpgradeStats.globalEnemyDamage, self)
+		area.get_parent().add_damage(DAMAGE, self)
 		
 
 func add_damage(value: int) -> void:

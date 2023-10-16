@@ -10,7 +10,7 @@ script = ExtResource( 2 )
 [node name="Enemies" type="Node" parent="."]
 
 [node name="SpearLanceEnemy" parent="Enemies" instance=ExtResource( 3 )]
-position = Vector2( 151, 1359 )
+position = Vector2( -255, 1627 )
 
 [node name="RockTurtle" parent="Enemies" instance=ExtResource( 1 )]
 position = Vector2( 553, 1775 )
@@ -19,7 +19,7 @@ position = Vector2( 553, 1775 )
 position = Vector2( 236, 1811 )
 
 [node name="RockTurtle5" parent="Enemies" instance=ExtResource( 1 )]
-position = Vector2( 845, 1557 )
+position = Vector2( 833, 1515 )
 
 [node name="RockTurtle6" parent="Enemies" instance=ExtResource( 1 )]
 position = Vector2( 528, 1593 )
