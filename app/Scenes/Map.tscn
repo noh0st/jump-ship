@@ -2402,6 +2402,8 @@ scale = Vector2( 0.0708197, 0.0741529 )
 position = Vector2( -1057.91, 1838.14 )
 rotation = 0.0199062
 scale = Vector2( 0.0731151, 0.0628154 )
+collision_layer = 64
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
 position = Vector2( -9499.46, -20079.1 )
@@ -2417,6 +2419,8 @@ scale = Vector2( 0.0708197, 0.0741529 )
 position = Vector2( -1057.91, 1838.14 )
 rotation = 0.0199062
 scale = Vector2( 0.0731151, 0.0628154 )
+collision_layer = 64
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( 40398, 11204.6 )
@@ -2954,12 +2958,16 @@ position = Vector2( 2603, 2140 )
 
 [node name="StaticBody2D4" type="StaticBody2D" parent="."]
 position = Vector2( 3967.5, 134.5 )
+collision_layer = 64
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
 position = Vector2( -2425.5, -1791.06 )
 shape = SubResource( 16 )
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="."]
+collision_layer = 64
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
 position = Vector2( 3948, 223 )
