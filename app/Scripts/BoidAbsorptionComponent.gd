@@ -7,7 +7,11 @@ var _player: Node
 
 
 func _on_enemy_death(enemy: Node) -> void:
-	_player.add_boid()
+	if not is_instance_valid(enemy):
+		return
+	
+	for i in range(enemy.boid_worth):
+		_player.add_boid()
 	
 
 # Called when the node enters the scene tree for the first time.

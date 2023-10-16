@@ -53,12 +53,11 @@ func init(player: Node, upgrades: Node, enemy_manager: Node, ui: Node):
 func spawn_wave(wave: Node) -> void:
 	
 	self.add_child(wave)
-	print("spawning wave one")
 	_current_wave = wave
-	for child_index in _current_wave.get_node("Enemies").get_child_count():
-		var child_node = _current_wave.get_node("Enemies").get_child(child_index)
-		
-		_enemy_manager.add_enemy(child_node)
+	while _current_wave.get_node("Enemies").get_child_count() > 0:
+		var enemy = _current_wave.get_node("Enemies").get_child(0)
+		_current_wave.get_node("Enemies").remove_child(enemy)
+		_enemy_manager.add_enemy(enemy)
 
 	_ui.update_xp(_xp, _current_wave.xp_threshold)
 	_play_music(_wave_index)

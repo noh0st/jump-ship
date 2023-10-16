@@ -56,6 +56,6 @@ margin_top = 74.0
 margin_right = 95.0
 margin_bottom = 104.0
 custom_fonts/font = SubResource( 2 )
-text = "Continue"
+text = "Main Menu"
 
 [connection signal="pressed" from="Control/CenterContainer/VBoxContainer/ContinueButton" to="." method="_on_ContinueButton_pressed"]

@@ -1,24 +1,52 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/SpearLanceEnemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/Wave2.gd" type="Script" id=2]
-
+[ext_resource path="res://Scenes/RockTurtle.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Map.tscn" type="PackedScene" id=4]
 
 [node name="Wave2" type="Node2D"]
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
 
-[node name="Control" type="Control" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="CenterContainer" type="CenterContainer" parent="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="Map" parent="." instance=ExtResource( 4 )]
+position = Vector2( 0, 0 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
 
 [node name="Enemies" type="Node" parent="."]
 
-[node name="SpearLanceEnemy" parent="Enemies" instance=ExtResource( 1 )]
-position = Vector2( 200, 0 )
-
 [node name="SpearLanceEnemy2" parent="Enemies" instance=ExtResource( 1 )]
-position = Vector2( -200, -300 )
+position = Vector2( 1631, 0 )
+
+[node name="SpearLanceEnemy" parent="Enemies/SpearLanceEnemy2" instance=ExtResource( 1 )]
+position = Vector2( 668, 1338 )
+
+[node name="SpearLanceEnemy2" parent="Enemies/SpearLanceEnemy2" instance=ExtResource( 1 )]
+position = Vector2( -821, -109 )
+
+[node name="SpearLanceEnemy" parent="Enemies" instance=ExtResource( 1 )]
+position = Vector2( 1181, 800 )
+
+[node name="RockTurtle" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 1676, -54 )
+
+[node name="RockTurtle2" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 2206, 421 )
+
+[node name="RockTurtle3" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 1633, -528 )
+
+[node name="RockTurtle6" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 2112, 1345 )
+
+[node name="RockTurtle7" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 1472, 1595 )
+
+[node name="RockTurtle8" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 760, 468 )

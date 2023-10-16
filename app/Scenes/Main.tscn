@@ -29,15 +29,16 @@ autoplay = false
 [node name="YSort" type="YSort" parent="."]
 
 [node name="Player" parent="YSort" instance=ExtResource( 2 )]
-position = Vector2( -123, -127 )
+position = Vector2( -123, 2000 )
 __meta__ = {
 "_edit_group_": true
 }
+initialBoidNum = 3
 
 [node name="EnemyManager" parent="YSort" instance=ExtResource( 8 )]
 
 [node name="Map" parent="YSort" instance=ExtResource( 7 )]
-position = Vector2( 246, -1801 )
+position = Vector2( 0, 0 )
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 

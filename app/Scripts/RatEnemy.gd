@@ -14,6 +14,7 @@ onready var _patrolTimer = $patrolTimer
 onready var _current_state: int = State.PATROLLING setget set_current_state
 
 var xp_worth = 120
+var boid_worth = 2
 
 enum State {
 	PATROLLING,
