@@ -1,6 +1,10 @@
 extends KinematicBody2D
 
+const ShurikenProjectile: PackedScene = preload("res://Scenes/ShurikenProjectile.tscn")
+
 onready var _enemy_manager = get_node("/root/Main/YSort/EnemyManager")
+
+onready var _player = get_node("/root/Main/YSort/Player")
 
 var Target : Node
 var Dir := Vector2.ZERO
@@ -264,3 +268,15 @@ func _on_HitBox_area_entered(area):
 			area.get_parent().add_damage(SPEAR_DAMAGE, self)
 		
 		$AttackImpactSFX.play()
+
+
+func _on_ShurikenTimer_timeout():
+	# launch shuriken
+	if _player.position.distance_to(position) > 800:
+		return
+	
+	var shuriken = ShurikenProjectile.instance()
+	shuriken.position = position
+	shuriken.init((_player.position - position).normalized(), 300)	
+	_enemy_manager.add_child(shuriken)
+	

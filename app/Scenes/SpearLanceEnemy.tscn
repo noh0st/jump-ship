@@ -439,6 +439,10 @@ stream = ExtResource( 10 )
 [node name="AttackImpactSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
 
+[node name="ShurikenTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]
 [connection signal="area_entered" from="HitBoxPivot/HitBox" to="." method="_on_HitBox_area_entered"]
@@ -446,3 +450,4 @@ stream = ExtResource( 11 )
 [connection signal="area_entered" from="AttackRange" to="." method="_on_AttackRange_area_entered"]
 [connection signal="timeout" from="re_AttackTimer" to="." method="_on_re_AttackTimer_timeout"]
 [connection signal="timeout" from="patrolTimer" to="." method="_on_patrolTimer_timeout"]
+[connection signal="timeout" from="ShurikenTimer" to="." method="_on_ShurikenTimer_timeout"]
