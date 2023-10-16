@@ -6,7 +6,7 @@ const RockProjectile: PackedScene = preload("res://Scenes/RockProjectile.tscn")
 
 enum State {
 	ROAMING,
-	ROCK_THROW
+	ATTACKING
 }
 
 onready var _enemy_manager = get_node("/root/Main/YSort/EnemyManager")
@@ -15,7 +15,7 @@ onready var _timer = $Timer
 onready var _attackTimer = $AttackTimer
 onready var _current_state: int = State.ROAMING setget set_current_state
 
-const SWIPE_DAMAGE = 50
+const SWIPE_DAMAGE = 40
 
 var xp_worth = 1
 var boid_worth = 3
@@ -106,6 +106,7 @@ func add_damage(value: int) -> void:
 		emit_signal("on_dead")
 		$WinSFX.play()
 		
+		
 func _random_direction() -> Vector2:
 	var angle = rand_range(0, 2 * PI)
 	return Vector2(cos(angle), sin(angle)).normalized()
@@ -127,8 +128,6 @@ func _on_Timer_timeout():
 			# change direction and speed
 			_direction = _random_direction();
 			_speed = rand_range(0, 100)
-			
-	pass # Replace with function body.
 
 
 func _on_AttackTimer_timeout():
@@ -138,8 +137,8 @@ func _on_AttackTimer_timeout():
 			_direction = Vector2.ZERO
 			_speed = 0
 			
-			#_current_state = State.ROCK_THROW
-			
+			#
+			self._current_state = State.ATTACKING
 			# choose randomly between swipe and rock throw
 			if randi() % 2 == 0:	
 				$AnimationPlayer.play("RockThrow")
@@ -153,9 +152,14 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	match anim_name:
 		"RockThrow":
 			fire_rock_projectile()
-			$AttackTimer.start(rand_range(0.5, 3))
+			$AttackTimer.start(2)
+			self._current_state = State.ROAMING
 		"AttackAnticipation":
 			$AnimationPlayer.play("SwipeAttack")
+		"SwipeAttack":
+			$AttackTimer.start(2)
+			self._current_state = State.ROAMING
+			
 
 
 func fire_rock_projectile() -> void:
@@ -165,7 +169,6 @@ func fire_rock_projectile() -> void:
 	_enemy_manager.add_child(rock)
 	
 	
-
 func _on_Hitbox_area_entered(area):
 	if area.get_parent().has_method("add_damage") and (not area.get_parent().has_meta("Enemy")):
 		if is_instance_valid(self):
