@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/UpgradesHandler.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/UpgradeCards.tscn" type="PackedScene" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://Recources/AddHealth_200.tres" type="Resource" id=4]
 [ext_resource path="res://Assets/Other/Upgrade_Station.png" type="Texture" id=5]
 [ext_resource path="res://Recources/AddStamina_200.tres" type="Resource" id=6]
-[ext_resource path="res://Assets/Other/Card.png" type="Texture" id=7]
 [ext_resource path="res://SFX/MX Power Up.wav" type="AudioStream" id=8]
 [ext_resource path="res://Assets/UpgradeSprite/HP_BOOST.png" type="Texture" id=9]
 [ext_resource path="res://Assets/UpgradeSprite/SPEED_BOOST.png" type="Texture" id=10]
@@ -33,7 +32,6 @@ margin_bottom = 892.0
 rect_scale = Vector2( 0.506822, 0.486737 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture_hover = ExtResource( 7 )
 
 [node name="Description" parent="Control/Upgrade_1" index="0"]
 margin_top = 447.718

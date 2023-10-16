@@ -18,12 +18,11 @@ const DAMAGE = 20
 func _ready():
 	$Sprite.modulate = Color(0.6, 0.7, 0.9) # blue shade
 	scale.x = 1 if randi() % 2 == 0 else -1
-	
 	set_meta("Enemy", true)
 	_sprite = "res://Assets/01.png"
 	health = GlobalUpgradeStats.globalEnemyHealth * healthMultiple
 	$HPbar.update_ui(health, health)
-		
+
 		
 func _on_TurtleVision_area_entered(area):
 	if area.get_parent() == self:
@@ -60,7 +59,9 @@ func add_damage(value: int) -> void:
 
 func _on_AttackTimer_timeout() -> void:
 	print("attack timer timeout")
+	
 	attackAnimationPlayer.play("RockTurtleAttack")
+
 	if not _check_vision():
 		HasTarget = false
 		Target = null
