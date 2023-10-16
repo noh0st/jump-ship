@@ -32,7 +32,7 @@ position = Vector2( -123, 2000 )
 __meta__ = {
 "_edit_group_": true
 }
-initialBoidNum = 3
+initialBoidNum = 2
 
 [node name="EnemyManager" parent="YSort" instance=ExtResource( 8 )]
 
@@ -57,7 +57,6 @@ position = Vector2( 0, 0 )
 
 [editable path="Death"]
 [editable path="YSort/Player"]
-[editable path="YSort/Player/HurtBox"]
 [editable path="YSort/Player/PlayerStats"]
 [editable path="YSort/Map"]
 [editable path="YSort/Map/Tree30"]

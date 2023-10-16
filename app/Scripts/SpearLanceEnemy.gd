@@ -61,14 +61,16 @@ func process_approaching(delta) -> void:
 	if Target.position.distance_to(position) > VISION_RANGE: # out of vision range
 		#print("target out of range")
 		if not _check_vision_and_set_target():
+			print("switching to patrolling")
 			self._current_state = State.PATROLLING
-		return
+			return
 
 	if Target.position.distance_to(position) < ATTACK_RANGE: # within attack range
 		#print("APPROACH IN RANGE")
 		self._current_state = State.ATTACKING
 		return
 		
+	
 	var direction = (Target.position - position).normalized()
 	Dir = direction
 	var speed = 100
@@ -190,9 +192,12 @@ func _on_Vision_area_entered(area: Node) -> void: #if you dont have target, set 
 		State.PATROLLING:
 			if _area_is_hostile(area):
 				Target = area.get_parent()
+				print("spear target")
+				print(Target)
 				self._current_state = State.APPROACHING
 			else:
 				pass#	print("area is not player nor boid")
+
 		
 	
 func _on_AttackRange_area_entered(area): #if entered the attack range attacks

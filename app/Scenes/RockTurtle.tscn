@@ -131,13 +131,13 @@ tracks/2/keys = {
 extents = Vector2( 46.5087, 35.6672 )
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 2.20512, 2.38045 )
+extents = Vector2( 1.43667, 1.75402 )
 
 [sub_resource type="CircleShape2D" id=6]
-radius = 20.396
+radius = 16.6807
 
 [sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 32.5, 18 )
+extents = Vector2( 21, 14.5 )
 
 [node name="RockTurtle" type="Node2D"]
 script = ExtResource( 1 )
@@ -170,7 +170,7 @@ collision_layer = 18
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2( 0, -11 )
+position = Vector2( -1.5, -11 )
 scale = Vector2( 14.9652, 7.98167 )
 shape = SubResource( 4 )
 __meta__ = {
@@ -199,7 +199,7 @@ collision_layer = 16
 collision_mask = 65
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( -2.5, -7 )
+position = Vector2( -1, -11.5 )
 shape = SubResource( 7 )
 
 [node name="TurtleAttackSFX" type="AudioStreamPlayer" parent="."]

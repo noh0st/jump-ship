@@ -156,7 +156,11 @@ func process_lunging(delta) -> void:
 		self._current_state = State.BOIDING
 		return
 		
-	if attack_target.position.distance_to(position) <= 15: 
+	if _check_hitbox(): 
+		_on_hitbox_attacking(attack_target.get_child(0))
+		return
+		
+	if attack_target.position.distance_to(position) <= 25: 
 		self._current_state = State.RETREATING
 		return
 		
@@ -229,7 +233,6 @@ func process_circling_boid(delta) -> void:
 		return 
 	
 	if boids.size() == 1:
-		print("boids single")
 		handle_single(delta, attack_target.position) # float around owner 
 		return
 	
@@ -268,7 +271,6 @@ func process_boiding(delta) -> void:
 		return 
 	
 	if boids.size() == 1:
-		print("boids single")
 		handle_single(delta, follow_target) # float around owner 
 		return
 	
@@ -399,6 +401,8 @@ func _on_hitbox_attacking(area) -> void:
 		area.get_parent().add_damage(GlobalUpgradeStats.boidDamage)
 		
 		self._current_state = State.RETREATING
+	else:
+		print("no damage")
 
 
 func add_health(value):
@@ -441,3 +445,14 @@ func _check_vision_and_set_target() -> bool:
 		return true
 	
 	return false
+	
+func _check_hitbox() -> bool:
+	for area in $Hitbox.get_overlapping_areas():	
+		if not area.get_parent().has_meta("Enemy"):
+			continue
+			
+		attack_target = area.get_parent()
+		return true
+	
+	return false
+

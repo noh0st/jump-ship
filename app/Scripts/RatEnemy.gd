@@ -89,7 +89,7 @@ func set_current_state(value: int) -> void:
 			
 			_current_state = value
 			
-			_cooldownTimer.start(rand_range(0.3, 0.6))
+			_cooldownTimer.start(rand_range(0.3, 0.8))
 			_patrolTimer.stop()
 		State.ATTACKING:					
 			_current_state = value

@@ -1,7 +1,6 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Scenes/PlayerStats.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scenes/HurtBox.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=3]
 [ext_resource path="res://Assets/Other/KnightAxeSheet.png" type="Texture" id=4]
 [ext_resource path="res://Scripts/CameraZoom.gd" type="Script" id=5]
@@ -16,39 +15,37 @@
 [ext_resource path="res://Assets/Other/Pain.png" type="Texture" id=14]
 
 [sub_resource type="CapsuleShape2D" id=13]
-radius = 9.0
-height = 0.0
-
-[sub_resource type="CapsuleShape2D" id=24]
+radius = 13.27
+height = 0.01
 
 [sub_resource type="Animation" id=33]
 resource_name = "Hurt"
 tracks/0/type = "value"
-tracks/0/path = NodePath("TakeDamageSFX:playing")
+tracks/0/path = NodePath("Camera2D/HurtEffect:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ false, true, false ]
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.160784 ), Color( 1, 1, 1, 0.45098 ), Color( 1, 1, 1, 0.737255 ), Color( 1, 1, 1, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:modulate")
+tracks/1/path = NodePath("TakeDamageSFX:playing")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 0.0941176 ), Color( 1, 0, 0, 0.392157 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+"times": PoolRealArray( 0, 0.1, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Control/HurtEffect:modulate")
+tracks/2/path = NodePath("Sprite:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -57,7 +54,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.2 ), Color( 1, 1, 1, 0.568627 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 0.0941176 ), Color( 1, 0, 0, 0.392157 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
 [sub_resource type="Animation" id=31]
@@ -88,18 +85,6 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Control/HurtEffect:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0.2 ) ]
 }
 
 [sub_resource type="Animation" id=32]
@@ -177,6 +162,9 @@ tracks/1/keys = {
 "values": [ false ]
 }
 
+[sub_resource type="CapsuleShape2D" id=34]
+radius = 13.75
+
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 17
 collision_mask = 64
@@ -200,14 +188,6 @@ vframes = 2
 [node name="StaminaTimer" type="Timer" parent="."]
 process_mode = 0
 one_shot = true
-
-[node name="HurtBox" parent="." instance=ExtResource( 2 )]
-collision_layer = 18
-collision_mask = 0
-
-[node name="CollisionShape2D" parent="HurtBox" index="0"]
-position = Vector2( 1, -15 )
-shape = SubResource( 24 )
 
 [node name="PlayerStats" parent="." instance=ExtResource( 1 )]
 
@@ -266,8 +246,15 @@ rect_scale = Vector2( 0.944713, 0.972589 )
 texture = ExtResource( 14 )
 expand = true
 
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 18
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2( 1, -15 )
+shape = SubResource( 34 )
+
 [connection signal="timeout" from="StaminaTimer" to="." method="_on_Timer_timeout"]
-[connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
 [connection signal="Death" from="PlayerStats" to="." method="_on_PlayerStats_Death"]
 [connection signal="healthChange" from="PlayerStats" to="." method="_on_PlayerStats_healthChange"]
 [connection signal="staminaChange" from="PlayerStats" to="." method="_on_PlayerStats_staminaChange"]
@@ -276,5 +263,4 @@ expand = true
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]
 [connection signal="timeout" from="WalkingCycle" to="." method="_on_WalkingCycle_timeout"]
 
-[editable path="HurtBox"]
 [editable path="PlayerStats"]
