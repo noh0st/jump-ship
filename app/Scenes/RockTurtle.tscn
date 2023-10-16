@@ -126,7 +126,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.7, 1.3 ),
+"times": PoolRealArray( 0, 0.9, 1.3 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ true, false, true ]
@@ -208,6 +208,7 @@ extents = Vector2( 21, 14.5 )
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -2, 0 )
 scale = Vector2( 0.178, 0.178 )
 texture = ExtResource( 6 )
 offset = Vector2( 0, -75 )
