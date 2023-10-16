@@ -65,6 +65,7 @@ func spawn_wave(wave: Node) -> void:
 func _play_music(index: int) -> void:
 	match index:
 		0:
+			$CanvasLayer/POPUP_Tutorial.StartTutorial()
 			$Wave1Music.play()
 			$Wave2Music.stop()
 			$BossMusic.stop()
@@ -73,6 +74,7 @@ func _play_music(index: int) -> void:
 			$Wave2Music.play()
 			$BossMusic.stop()
 		3:
+			$CanvasLayer/POPUP_Tutorial.StartBossFight()
 			$Wave1Music.stop()
 			$Wave2Music.stop()
 			$BossMusic.play()

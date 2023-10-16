@@ -30,12 +30,10 @@ func init(player: Node) -> void:
 	
 	print(BoidsLabel)
 	_is_ready = true
-	$POPUP_Tutorial.StartTutorial()
 
 func enable_boss_health_bar() -> void:
 	$XPBar.visible = false
 	$BossHealthBar.visible = true
-	$POPUP_Tutorial.StartBossFight()
 
 func reset() -> void:
 	$XPBar.visible = true

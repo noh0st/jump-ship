@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=3]
@@ -8,18 +8,12 @@
 [ext_resource path="res://Scenes/Map.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/EnemyManager.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/WinMenu.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Scenes/MusicPlayer.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scenes/GlobalStats.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=12]
 [ext_resource path="res://Scenes/WaveManager.tscn" type="PackedScene" id=13]
 
 [node name="Main" type="Node"]
 script = ExtResource( 12 )
-
-[node name="MusicPlayer" parent="." instance=ExtResource( 10 )]
-pause_mode = 2
-volume_db = -19.687
-autoplay = false
 
 [node name="PauseMenu" parent="." instance=ExtResource( 6 )]
 

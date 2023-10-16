@@ -1,18 +1,26 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/WaveManager.gd" type="Script" id=1]
 [ext_resource path="res://Music/Exploration_8-bit.wav" type="AudioStream" id=2]
 [ext_resource path="res://Music/Exploration_Theme_-_Extended_Version.mp3" type="AudioStream" id=3]
 [ext_resource path="res://Music/Boss.wav" type="AudioStream" id=4]
+[ext_resource path="res://Scenes/PoPUP_Tutorials.tscn" type="PackedScene" id=5]
 
 [node name="WaveManager" type="Node"]
 script = ExtResource( 1 )
 
 [node name="Wave1Music" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
 stream = ExtResource( 3 )
 
 [node name="Wave2Music" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
 stream = ExtResource( 2 )
 
 [node name="BossMusic" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
 stream = ExtResource( 4 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="POPUP_Tutorial" parent="CanvasLayer" instance=ExtResource( 5 )]

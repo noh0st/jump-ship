@@ -8,7 +8,6 @@ func _ready():
 	$YSort/EnemyManager.init($YSort)
 	
 	$WaveManager.init($YSort/Player, $Upgrades, $YSort/EnemyManager, $HUD)
-	$MusicPlayer.play()
 	
 
 
