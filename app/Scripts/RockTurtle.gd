@@ -9,10 +9,11 @@ onready var attackTimer = $AttackTimer
 onready var _sprite = $Sprite
 
 var health: int
-export var healthMultiple : int = 5
+export var healthMultiple : int = 4
 
 var xp_worth: int = 20
 var boid_worth = 1
+const DAMAGE = 34
 
 func _ready():
 	$Sprite.modulate = Color(0.6, 0.7, 0.9) # blue shade
@@ -87,4 +88,4 @@ func _on_DamageZone_area_entered(area):
 	
 	if area.get_parent().has_method("add_damage") and (not area.get_parent().has_meta("Enemy")):
 		if is_instance_valid(self):
-			area.get_parent().add_damage(GlobalUpgradeStats.globalEnemyDamage, self)
+			area.get_parent().add_damage(DAMAGE, self)

@@ -86,7 +86,7 @@ func _ready():
 	#get_parent().get_node("Enemy").connect("_enemy_moused_over_false", self, "_enemy_moused_over_false") 
 	health_calculation()
 	
-	_boid_speed = rand_range(0.5, 1.7)
+	_boid_speed = rand_range(0.7, 1.3)
 	print(_boid_speed)
 
 
@@ -444,6 +444,7 @@ func _check_vision_and_set_target() -> bool:
 		attack_target = area.get_parent()
 		return true
 	
+	attack_target = null
 	return false
 	
 func _check_hitbox() -> bool:

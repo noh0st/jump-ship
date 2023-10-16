@@ -13,9 +13,10 @@ onready var _current_state: int = State.PATROLLING setget set_current_state
 
 var xp_worth = 100
 var boid_worth = 3
+const SPEAR_DAMAGE = 50
 
 var health: int = 0
-export var healthMultiple : int = 10
+export var healthMultiple : int = 25
 
 enum State {
 	PATROLLING,
@@ -260,6 +261,6 @@ func _check_vision_and_set_target() -> bool:
 func _on_HitBox_area_entered(area):
 	if area.get_parent().has_method("add_damage") and (not area.get_parent().has_meta("Enemy")):
 		if is_instance_valid(self):
-			area.get_parent().add_damage(GlobalUpgradeStats.globalEnemyDamage, self)
+			area.get_parent().add_damage(SPEAR_DAMAGE, self)
 		
 		$AttackImpactSFX.play()

@@ -78,6 +78,9 @@ func _play_music(index: int) -> void:
 			$BossMusic.play()
 
 func _on_Player_xp_update(value: int) -> void:
+	if not is_instance_valid(_current_wave):
+		return
+		
 	_xp += value
 	
 	_ui.update_xp(_xp, _current_wave.xp_threshold)
@@ -88,6 +91,9 @@ func _on_Player_xp_update(value: int) -> void:
 
 func _on_upgrade_selection() -> void:
 	# show bar, spawn next wave
+	if not is_instance_valid(_current_wave):
+		return
+	
 	_xp = 0
 	_current_wave.queue_free()
 	
@@ -96,6 +102,9 @@ func _on_upgrade_selection() -> void:
 	
 	
 func game_win() -> void:
+	if not is_instance_valid(_current_wave):
+		return
+	
 	_current_wave.queue_free()
 	# clean up enemies
 	

@@ -19,11 +19,13 @@ func _on_Area2D_area_entered(area):
 		$AnimationPlayer.play("ApplePickup")
 		
 		
-func init(cb: FuncRef) -> void:
+func init(cb: FuncRef) -> void:		
 	_cb = cb
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
-	_cb.call_func(self)
+	if _cb.is_valid():
+		_cb.call_func(self)
+	
 	self.queue_free() # Replace with function body.
 	
