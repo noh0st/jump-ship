@@ -34,7 +34,7 @@ position = Vector2( -123, 2000 )
 __meta__ = {
 "_edit_group_": true
 }
-initialBoidNum = 3
+initialBoidNum = 24
 
 [node name="EnemyManager" parent="YSort" instance=ExtResource( 8 )]
 

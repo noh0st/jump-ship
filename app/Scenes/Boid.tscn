@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Assets/Villagers/Walk2.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/boid.gd" type="Script" id=2]
@@ -80,10 +80,6 @@ tracks/1/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="CapsuleShape2D" id=9]
-radius = 4.0
-height = 12.0
-
 [node name="Boid" type="KinematicBody2D"]
 collision_layer = 16
 collision_mask = 64
@@ -108,7 +104,7 @@ offset = Vector2( 0, -50 )
 flip_h = true
 
 [node name="AwakenBoidTrigger" type="Area2D" parent="."]
-collision_layer = 2
+collision_layer = 18
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AwakenBoidTrigger"]
@@ -165,11 +161,6 @@ margin_bottom = -35.0
 
 [node name="UITimer" type="Timer" parent="."]
 one_shot = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 2, -2 )
-rotation = 1.5708
-shape = SubResource( 9 )
 
 [node name="CooldownTimer" type="Timer" parent="."]
 autostart = true

@@ -24,31 +24,31 @@ height = 0.0
 [sub_resource type="Animation" id=33]
 resource_name = "Hurt"
 tracks/0/type = "value"
-tracks/0/path = NodePath("TakeDamageSFX:playing")
+tracks/0/path = NodePath("Camera2D/HurtEffect:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ false, true, false ]
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.160784 ), Color( 1, 1, 1, 0.45098 ), Color( 1, 1, 1, 0.737255 ), Color( 1, 1, 1, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:modulate")
+tracks/1/path = NodePath("TakeDamageSFX:playing")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 0.0941176 ), Color( 1, 0, 0, 0.392157 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+"times": PoolRealArray( 0, 0.1, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Control/HurtEffect:modulate")
+tracks/2/path = NodePath("Sprite:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -57,7 +57,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.2 ), Color( 1, 1, 1, 0.568627 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 0.0941176 ), Color( 1, 0, 0, 0.392157 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
 [sub_resource type="Animation" id=31]
@@ -88,18 +88,6 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Control/HurtEffect:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0.2 ) ]
 }
 
 [sub_resource type="Animation" id=32]
@@ -178,7 +166,6 @@ tracks/1/keys = {
 }
 
 [node name="Player" type="KinematicBody2D"]
-collision_layer = 17
 collision_mask = 64
 script = ExtResource( 3 )
 initialBoidNum = 20
