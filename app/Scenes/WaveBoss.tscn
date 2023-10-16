@@ -82,3 +82,6 @@ position = Vector2( 1503, 134 )
 
 [node name="SpearLanceEnemy3" parent="Enemies" instance=ExtResource( 5 )]
 position = Vector2( 2160, -989 )
+
+[node name="SpearLanceEnemy4" parent="Enemies" instance=ExtResource( 5 )]
+position = Vector2( 2342, -1212 )
