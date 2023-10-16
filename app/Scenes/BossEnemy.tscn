@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Assets/BossEnemy/Front_Throw1.png" type="Texture" id=1]
 [ext_resource path="res://Assets/BossEnemy/Front_Throw3.png" type="Texture" id=2]
@@ -18,6 +18,34 @@
 [sub_resource type="CapsuleShape2D" id=11]
 radius = 77.63
 height = 10.0
+
+[sub_resource type="Animation" id=13]
+resource_name = "AttackAnticipation"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 9 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 15, 0 ), Vector2( -15, 0 ), Vector2( 15, 0 ), Vector2( -15, 0 ), Vector2( 0, 0 ) ]
+}
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -45,6 +73,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [  ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Hitbox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=14]
 resource_name = "RockThrow"
@@ -59,46 +99,6 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ ExtResource( 1 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 14 ), ExtResource( 13 ) ]
-}
-
-[sub_resource type="Animation" id=13]
-resource_name = "RockThrowAnticipation"
-length = 0.8
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 9 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:flip_h")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Sprite:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 15, 0 ), Vector2( -15, 0 ), Vector2( 15, 0 ), Vector2( -15, 0 ), Vector2( 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -130,6 +130,34 @@ tracks/1/keys = {
 "values": [ false ]
 }
 
+[sub_resource type="Animation" id=15]
+resource_name = "SwipeAttack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 14 ), ExtResource( 13 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Hitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+
 [sub_resource type="CircleShape2D" id=7]
 radius = 314.35
 
@@ -138,6 +166,9 @@ radius = 50.0
 
 [sub_resource type="CircleShape2D" id=12]
 radius = 75.99
+
+[sub_resource type="CircleShape2D" id=16]
+radius = 154.0
 
 [node name="BossEnemy" type="KinematicBody2D"]
 collision_layer = 0
@@ -149,15 +180,16 @@ position = Vector2( -0.085, 7.346 )
 shape = SubResource( 11 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( -15, 0 )
+position = Vector2( 15, 0 )
 scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 9 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/AttackAnticipation = SubResource( 13 )
 anims/RESET = SubResource( 2 )
 anims/RockThrow = SubResource( 14 )
-anims/RockThrowAnticipation = SubResource( 13 )
 anims/RunRight = SubResource( 3 )
+anims/SwipeAttack = SubResource( 15 )
 
 [node name="Vision" type="Area2D" parent="."]
 collision_layer = 8
@@ -206,6 +238,14 @@ shape = SubResource( 12 )
 [node name="WinSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
 
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource( 16 )
+disabled = true
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]
 [connection signal="area_entered" from="Vision" to="." method="_on_Vision_area_entered"]
@@ -216,3 +256,4 @@ stream = ExtResource( 3 )
 [connection signal="area_exited" from="AttackRange" to="." method="_on_AttackRange_area_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
