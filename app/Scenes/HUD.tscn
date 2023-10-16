@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/HealthUIController.gd" type="Script" id=1]
 [ext_resource path="res://Assets/UI/Gameplay HUD/Stamina Fill.png" type="Texture" id=2]
@@ -12,7 +12,6 @@
 [ext_resource path="res://Scripts/HPbar.gd" type="Script" id=10]
 [ext_resource path="res://Assets/HealthBarPNG/HPFilling.png" type="Texture" id=11]
 [ext_resource path="res://Assets/UI/Gameplay HUD/Boids UI.png" type="Texture" id=12]
-[ext_resource path="res://Scenes/PoPUP_Tutorials.tscn" type="PackedScene" id=13]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 9 )
@@ -101,5 +100,3 @@ custom_fonts/font = SubResource( 1 )
 text = "10000"
 align = 1
 valign = 1
-
-[node name="POPUP_Tutorial" parent="." instance=ExtResource( 13 )]

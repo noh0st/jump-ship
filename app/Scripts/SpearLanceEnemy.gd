@@ -17,7 +17,7 @@ onready var _current_state: int = State.PATROLLING setget set_current_state
 
 var xp_worth = 100
 var boid_worth = 5
-const SPEAR_DAMAGE = 50
+const SPEAR_DAMAGE = 40
 
 var health: int = 0
 export var healthMultiple : int = 25

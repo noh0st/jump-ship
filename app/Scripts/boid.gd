@@ -103,7 +103,7 @@ func set_current_state(value) -> void:
 		_:
 			pass
 			
-	$DebugUI/Label.text = "state: %d" % [_current_state]
+	#$DebugUI/Label.text = "state: %d" % [_current_state]
 
 func _physics_process(delta) -> void:
 	match _current_state:
@@ -461,3 +461,7 @@ func _check_hitbox() -> bool:
 	
 	return false
 
+
+func _on_AwakenBoidTrigger_area_exited(area):
+	if area.get_parent().has_meta("Player"):
+		attack_target = null

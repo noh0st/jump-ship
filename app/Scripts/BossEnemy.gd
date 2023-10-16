@@ -15,6 +15,8 @@ onready var _timer = $Timer
 onready var _attackTimer = $AttackTimer
 onready var _current_state: int = State.ROAMING setget set_current_state
 
+const SWIPE_DAMAGE = 50
+
 var xp_worth = 1
 var boid_worth = 3
 
@@ -22,7 +24,7 @@ var _health_ui: Node
 var _player: Node
 
 var health: int = 0
-export var healthMultiple : int = 100
+export var healthMultiple : int = 200
 
 func _ready():
 	set_meta("Enemy", true)
@@ -125,7 +127,7 @@ func _on_Timer_timeout():
 			# change direction and speed
 			_direction = _random_direction();
 			_speed = rand_range(0, 100)
-			_timer.start(2)
+			
 	pass # Replace with function body.
 
 
@@ -138,8 +140,35 @@ func _on_AttackTimer_timeout():
 			
 			#_current_state = State.ROCK_THROW
 			
-			var rock = RockProjectile.instance()
-			rock.position = position
-			rock.init((_player.position - position).normalized(), rand_range(200, 450))	
-			_enemy_manager.add_child(rock)
-	pass # Replace with function body.
+			# choose randomly between swipe and rock throw
+			if randi() % 2 == 0:	
+				$AnimationPlayer.play("RockThrow")
+			else:
+				$AnimationPlayer.play("AttackAnticipation")
+			
+
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	match anim_name:
+		"RockThrow":
+			fire_rock_projectile()
+			$AttackTimer.start(rand_range(0.5, 3))
+		"AttackAnticipation":
+			$AnimationPlayer.play("SwipeAttack")
+
+
+func fire_rock_projectile() -> void:
+	var rock = RockProjectile.instance()
+	rock.position = position
+	rock.init((_player.position - position).normalized(), rand_range(200, 450))	
+	_enemy_manager.add_child(rock)
+	
+	
+
+func _on_Hitbox_area_entered(area):
+	if area.get_parent().has_method("add_damage") and (not area.get_parent().has_meta("Enemy")):
+		if is_instance_valid(self):
+			area.get_parent().add_damage(SWIPE_DAMAGE, self)
+		
+		#$AttackImpactSFX.play()
