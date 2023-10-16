@@ -18,7 +18,6 @@ const DAMAGE = 20
 func _ready():
 	$Sprite.modulate = Color(0.6, 0.7, 0.9) # blue shade
 	scale.x = 1 if randi() % 2 == 0 else -1
-	attackAnimationPlayer.play("RockTurtleAttack")
 	set_meta("Enemy", true)
 	_sprite = "res://Assets/01.png"
 	health = GlobalUpgradeStats.globalEnemyHealth * healthMultiple
