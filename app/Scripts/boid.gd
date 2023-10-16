@@ -164,9 +164,6 @@ func process_lunging(delta) -> void:
 		self._current_state = State.RETREATING
 		return
 		
-		
-	print(attack_target.position.distance_to(position))
-		
 	# lung forward until hit lands
 	var direction = (attack_target.position - position).normalized()
 	var speed = 250.0
@@ -236,7 +233,6 @@ func process_circling_boid(delta) -> void:
 		return 
 	
 	if boids.size() == 1:
-		print("boids single")
 		handle_single(delta, attack_target.position) # float around owner 
 		return
 	
@@ -275,7 +271,6 @@ func process_boiding(delta) -> void:
 		return 
 	
 	if boids.size() == 1:
-		print("boids single")
 		handle_single(delta, follow_target) # float around owner 
 		return
 	

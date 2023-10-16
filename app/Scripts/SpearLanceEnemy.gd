@@ -73,7 +73,6 @@ func process_approaching(delta) -> void:
 	
 	var direction = (Target.position - position).normalized()
 	Dir = direction
-	print(direction)
 	var speed = 100
 	PlayRunAnimationDirection(direction)
 	move_and_collide(direction * speed * delta)

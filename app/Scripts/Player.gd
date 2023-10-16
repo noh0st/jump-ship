@@ -176,7 +176,6 @@ func _on_WalkingCycle_timeout():
 	AvailableFootStepSounds.remove(AvailableFootStepSounds.find($FootStepSFX.stream))
 	$FootStepSFX.stream = AvailableFootStepSounds[randi() % AvailableFootStepSounds.size()]
 	AvailableFootStepSounds.append_array(FootStepSoundsArray)
-	print($FootStepSFX.stream)
 
 var CanMove = true
 func _on_AnimationPlayer_animation_started(anim_name):
