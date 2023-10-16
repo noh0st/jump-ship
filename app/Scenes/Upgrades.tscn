@@ -1,11 +1,16 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/UpgradesHandler.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/UpgradeCards.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Recources/AddDamageBoid_200.tres" type="Resource" id=3]
 [ext_resource path="res://Recources/AddHealth_200.tres" type="Resource" id=4]
-[ext_resource path="res://Assets/Upgrade_Station.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Other/Upgrade_Station.png" type="Texture" id=5]
 [ext_resource path="res://Recources/AddStamina_200.tres" type="Resource" id=6]
+[ext_resource path="res://Assets/Other/Card.png" type="Texture" id=7]
+[ext_resource path="res://SFX/MX Power Up.wav" type="AudioStream" id=8]
+[ext_resource path="res://Assets/UpgradeSprite/HP_BOOST.png" type="Texture" id=9]
+[ext_resource path="res://Assets/UpgradeSprite/SPEED_BOOST.png" type="Texture" id=10]
+[ext_resource path="res://Assets/UpgradeSprite/DAMAGE_BOOST.png" type="Texture" id=11]
 
 [node name="Upgrades" type="CanvasLayer"]
 pause_mode = 2
@@ -22,28 +27,35 @@ scale = Vector2( 0.500781, 0.496528 )
 texture = ExtResource( 5 )
 
 [node name="Upgrade_1" parent="Control" instance=ExtResource( 2 )]
-margin_top = 181.0
-margin_bottom = 881.0
-rect_scale = Vector2( 0.439999, 0.490829 )
+margin_left = 288.0
+margin_top = 192.0
+margin_bottom = 892.0
+rect_scale = Vector2( 0.506822, 0.486737 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
+texture_hover = ExtResource( 7 )
 
 [node name="Description" parent="Control/Upgrade_1" index="0"]
-margin_left = 75.7512
 margin_top = 447.718
-margin_right = 421.751
 margin_bottom = 593.718
 
 [node name="Name" parent="Control/Upgrade_1" index="1"]
-margin_left = 75.7512
-margin_top = 379.944
-margin_right = 405.751
-margin_bottom = 446.944
+margin_left = 86.8155
+margin_top = 378.028
+margin_right = 416.815
+margin_bottom = 445.028
+
+[node name="Sprite" parent="Control/Upgrade_1" index="2"]
+position = Vector2( 252.273, 205.774 )
+scale = Vector2( 0.85949, 0.70176 )
+texture = ExtResource( 11 )
 
 [node name="Upgrade_2" parent="Control" instance=ExtResource( 2 )]
-margin_left = 532.0
-margin_right = 1032.0
-rect_scale = Vector2( 0.458426, 0.497502 )
+margin_left = 536.0
+margin_top = 192.0
+margin_right = 1036.0
+margin_bottom = 892.0
+rect_scale = Vector2( 0.47499, 0.487103 )
 
 [node name="Description" parent="Control/Upgrade_2" index="0"]
 margin_left = 77.8554
@@ -52,31 +64,38 @@ margin_right = 423.855
 margin_bottom = 597.825
 
 [node name="Name" parent="Control/Upgrade_2" index="1"]
-margin_left = 71.5428
-margin_top = 369.675
-margin_right = 401.543
-margin_bottom = 436.675
+margin_left = 84.2124
+margin_top = 379.796
+margin_right = 414.213
+margin_bottom = 446.796
+
+[node name="Sprite" parent="Control/Upgrade_2" index="2"]
+position = Vector2( 253.04, 201.004 )
+scale = Vector2( 0.828923, 0.670014 )
+texture = ExtResource( 9 )
 
 [node name="Upgrade_3" parent="Control" instance=ExtResource( 2 )]
 margin_left = 768.0
+margin_top = 192.0
 margin_right = 1268.0
-rect_scale = Vector2( 0.430923, 0.46009 )
-
-[node name="Description" parent="Control/Upgrade_3" index="0"]
-margin_left = 77.8553
-margin_top = 449.771
-margin_right = 423.855
-margin_bottom = 595.771
+margin_bottom = 892.0
 
 [node name="Name" parent="Control/Upgrade_3" index="1"]
-margin_left = 77.8552
-margin_top = 365.568
-margin_right = 407.855
-margin_bottom = 432.568
+margin_left = 84.1678
+margin_top = 377.89
+margin_right = 414.168
+margin_bottom = 444.89
+
+[node name="Sprite" parent="Control/Upgrade_3" index="2"]
+position = Vector2( 252.504, 197.16 )
+scale = Vector2( 0.864336, 0.651099 )
+texture = ExtResource( 10 )
+
+[node name="UpgradeSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
 
 [connection signal="pressed" from="Control/Upgrade_1" to="." method="_on_Upgrade_1_pressed"]
 [connection signal="pressed" from="Control/Upgrade_2" to="." method="_on_Upgrade_2_pressed"]
-[connection signal="pressed" from="Control/Upgrade_3" to="." method="_on_Upgrade_3_pressed"]
 
 [editable path="Control/Upgrade_1"]
 [editable path="Control/Upgrade_2"]

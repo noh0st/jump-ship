@@ -16,7 +16,7 @@ func _ready():
 func _on_Timer_timeout():
 	if _enemy_manager.size() < MAX_COUNT:
 		# spawn enemy
-		var enemy = _enemy_manager.spawn(_enemy_manager.Type.SPEAR)
+		var enemy = _enemy_manager.spawn(_enemy_manager.Type.RAT)
 		enemy.position = _player.position + _random_normalized_direction() * SPAWN_RADIUS
 		enemy.position = _clamp_position(enemy.position, _enemy_manager.X_BOUNDS, _enemy_manager.Y_BOUNDS)
 

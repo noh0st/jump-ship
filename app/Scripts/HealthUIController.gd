@@ -3,7 +3,6 @@ extends CanvasLayer
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-onready var hpbar = $HPBar
 onready var staminabar = $StaminaBar
 onready var BoidsLabel = $BoidsNum
 onready var xpbar = $XPBar
@@ -23,7 +22,7 @@ func init(player: Node) -> void:
 	PlayerStats.connect("staminaChange",self, "_on_Player_ChangedStamina")
 	PlayerStats.connect("xpChange",self, "_on_PlayerStats_xpChange")
 	
-	$BoidsNum.text = "Number Of Followers : %s" % _player.flock_size()
+	$BoidsNum.text = "%s" % _player.flock_size()
 	
 	staminabar.value = PlayerStats.Stamina / (PlayerStats.MaxStamina/100)
 	
@@ -31,12 +30,12 @@ func init(player: Node) -> void:
 	
 	print(BoidsLabel)
 	_is_ready = true
-
+	$POPUP_Tutorial.StartTutorial()
 
 func enable_boss_health_bar() -> void:
 	$XPBar.visible = false
 	$BossHealthBar.visible = true
-
+	$POPUP_Tutorial.StartBossFight()
 
 func reset() -> void:
 	$XPBar.visible = true
@@ -55,7 +54,7 @@ func _on_Player_player_boid_count_update(new_value):
 	print(BoidsLabel)
 	print($BoidsNum)
 	# PlayerStats.BoidsCollectedNum = new_value
-	BoidsLabel.text = "Number Of Followers : %s" % new_value
+	BoidsLabel.text = "%s" % new_value
 	
 
 func update_xp(xp: int, max_xp: int) -> void:

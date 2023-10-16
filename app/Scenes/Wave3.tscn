@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scenes/SpearLanceEnemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/Wave3.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/RatEnemy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/RockTurtle.tscn" type="PackedScene" id=4]
+
+[node name="Wave3" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="SpearLanceEnemy" parent="Enemies" instance=ExtResource( 1 )]
+position = Vector2( 2458, -309 )
+
+[node name="SpearLanceEnemy2" parent="Enemies" instance=ExtResource( 1 )]
+position = Vector2( 1121, 411 )
+
+[node name="RatEnemy" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 1418, -124 )
+
+[node name="RatEnemy2" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( 2174, 352 )
+
+[node name="RockTurtle" parent="Enemies" instance=ExtResource( 4 )]
+position = Vector2( 1873, 137 )
+
+[node name="RockTurtle2" parent="Enemies" instance=ExtResource( 4 )]
+position = Vector2( 2022, -449 )
+
+[node name="RockTurtle3" parent="Enemies" instance=ExtResource( 4 )]
+position = Vector2( 2763, 314 )
+
+[node name="RockTurtle4" parent="Enemies" instance=ExtResource( 4 )]
+position = Vector2( 2803, 1044 )
+
+[node name="RockTurtle5" parent="Enemies" instance=ExtResource( 4 )]
+position = Vector2( 1202, -600 )

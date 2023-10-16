@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+var main_menu_scene : PackedScene = load("res://Scenes/MainMenu.tscn")
+
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -12,11 +14,6 @@ func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
 
 func _on_ContinueButton_pressed():
-	print("CONTINUE PRESSED")
-	pass # Replace with function body.
+	get_tree().change_scene("res://Scenes/MainMenu.tscn")

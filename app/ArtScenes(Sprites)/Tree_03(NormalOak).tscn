@@ -1,17 +1,22 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Assets/tree01.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Trees(Don't_Place_These)/tree01.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/AppleSpawner.tscn" type="PackedScene" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 193.997, 96.9985 )
+extents = Vector2( 334.5, 111.2 )
 
 [node name="Tree" type="Sprite"]
-scale = Vector2( 0.0515472, 0.0515472 )
-texture = ExtResource( 1 )
-offset = Vector2( 0, -1000 )
+
+[node name="AppleSpawner" parent="." instance=ExtResource( 2 )]
+position = Vector2( 0, -51.9998 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( -3.2422e-06, -77.5987 )
+position = Vector2( -20.5, -91.8001 )
 shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+offset = Vector2( 0, -1000 )

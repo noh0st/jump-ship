@@ -4,22 +4,28 @@ var _enemies = []
 const Enemy: PackedScene = preload("res://Scenes/Enemy.tscn")
 const RockTurtle: PackedScene = preload("res://Scenes/RockTurtle.tscn")
 const SpearEnemy: PackedScene = preload("res://Scenes/SpearLanceEnemy.tscn")
-onready var MainYsort = get_node("../YSort")
+const RatEnemy : PackedScene = preload("res://Scenes/RatEnemy.tscn")
 
 const X_BOUNDS = Vector2(-1000, 1000)
 const Y_BOUNDS = Vector2(-1000, 350)
+
+var _main_ysort: Node
 
 
 var XPPlayer : int = 50 #xp added to player on death
 enum Type {
 	ENEMY,
 	ROCK_TURTLE,
-	SPEAR
+	SPEAR,
+	RAT
 }
 
 var _on_death_callbacks: Array = []
 
 # manages pools for each enemy type
+
+func init(ysort: Node):
+	_main_ysort = ysort
 
 # Function to spawn a new enemy
 func spawn(type: int) -> Node:
@@ -30,6 +36,8 @@ func spawn(type: int) -> Node:
 			return _spawn_rock_turtle()
 		Type.SPEAR:
 			return _spawn_spear()
+		Type.RAT:
+			return _spawn_rat()
 		_:
 			print("ERROR: type not valid %d" % type)
 			return _spawn_enemy()
@@ -38,19 +46,27 @@ func spawn(type: int) -> Node:
 func _spawn_enemy() -> Node:
 	var new_enemy: Node = Enemy.instance()
 	_enemies.append(new_enemy)
-	MainYsort.add_child(new_enemy)
+	_main_ysort.call_deferred("add_child", new_enemy)
 	
+	#return new_enemy
 	return new_enemy
 
 
 func add_enemy(enemy: Node) -> void:
-	_enemies.append(enemy)
+	if not is_instance_valid(enemy):
+		print("ERROR: TRYING TO ADD INVALID ENEMY")
+		return
 	
+	_enemies.append(enemy)
+	_main_ysort.call_deferred("add_child", enemy)
+	enemy.set_owner(_main_ysort)
+	#print(_enemies)
+
 
 func _spawn_rock_turtle() -> Node:
 	var new_enemy: Node = RockTurtle.instance()
 	_enemies.append(new_enemy)
-	MainYsort.add_child(new_enemy)
+	_main_ysort.add_child(new_enemy)
 	
 	return new_enemy
 
@@ -58,10 +74,17 @@ func _spawn_spear() -> Node:
 	var new_enemy: Node = SpearEnemy.instance()
 	_enemies.append(new_enemy)
 	
-	MainYsort.add_child(new_enemy)
+	_main_ysort.add_child(new_enemy)
 	return new_enemy
 
-
+func _spawn_rat() -> Node:
+	var new_enemy: Node = RatEnemy.instance()
+	_enemies.append(new_enemy)
+	
+	_main_ysort.add_child(new_enemy)
+	return new_enemy
+	
+	
 func size() -> int:
 	return _enemies.size()
 
@@ -69,6 +92,7 @@ func size() -> int:
 # Function to remove an enemy
 func remove_enemy(enemy: Node) -> void:
 	if _enemies.has(enemy):
+		$EnemyDeathSFX.play()
 		fire_death_event(enemy)
 		_enemies.erase(enemy)
 	enemy.queue_free()

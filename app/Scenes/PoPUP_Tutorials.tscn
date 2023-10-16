@@ -1,0 +1,147 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Scripts/PopUpTutorials.gd" type="Script" id=1]
+[ext_resource path="res://BINGO.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Assets/Other/BebasNeue-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Assets/Other/Nilkuza Trial.otf" type="DynamicFontData" id=4]
+[ext_resource path="res://SFX/MX Button Hover.wav" type="AudioStream" id=5]
+[ext_resource path="res://SFX/MX Button Click.mp3" type="AudioStream" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+size = 31
+outline_size = 4
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 56
+outline_size = 3
+outline_color = Color( 0.639216, 0.156863, 0.301961, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 22
+outline_size = 6
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=4]
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[node name="POPUP_Tutorial" type="Control"]
+pause_mode = 2
+margin_right = 1280.0
+margin_bottom = 720.0
+script = ExtResource( 1 )
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 240.0
+margin_top = 64.0
+margin_right = -240.0
+margin_bottom = -24.0
+
+[node name="TextEdit" type="TextEdit" parent="Panel"]
+margin_left = 16.0
+margin_top = 128.0
+margin_right = 784.0
+margin_bottom = 560.0
+custom_fonts/font = SubResource( 1 )
+text = "Chapter 1: The Call to Arms:
+Objective: Recruit and train your rebel army.
+
+In the village, gather farmers eager to
+ join the rebellion by killing monsters and freeing 
+the villagers.
+Train them in the basics of combat and strategy
+to prepare for the impending threat.
+To do this lead your followers and defeat monsters, 
+Gain XP and level up your troops.
+If a troop gets damage, collect appples to heal them.
+
+
+"
+
+[node name="TextEdit2" type="TextEdit" parent="Panel"]
+margin_left = 16.0
+margin_top = 40.0
+margin_right = 784.0
+margin_bottom = 112.0
+custom_fonts/font = SubResource( 2 )
+text = "                              GAME NAME"
+
+[node name="Button" type="Button" parent="Panel"]
+pause_mode = 2
+margin_left = 202.0
+margin_top = 584.0
+margin_right = 598.0
+margin_bottom = 624.0
+custom_fonts/font = SubResource( 3 )
+text = "ACCEPT THE CHALLENGE"
+
+[node name="PressedSFX" type="AudioStreamPlayer2D" parent="."]
+pause_mode = 2
+stream = ExtResource( 6 )
+volume_db = 7.704
+pitch_scale = 1.27
+
+[node name="HoveredSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = 2.139
+pitch_scale = 1.3
+
+[node name="Panel2" type="Panel" parent="."]
+margin_left = 384.0
+margin_top = 144.0
+margin_right = 896.0
+margin_bottom = 648.0
+
+[node name="TextEdit" type="TextEdit" parent="Panel2"]
+margin_left = 24.0
+margin_top = 120.0
+margin_right = 488.0
+margin_bottom = 448.0
+custom_fonts/font = SubResource( 4 )
+text = "
+		Engage in an epic battle with Unifee, using all your
+		 strategic skills to overcome the monstrous threat.
+		Epic Battle: Lead your rebel army into the heart of
+		 the Forbidden Forest for the final showdown with
+		 Unifee. Face waves of minions before confronting 
+		the monstrous foe.
+		Adapt and Overcome: Adjust your strategy on the 
+		fly as Unifee reveals new abilities and tactics. Use
+		 your knowledge and adaptability to outsmart the 
+		monster.
+		Triumphant Return: Celebrate your victory with
+		 the villagers and allies. Witness the rebirth of 
+		Greenhaven as a united and resilient community."
+
+[node name="TextEdit2" type="TextEdit" parent="Panel2"]
+margin_left = 24.0
+margin_top = 20.0
+margin_right = 488.0
+margin_bottom = 104.0
+custom_fonts/font = SubResource( 4 )
+text = "Chapter 2: The Battle Plan And The Final Showdown
+Objective: Lead your rebel army to victory against 
+Unifee.
+"
+
+[node name="BossButton" type="Button" parent="Panel2"]
+pause_mode = 2
+margin_left = 96.0
+margin_top = 456.0
+margin_right = 421.0
+margin_bottom = 490.0
+custom_fonts/font = SubResource( 3 )
+text = "FINISH THE QUEST"
+
+[connection signal="mouse_entered" from="Panel/Button" to="." method="_on_Button_mouse_entered"]
+[connection signal="pressed" from="Panel/Button" to="." method="_on_Button_pressed"]
+[connection signal="mouse_entered" from="Panel2/BossButton" to="." method="_on_BossButton_mouse_entered"]
+[connection signal="pressed" from="Panel2/BossButton" to="." method="_on_BossButton_pressed"]

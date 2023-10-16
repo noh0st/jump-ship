@@ -16,12 +16,13 @@ onready var _attackTimer = $AttackTimer
 onready var _current_state: int = State.ROAMING setget set_current_state
 
 var xp_worth = 1
+var boid_worth = 3
 
 var _health_ui: Node
 var _player: Node
 
 var health: int = 0
-export var healthMultiple : int = 30
+export var healthMultiple : int = 300
 
 func _ready():
 	set_meta("Enemy", true)
@@ -101,7 +102,7 @@ func add_damage(value: int) -> void:
 		# enemy is dead
 		_enemy_manager.remove_enemy(self)
 		emit_signal("on_dead")
-
+		$WinSFX.play()
 		
 func _random_direction() -> Vector2:
 	var angle = rand_range(0, 2 * PI)

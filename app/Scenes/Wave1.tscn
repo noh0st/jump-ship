@@ -1,45 +1,49 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/RockTurtle.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/Wave1.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/SpearLanceEnemy.tscn" type="PackedScene" id=3]
 
 [node name="Wave1" type="Node2D"]
 script = ExtResource( 2 )
 
 [node name="Enemies" type="Node" parent="."]
 
+[node name="SpearLanceEnemy" parent="Enemies" instance=ExtResource( 3 )]
+position = Vector2( -255, 1627 )
+
 [node name="RockTurtle" parent="Enemies" instance=ExtResource( 1 )]
-position = Vector2( 519, 157 )
+position = Vector2( 553, 1775 )
 
 [node name="RockTurtle2" parent="Enemies" instance=ExtResource( 1 )]
-position = Vector2( 202, 193 )
+position = Vector2( 236, 1811 )
 
 [node name="RockTurtle5" parent="Enemies" instance=ExtResource( 1 )]
-position = Vector2( 811, -61 )
+position = Vector2( 833, 1515 )
 
 [node name="RockTurtle6" parent="Enemies" instance=ExtResource( 1 )]
-position = Vector2( 494, -25 )
+position = Vector2( 528, 1593 )
 
 [node name="RockTurtle3" parent="Enemies" instance=ExtResource( 1 )]
-position = Vector2( 833, 262 )
+position = Vector2( 867, 1880 )
 
 [node name="RockTurtle4" parent="Enemies" instance=ExtResource( 1 )]
-position = Vector2( 516, 298 )
+position = Vector2( 550, 1916 )
 
 [node name="RockTurtle7" parent="Enemies" instance=ExtResource( 1 )]
-position = Vector2( 1282, 525 )
+position = Vector2( 965, 1232 )
 
 [node name="RockTurtle8" parent="Enemies" instance=ExtResource( 1 )]
-position = Vector2( 965, 561 )
+position = Vector2( 648, 1268 )
 
 [node name="RockTurtle9" parent="Enemies" instance=ExtResource( 1 )]
-position = Vector2( 1574, 307 )
+position = Vector2( 1257, 1014 )
 
 [node name="RockTurtle10" parent="Enemies" instance=ExtResource( 1 )]
-position = Vector2( 1257, 343 )
+position = Vector2( 940, 1050 )
 
 [node name="RockTurtle11" parent="Enemies" instance=ExtResource( 1 )]
-position = Vector2( 1596, 630 )
+position = Vector2( 1279, 1337 )
 
 [node name="RockTurtle12" parent="Enemies" instance=ExtResource( 1 )]
-position = Vector2( 1279, 666 )
+position = Vector2( 962, 1373 )

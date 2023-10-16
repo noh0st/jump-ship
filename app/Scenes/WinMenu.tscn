@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Assets/BebasNeue-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Assets/Other/BebasNeue-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Scripts/WinMenu.gd" type="Script" id=2]
 
 [sub_resource type="DynamicFont" id=1]
@@ -56,6 +56,6 @@ margin_top = 74.0
 margin_right = 95.0
 margin_bottom = 104.0
 custom_fonts/font = SubResource( 2 )
-text = "Continue"
+text = "Main Menu"
 
 [connection signal="pressed" from="Control/CenterContainer/VBoxContainer/ContinueButton" to="." method="_on_ContinueButton_pressed"]

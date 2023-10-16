@@ -13,7 +13,7 @@ onready var _enemy_manager = get_node("/root/Main/YSort/EnemyManager")
 
 const MaxSpeed = 250.0
 const Acceleration_Friction = 20.0
-const DashPower = 5
+const DashPower = 8
 #_____________________#
 
 var velocity = Vector2.ZERO
@@ -32,11 +32,14 @@ func _onready():
 
 #_____________________#
 func _ready():
+	print("player ready")
+
 	boid_flock.owner = self
 	for i in range(0, initialBoidNum):
 		boid_flock.spawn_boid()
-		i += 1
-		
+
+	$Camera2D/HurtEffect.modulate = 0
+	$Sprite.modulate = Color( 1, 1, 1, 1 )
 	self.set_meta("Player", true)
 	_animation_player.play("Idle")
 	
@@ -45,15 +48,21 @@ func _ready():
 	_enemy_manager.subscribe_to_deaths(funcref(self, "_on_enemy_death"))
 	
 	
-func add_damage(value: int) -> void:
+func add_damage(value: int, knockback_dealer: Node) -> void:
 	#PlayerStats.Health -= value
 	# release boid
+	if _animation_player.current_animation == "Hurt":
+		return
+	
 	boid_flock.release_boid();
+	$HurtAnimationPlayer.play("Hurt")
+	if is_instance_valid(knockback_dealer):
+		move_and_slide(Vector2(PlayerStats.globalSelfKnockBack * (self.position.x - knockback_dealer.position.x), PlayerStats.globalSelfKnockBack * (self.position.y - knockback_dealer.position.y)))
 	
 	
 func _on_enemy_death(enemy: Node) -> void: # this can take the enemy as a param to get xp per enemy
 	emit_signal("xp_update", enemy.xp_worth)
-	
+	$XPSFX.play()
 	
 func add_boid() -> void:
 	boid_flock.spawn_boid()
@@ -81,6 +90,11 @@ func _physics_process(delta):
 	if inputvector != Vector2.ZERO:
 		velocity = inputvector.normalized() * MaxSpeed * delta # acceleration 
 		Dir = inputvector # Direction vector for setting the look direction of player
+		if $WalkingCycle.time_left <= 0:
+			$FootStepSFX.stream = load("res://SFX/MX Footsteps_1.wav")
+			$FootStepSFX.pitch_scale = rand_range(0.8, 1.2)
+			$FootStepSFX.play()
+			$WalkingCycle.start(0.2)
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, Acceleration_Friction* delta) # deceleration
 	
@@ -97,7 +111,7 @@ func Dash():
 		if PlayerStats.Stamina >= PlayerStats.staminaForDash:
 			PlayerStats.Stamina -= PlayerStats.staminaForDash; 
 			timer.start()  # start timer for stamina recovering
-
+			$DashSFX.play()
 			move_and_slide(Dir * (DashPower * MaxSpeed)) # move in the direction you are facing
 			
 			
@@ -109,7 +123,6 @@ func StaminaRefill():
 	if PlayerStats.Stamina != PlayerStats.MaxStamina: # if stamina is not full, start recovering stamina again
 		timer.start() 
 
-
 func PlayRunAnimationDirection(direction: Vector2):
 	if direction.x > 0:
 		_animation_player.play("WalkRight")
@@ -119,6 +132,7 @@ func PlayRunAnimationDirection(direction: Vector2):
 		_animation_player.play("Walk")
 	else:
 		_animation_player.play("Idle")
+	
 	
 #_____________________#
 # Hurt player if enemy enters
@@ -145,3 +159,24 @@ func _on_BoidFlock_boid_count_update(new_value):
 
 func _on_HurtBox_area_entered(area):
 	pass # Replace with function body.
+
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	pass
+
+		
+export(Array , AudioStreamSample) var FootStepSoundsArray : Array
+var AvailableFootStepSounds = []
+func _on_WalkingCycle_timeout():
+	AvailableFootStepSounds.append_array(FootStepSoundsArray)
+	AvailableFootStepSounds.remove(AvailableFootStepSounds.find($FootStepSFX.stream))
+	$FootStepSFX.stream = AvailableFootStepSounds[randi() % AvailableFootStepSounds.size()]
+	AvailableFootStepSounds.append_array(FootStepSoundsArray)
+
+func _on_AnimationPlayer_animation_started(anim_name):
+	pass
+
+
+func AppleHeal(health):
+	boid_flock.HealBoids(health)

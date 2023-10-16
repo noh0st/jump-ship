@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/MX XP sound 1.wav-5700f903fda7ea1e5b4b4c5eda8ddc4e.sample"
+
+[deps]
+
+source_file="res://SFX/MX XP sound 1.wav"
+dest_files=[ "res://.import/MX XP sound 1.wav-5700f903fda7ea1e5b4b4c5eda8ddc4e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
