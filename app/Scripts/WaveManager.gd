@@ -26,7 +26,7 @@ var _ui: Node
 
 var _xp: int
 
-var _waves = [Wave1, Wave2, Wave3, WaveBoss]
+var _waves = [WaveBoss, Wave2, Wave3, WaveBoss]
 
 # Declare member variables here. Examples:
 # var a = 2

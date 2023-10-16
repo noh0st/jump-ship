@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Assets/BossEnemy/Front_Throw1.png" type="Texture" id=1]
 [ext_resource path="res://Assets/BossEnemy/Front_Throw3.png" type="Texture" id=2]
@@ -14,6 +14,12 @@
 [ext_resource path="res://Assets/BossEnemy/Boss_movingfront3.png" type="Texture" id=12]
 [ext_resource path="res://Assets/BossEnemy/Front_Throw8.png" type="Texture" id=13]
 [ext_resource path="res://Assets/BossEnemy/Front_Throw7.png" type="Texture" id=14]
+[ext_resource path="res://Assets/BossEnemy/FRONT_ATTACK2.png" type="Texture" id=15]
+[ext_resource path="res://Assets/BossEnemy/FRONT_ATTACK3.png" type="Texture" id=16]
+[ext_resource path="res://Assets/BossEnemy/FRONT_ATTACK4.png" type="Texture" id=17]
+[ext_resource path="res://Assets/BossEnemy/FRONT_ATTACK5.png" type="Texture" id=18]
+[ext_resource path="res://Assets/BossEnemy/FRONT_ATTACK7.png" type="Texture" id=19]
+[ext_resource path="res://Assets/BossEnemy/FRONT_ATTACK6.png" type="Texture" id=20]
 
 [sub_resource type="CapsuleShape2D" id=11]
 radius = 77.63
@@ -132,7 +138,6 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=15]
 resource_name = "SwipeAttack"
-length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
 tracks/0/interp = 1
@@ -140,10 +145,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 14 ), ExtResource( 13 ) ]
+"values": [ ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 20 ), ExtResource( 19 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Hitbox/CollisionShape2D:disabled")
@@ -152,7 +157,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4 ),
+"times": PoolRealArray( 0.2, 0.4, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ true, false, true ]
@@ -217,6 +222,8 @@ wait_time = 3.0
 autostart = true
 
 [node name="AttackTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
 
 [node name="DebugUI" type="Control" parent="."]
 margin_right = 40.0
