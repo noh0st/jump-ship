@@ -13,6 +13,7 @@ func _ready():
 
 func _on_WaveManager_on_game_win():
 	# open win menu
+	get_tree().paused = true	
 	$WinMenu.visible = true
 	
 	# play the credits music

@@ -12,6 +12,7 @@ size = 20
 font_data = ExtResource( 1 )
 
 [node name="WinMenu" type="CanvasLayer"]
+pause_mode = 2
 script = ExtResource( 2 )
 
 [node name="Control" type="Control" parent="."]

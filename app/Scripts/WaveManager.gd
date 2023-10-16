@@ -10,7 +10,6 @@ var wave_count : int = 0
 onready var audio_stream_player = get_node("/root/Main/YSort/EnemyManager")
 
 
-
 const Wave1: PackedScene = preload("res://Scenes/Wave1.tscn")
 const Wave2: PackedScene = preload("res://Scenes/Wave2.tscn")
 const Wave3: PackedScene = preload("res://Scenes/Wave3.tscn")

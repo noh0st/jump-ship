@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scripts/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Other/MainMenuBackround.PNG" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Assets/UI/Main Menu/Button Hover.png" type="Texture" id=7]
 [ext_resource path="res://Assets/UI/Main Menu/Button Pressed.png" type="Texture" id=8]
 [ext_resource path="res://Assets/UI/Main Menu/Button Regular.png" type="Texture" id=9]
+[ext_resource path="res://Assets/controls.png" type="Texture" id=10]
 
 [sub_resource type="DynamicFont" id=4]
 size = 103
@@ -70,6 +71,10 @@ custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 text = "BOIDS 2 : THE BOIDENING"
 align = 3
+
+[node name="Controls" type="Sprite" parent="MarginContainer/CenterContainer/VBoxContainer/Label"]
+position = Vector2( 385, 340 )
+texture = ExtResource( 10 )
 
 [node name="CenterContainer" type="CenterContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
 margin_top = 128.0

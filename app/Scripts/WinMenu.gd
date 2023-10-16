@@ -16,4 +16,5 @@ func _ready():
 
 
 func _on_ContinueButton_pressed():
+	get_tree().paused = false
 	get_tree().change_scene("res://Scenes/MainMenu.tscn")
