@@ -92,7 +92,7 @@ tracks/2/keys = {
 "values": [ false ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("AttackWaveSprite:position")
+tracks/3/path = NodePath("AttackWaveSprite:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -100,32 +100,8 @@ tracks/3/enabled = true
 tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( -48, -10.125 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("AttackWaveSprite:texture")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ ExtResource( 12 ) ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("AttackWaveSprite:scale")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0.0354545, 0.0413636 ) ]
+"update": 1,
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -202,6 +178,18 @@ tracks/5/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0.0354545, 0.0413636 ), Vector2( 0.0354545, 0.0413636 ), Vector2( 0.0354545, 0.0413636 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("AttackWaveSprite:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0.9 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="RectangleShape2D" id=5]
@@ -283,9 +271,9 @@ shape = SubResource( 7 )
 stream = ExtResource( 8 )
 
 [node name="AttackWaveSprite" type="Sprite" parent="."]
+visible = false
 position = Vector2( -48, -10.125 )
 scale = Vector2( 0.0354545, 0.0413636 )
-texture = ExtResource( 12 )
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="area_entered" from="TurtleVision" to="." method="_on_TurtleVision_area_entered"]
