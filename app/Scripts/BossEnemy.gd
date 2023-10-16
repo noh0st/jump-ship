@@ -24,7 +24,7 @@ var _health_ui: Node
 var _player: Node
 
 var health: int = 0
-export var healthMultiple : int = 200
+export var healthMultiple : int = 130
 
 func _ready():
 	set_meta("Enemy", true)
