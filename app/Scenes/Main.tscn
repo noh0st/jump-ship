@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=3]
@@ -12,8 +12,6 @@
 [ext_resource path="res://Scenes/GlobalStats.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=12]
 [ext_resource path="res://Scenes/WaveManager.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Scenes/Apple.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Scenes/AppleSpawner.tscn" type="PackedScene" id=15]
 
 [node name="Main" type="Node"]
 script = ExtResource( 12 )
@@ -51,11 +49,6 @@ position = Vector2( 0, 0 )
 
 [node name="WinMenu" parent="." instance=ExtResource( 9 )]
 
-[node name="Apple" parent="." instance=ExtResource( 14 )]
-position = Vector2( -186, -81 )
-
-[node name="AppleSpawner" parent="." instance=ExtResource( 15 )]
-
 [connection signal="player_boid_count_update" from="YSort/Player" to="Death" method="_on_Player_player_boid_count_update"]
 [connection signal="player_boid_count_update" from="YSort/Player" to="HUD" method="_on_Player_player_boid_count_update"]
 [connection signal="xp_update" from="YSort/Player" to="HUD" method="_on_Player_xp_update"]
@@ -66,3 +59,5 @@ position = Vector2( -186, -81 )
 [editable path="YSort/Player"]
 [editable path="YSort/Player/HurtBox"]
 [editable path="YSort/Player/PlayerStats"]
+[editable path="YSort/Map"]
+[editable path="YSort/Map/Tree30"]
